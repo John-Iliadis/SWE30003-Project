@@ -15,9 +15,9 @@ return new class extends Migration
             $table->bigIncrements('product_id');
             $table->string('name');
             $table->string('brand');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->decimal('price');
-            $table->integer('quantity');
+            $table->integer('stock');
             $table->foreignId('category_id')->nullable()->references('category_id')->on('categories');
             $table->timestamps();
         });

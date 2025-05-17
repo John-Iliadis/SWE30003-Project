@@ -15,7 +15,6 @@ return new class extends Migration
             $table->bigIncrements('card_id');
             $table->string('cardholder_name');
             $table->string('card_number');
-            $table->string('card_type');
             $table->string('expiration_month');
             $table->string('expiration_year');
             $table->timestamps();

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->bigIncrements('orderline_id');
             $table->foreignId('order_id')->nullable()->references('order_id')->on('orders');
             $table->foreignId('product_id')->nullable()->references('product_id')->on('products');
-            $table->integer('quantity');
+            $table->unsignedInteger('quantity');
             $table->timestamps();
         });
     }
