@@ -11,6 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::dropIfExists('orderline');
+
         Schema::create('orderline', function (Blueprint $table) {
             $table->bigIncrements('orderline_id');
             $table->foreignId('order_id')->nullable()->references('order_id')->on('orders');

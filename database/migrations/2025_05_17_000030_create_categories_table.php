@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::dropIfExists('categories');
+
         Schema::create('categories', function (Blueprint $table) {
-            $table->bigIncrements('category_id');
-            $table->string('name');
+            $table->string('category_name')->primary();
             $table->string('description')->nullable();
             $table->timestamps();
         });

@@ -1,0 +1,246 @@
+{
+    "categories": [
+        "phone",
+        "laptop",
+        "camera",
+        "tv",
+        "tablet"
+    ],
+    "catalogue": {
+        "phones": [
+            {
+                "name": "iPhone 16 Pro Max",
+                "brand": "Apple",
+                "description": "iPhone 16 Pro Max. Built for Apple Intelligence. Featuring a stunning titanium design. Camera Control. 4K 120 fps Dolby Vision. And A18 Pro chip.",
+                "price": "1200",
+                "stock": "100",
+                "category_name": "phone",
+                "image_url": "img/phones/iphone16promax.png"
+            },
+            {
+                "name": "iPhone 16",
+                "brand": "Apple",
+                "description": "iPhone 16. Built for Apple Intelligence. Featuring Camera Control. 48MP Fusion camera. Five vibrant colors. And A18 chip. ",
+                "price": "830",
+                "stock": "100",
+                "category_name": "phone",
+                "image_url": "img/phones/iphone16.png"
+            },
+            {
+                "name": "Pixel 9 Pro",
+                "brand": "Google",
+                "description": "Meet Pixel 9 Pro with Gemini, now in two sizes. It has a sleek, stunning design, and it’s the most powerful Pixel yet. Take pro-level photos and videos with the triple camera system, and make expert edits. And it’s engineered by Google, so it gets the best of Google’s AI first. ",
+                "price": "850",
+                "stock": "100",
+                "category_name": "phone",
+                "image_url": "img/phones/pixel9pro.png"
+            },
+            {
+                "name": "Galaxy S25 Edge",
+                "brand": "Samsung",
+                "description": "Lighten up with Galaxy S25 Edge. Our ultra slim S Series phone yet packs big phone performance and AI capabilities into a compact, lightweight design that slips right into your day. But don’t be fooled by its slim size.",
+                "price": "1100",
+                "stock": "100",
+                "category_name": "phone",
+                "image_url": "img/phones/s25edge.png"
+            },
+            {
+                "name": "Galaxy S25 Ultra",
+                "brand": "Samsung",
+                "description": "Staying in the moment is easier than ever with the all-new Galaxy S25 Ultra. Its intelligent AI transforms into your own virtual assistant that evolves with you to work better for you.",
+                "price": "1000",
+                "stock": "100",
+                "category_name": "phone",
+                "image_url": "img/phones/s25ultra"
+            }
+        ],
+        "laptops": [
+            {
+                "name": "Victus",
+                "brand": "HP",
+                "description": "Follow the Laptop. Fulfill Your Gaming Destiny. The Victus 15 is packed with the power of desktop to keep up with the biggest games and the best players. This all-in-one gaming powerhouse is ready to roll with an AMD CPU and graphics, all sleekly designed in a mighty little package.",
+                "price": "450",
+                "stock": "100",
+                "category_name": "laptop",
+                "image_url": "img/laptops/hpvictus.png"
+            },
+            {
+                "name": "OmniBook X",
+                "brand": "HP",
+                "description": "Backed by rigorous military-grade standard testing, the HP OmniBook X 17.3\" Next Gen AI PC, with its large 17.3” Full HD touch display and modernized backlit keyboard, is the perfect blend of high style and high performance. Equipped with the latest AI-powered Intel Core Ultra Processor, to fuel creativity and AI personalized efficiency. Copilot+ PCs bring exclusive on-device AI experiences designed to accelerate productivity and creativity.",
+                "price": "1300",
+                "stock": "100",
+                "category_name": "laptop",
+                "image_url": "img/laptops/hpomnibook.png"
+            },
+            {
+                "name": "MacBook Pro M4",
+                "brand": "Apple",
+                "description": "The 14-inch MacBook Pro with M4 chip gives you spectacular performance in a powerhouse laptop built for Apple Intelligence. With up to 24 hours of battery life and a breathtaking Liquid Retina XDR display with up to 1600 nits peak brightness, it’s pro in every way.",
+                "price": "1600",
+                "stock": "100",
+                "category_name": "laptop",
+                "image_url": "img/laptops/macbookpro.png"
+            },
+            {
+                "name": "MacBook Air M4",
+                "brand": "Apple",
+                "description": "The 15-inch MacBook Air with the M4 chip lets you fly through work and play. With Apple Intelligence, a spacious Liquid Retina display, up to 18 hours of battery life, and a strikingly thin and light design, it’s built to last and can take on just about anything, anywhere.",
+                "price": "1200",
+                "stock": "100",
+                "category_name": "laptop",
+                "image_url": "img/laptops/macbookair.png"
+            },
+            {
+                "name": "Galaxy Book 5",
+                "brand": "Samsung",
+                "description": "The latest Galaxy Books supercharged with AI are here! Powered by the latest Intel Core Ultra processor, featuring upgraded graphics and an advanced NPU capable of up to 47 TOPS, these Galaxy Books will help you blaze through your workloads and unlock increased productivity. Enjoy vivid visuals and dazzling views at your fingertips with the captivating 3K Dynamic AMOLED 2x display with touchscreen, featuring 120Hz adaptive refresh rate that makes every experience super smooth. And with Phone Link, your smartphone and PC are seamlessly connected – you can view notifications, make phone calls, view images, use mobile apps, and more – right from your PC.",
+                "price": "1350",
+                "stock": "100",
+                "category_name": "laptop",
+                "image_url": "img/laptops/galaxybook5.png"
+            }
+        ],
+        "cameras": [
+            {
+                "name": "LUMIX FZ80D",
+                "brand": "Panasonic",
+                "description": "With a wide range of features in a light, point-and-shoot camera body, the LUMIX FZ80D enables you to capture incredibly vivid, clear moments near and far. The 20-1200mm zoom lens (35mm camera equivalent: 20-1200mm) gives you the ability to shoot landscapes and panoramas with a high level of detail. The FZ80D handles up-close shots as well as it handles landscapes, with macro shooting at minimum focusing distance of 1cm for detailed close-up shots of food, flowers, insects, and more. The 2,360K-dot View Finder is designed to give you a clear, glare-resistant view at all times, even in bright sunlight. Enjoy clear, precise videos and photos, even action shots, with 4K Video Mode, recording up to 4x resolution of Full HD; the 4K Photo feature lets you extract the perfect photo out of 4K video and save it as an 8-megapixel equivalent still image. Not sure where to focus? Post-Focus feature gives you the power to touch the area you'd like to focus in on, even after the shot has been taken. You'll never worry about blur with POWER O.I.S. (Optical Image Stabilizer) to minimize hand shake.",
+                "price": "400",
+                "stock": "100",
+                "category_name": "camera",
+                "image_url": "img/cameras/panasonic_lumix_fz80d"
+            },
+            {
+                "name": "EOS R50",
+                "brand": "Canon",
+                "description": "Capture the Moment Just as You Imagine It: The EOS R50 camera makes photography fun, simple, and convenient with intuitive photo functions that capture beautiful images automatically, just as you imagine them. A host of video functions such as 6K oversampled 4K 30p capture and Dual Pixel CMOS AF II makes the EOS R50 a great camera for movie recording and vlogging as well. The 24.2 Megapixel APS-C size CMOS Image sensor and DIGIC X image processor ensure high image quality in a compact and lightweight form factor.",
+                "price": "800",
+                "stock": "100",
+                "category_name": "camera",
+                "image_url": "img/cameras/canon_eos_r50.png"
+            },
+            {
+                "name": "EOS R8",
+                "brand": "Canon",
+                "description": "Step Up to Full-Frame. The EOS R8 camera combines high-performance full-frame capabilities with a lightweight and compact design for creators ready to step up their content creation. With a 24.2 megapixel full-frame CMOS image sensor, RF mount allowing access to various creative lenses, and powerful stills and video functionality, the EOS R8 camera helps you capture stunning imagery to empower your creative vision. The new RF24–50mm F4.5-6.3 IS STM standard zoom lens is a super-compact, wide to-standard focal length zoom lens perfect for anyone looking for strong wide-angle still imagery and video combined with easy handling and portability.",
+                "price": "1500",
+                "stock": "100",
+                "category_name": "camera",
+                "image_url": "img/cameras/canon_eos_r8.png"
+            },
+            {
+                "name": "Alpha A7",
+                "brand": "Sony",
+                "description": "Capture stunning portraits and beautiful action shots with this Sony a7 III full-frame mirrorless camera with FE 28-70mm standard zoom lens. Optical SteadyShot image stabilization delivers blur-free, crisp images, while the seven-blade circular aperture delivers more natural-looking bokeh effects. With its dust- and moisture-resistant design, this camera is ideal for both indoor and outdoor photo shoots.",
+                "price": "2000",
+                "stock": "100",
+                "category_name": "camera",
+                "image_url": "img/cameras/sony_alpha_a7.png"
+            },
+            {
+                "name": "Alpha A6400",
+                "brand": "Sony",
+                "description": "Record 4K Ultra HD video and professional-quality stills with this Sony Alpha a6400 mirrorless camera. The high-performance AF tracking system and BIONZ X image processing engine allow for crisp, precise focus, and the 24.2MP APS-C image sensor ensures enhanced image and color quality. This Sony Alpha a6400 mirrorless camera comes with an E 18-135mm lens, which works as both a wide-angle and medium telephoto lens for added versatility.",
+                "price": "1300",
+                "stock": "100",
+                "category_name": "camera",
+                "image_url": "img/cameras/sony_alpha_a6400.png"
+            }
+        ],
+        "tvs": [
+            {
+                "name": "77\" Class C4 Series",
+                "brand": "LG",
+                "description": "The advanced LG OLED evo C4-Series is better than ever. The LG OLED evo C4 is powered by the next-gen α9 Gen7 AI Processor —exclusively made for LG OLED—for ultra-realistic picture and sound along with boosted brightness for luminosity and high contrast, even in well-lit rooms.&#185; AI-assisted deep learning analyzes what you're watching to choose the best picture and sound setting for your content. The C4's almost invisible bezel, ensures it blends with your surroundings. When you're finished watching, display art, photos and other content make the C4 a versatile statement piece. Search less and stream more, thanks to the next generation of AI technology from LG webOS 24. Dolby Vision for extraordinary color, contrast and brightness, plus Dolby Atmos&#178; for sound you can feel all around you. And FILMMAKER MODE allows you to see films just as the director intended.",
+                "price": "2300",
+                "stock": "100",
+                "category_name": "tv",
+                "image_url": "img/tvs/lg_c4.png"
+            },
+            {
+                "name": "83\" Class B4 Series",
+                "brand": "LG",
+                "description": "The LG OLED B4 is a premium watching experience that offers more than meets the eye. Entertainment extras like Dolby Vision, Dolby Atmos&#185; and FILMMAKER MODE give you the big-picture experience straight from your couch. Enjoy outstanding picture powered by the α9 AI Processor Gen7, which uses AI to detect what you're watching and automatically improves the picture and sound quality of whatever you're watching.  Search less and stream more, thanks to the next generation of AI technology from LG webOS 24. With Quick Cards, group your favorite apps into categories and even have instant access to over 300 free channels with LG Channels.&#178; All LG OLED TVs have NVIDIA G-Sync, AMD FreeSync Premium and VRR to further improve gaming quality. And four HDMI 2.1 inputs allow you to plug in all the devices you need for the win. Whether you game on consoles or on the cloud,&#179; the LG Game Dashboard and Game Optimizer put all the control at your fingertips.",
+                "price": "2000",
+                "stock": "100",
+                "category_name": "tv",
+                "image_url": "img/tvs/lg_b4.png"
+            },
+            {
+                "name": "65\" Class BRAVIA 8",
+                "brand": "Sony",
+                "description": "The perfect centerpiece for your living space with slim styling and cinematic picture and sound to match. Pure OLED black and vibrant color brings out astonishing texture and realism in everything you watch. The screen is the speaker delivering a totally unique and immersive theater-like sound that keeps you on the edge of your seat.",
+                "price": "1500",
+                "stock": "100",
+                "category_name": "tv",
+                "image_url": "img/tvs/sony_bravia_8.png"
+            },
+            {
+                "name": "50\" Class BRAVIA 3",
+                "brand": "Sony",
+                "description": "TV just got more exciting with incredibly vibrant picture and easy-to-use smart features. Everything you watch is enhanced with over a billion accurate colors with lifelike clarity and contrast that reveals every detail. Google TV brings together movies, shows, and more from across your apps and organizes them just for you.",
+                "price": "600",
+                "stock": "100",
+                "category_name": "tv",
+                "image_url": "img/tvs/sony_bravia_3.png"
+            },
+            {
+                "name": "65\" Class S90D",
+                "brand": "Samsung",
+                "description": "This premium TV features a detailed image, strong contrast and clear motion. Increased depth and AI-powered 4K upscaling all work to bring clarity to your content.",
+                "price": "1500",
+                "stock": "100",
+                "category_name": "tv",
+                "image_url": "img/tvs/samsung_s90d.png"
+            }
+        ],
+        "tablets": [
+            {
+                "name": "Galaxy Tab S9 Ultra",
+                "brand": "Samsung",
+                "description": "Galaxy AI is here.  Search like never before¹, let transcript assist² take the notes for you, format your notes into a clear summary,³ and effortlessly edit your photos⁴ -all from your tablet, all with AI. With great power comes great productivity. Backed by our mighty Snapdragon 8 Gen 2 processor and a long-lasting battery that can keep up with your dynamic lifestyle, Galaxy Tab S9 Ultra, now with Galaxy AI, redefines how you conquer your to-do list. With the ultra-large 14.6\" screen, you can work like a boss. There’s enough space to open and toggle between multiple windows and collaborate with teammates over video chat. You can also pair Tab S9 Ultra with the rest of your Galaxy to reach even greater heights —quickly share files from your phone to your tablet or use it as a second screen with your PC. ",
+                "price": "800",
+                "stock": "100",
+                "category_name": "tablet",
+                "image_url": "img/tablets/samsung_galaxy_s9_ultra.png"
+            },
+            {
+                "name": "Galaxy Tab S10+",
+                "brand": "Samsung",
+                "description": "Wherever life takes you, power through all your adventures with Galaxy Tab S10+. This tablet helps you make big moves in style. It’s sized perfectly for your active life, making it your go to for getting things done. Unleash powerful AI features that simply make life easier. Learn more about your world quickly and easily using Circle to Search with Google. If it’s on your Tab screen, you can identify it. Simply circle it and get search results on the spot. Also, organize notes effortlessly with Note Assist. From lectures to meetings, everything is streamlined and easily readable with a simple tap. Blaze through all you do with Wi Fi connectivity and plenty of power thanks to the latest processor, plus a long-lasting battery. This Tab loves to go where you go. From the office to the classroom, it’s designed with an Armor Aluminum frame that’s not afraid to take on the occasional bumps of day-to-day life. You can even take it outside since it’s water and dust resistant, unlike most other tablets. Everything comes to life beautifully on an ultra-crisp Dynamic AMOLED 2X display that helps reduce glare. From editing photos to a video chat with your mom, every experience pops on a large 12.4\" screen. Feel even closer to your world with Galaxy connectivity you can pair Tab S10+ with your smartphone and instantly sync files or photos or keep the conversation going with call and text continuity right on your tablet. Galaxy Tab S10+ built for productivity on the go. Powered by AI. ",
+                "price": "880",
+                "stock": "100",
+                "category_name": "tablet",
+                "image_url": "img/tablets/samsung_galaxy_s10+.png"
+            },
+            {
+                "name": "iPad Pro M4",
+                "brand": "Apple",
+                "description": "The new iPad Pro is impossibly thin, featuring outrageous performance with the Apple M4 chip, a breakthrough Ultra Retina XDR display, and superfast Wi-Fi 6E. Along with Apple Pencil Pro and Magic Keyboard, it brings endless versatility, creativity, and productivity to your fingertips. ",
+                "price": "1300",
+                "stock": "100",
+                "category_name": "tablet",
+                "image_url": "img/tablets/ipad_pro_m4.png"
+            },
+            {
+                "name": "iPad Mini A17",
+                "brand": "Apple",
+                "description": "iPad mini. Built for Apple Intelligence. It’s incredibly portable and powerful, featuring the ultrafast A17 Pro chip, an 8.3-inch Liquid Retina display, plus superfast Wi-Fi 6E. And it works with Apple Pencil Pro, so you can study, work, play, and create from anywhere.",
+                "price": "500",
+                "stock": "100",
+                "category_name": "tablet",
+                "image_url": "img/tablets/ipad_mini.png"
+            },
+            {
+                "name": "Pixel Tablet",
+                "brand": "Google",
+                "description": "The Pixel Tablet is engineered by Google to be more helpful at home – and in your hand. Place it on the Charging Speaker Dock for great-sounding music and video streaming.[1] Control your smart home, and say “Hey Google” for hands-free help.[2] It’s all powered by the Google Tensor G2 chip, and it’s the perfect companion to your Pixel phone. ",
+                "price": "500",
+                "stock": "100",
+                "category_name": "tablet",
+                "image_url": "img/tablets/pixel_tablet.png"
+            }
+        ]
+    }
+}

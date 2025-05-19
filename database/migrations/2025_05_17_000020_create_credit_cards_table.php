@@ -11,6 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::dropIfExists('credit_cards');
+
         Schema::create('credit_cards', function (Blueprint $table) {
             $table->bigIncrements('card_id');
             $table->string('cardholder_name');

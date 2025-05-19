@@ -11,6 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::dropIfExists('products');
+
         Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('product_id');
             $table->string('name');
@@ -18,7 +20,9 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->decimal('price');
             $table->integer('stock');
-            $table->foreignId('category_id')->nullable()->references('category_id')->on('categories');
+            $table->string('category_name')->nullable(); // Match data type of referenced column
+            $table->foreign('category_name')->references('category_name')->on('categories');
+            $table->string('image_url')->nullable();
             $table->timestamps();
         });
     }

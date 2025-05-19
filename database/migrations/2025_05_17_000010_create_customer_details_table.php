@@ -11,6 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::dropIfExists('customer_details');
+
         Schema::create('customer_details', function (Blueprint $table) {
             $table->bigIncrements('customer_details_id');
             $table->string('name');
