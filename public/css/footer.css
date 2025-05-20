@@ -1,0 +1,48 @@
+/* CSS file for the footer. */
+
+footer {
+    background-color: #333333;
+    margin-top: auto;
+}
+
+footer img, #footer_nav, #footer_nav .footer_menu, .footer_menu a, #copyright, #notice {
+    background-color: #333333;
+}
+
+footer img {
+    width: 15%;
+    display: block;
+    padding-top: 10px;
+    margin: auto auto 10px auto;
+}
+
+#footer_nav {
+    text-align: center;
+}
+
+#footer_nav .footer_menu {
+    display: inline-block;
+    margin: 0 5px 15px 5px;
+}
+
+.footer_menu a {
+    color: white;
+    text-decoration: none;
+    padding: 3px 5px;
+}
+
+#copyright {
+    text-align: center;
+    margin: 0 0 15px 0;
+    color: white;
+    font-size: small;
+}
+
+#notice {
+    margin: 0 auto 0 auto;
+    width: 30%;
+    font-size: x-small;
+    color: white;
+    text-align: center;
+    padding-bottom: 10px;
+}
