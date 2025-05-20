@@ -1,6 +1,6 @@
 /* CSS file for the header. */
 
-header img {
+header a img {
     width: 20%;
     display: block;
     margin: 20px auto 20px auto;
@@ -9,7 +9,7 @@ header img {
 #header_nav {
     text-align: center;
     border: 1px;
-    margin: 0 22px 200px 22px;
+    margin: 0 22px 0px 22px;
     border-radius: 0.5rem;
     box-shadow: 0 5px 25px 0 rgb(0 0 0 / 10%);
 }
