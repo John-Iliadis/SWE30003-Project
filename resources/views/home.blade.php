@@ -19,7 +19,6 @@
     <main>
         <h1 id="welcome_header">Welcome to AWE Electronics</h1>
         <a href="/#" id="enter_store">Enter Store</a>
-{{--        <button id="enter_store">Enter Store</button>--}}
     </main>
 
     @include('footer')

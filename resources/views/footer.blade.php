@@ -12,7 +12,7 @@
         <p class="footer_menu"><a href="#">Rewards Club</a></p>
     </nav>
 
-    <p id="copyright">&#169 2022 AWE Electronics Corporation</p>
+    <p id="copyright">&#169 2022 AWE Electronics Ltd</p>
 
     <p id="notice">This website and its content is copyright of AWE Electronics, all rights reserved. Any redistribution or reproduction of part or all of the contents in any form is prohibited.</p>
 
