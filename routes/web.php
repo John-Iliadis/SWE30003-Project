@@ -13,3 +13,7 @@ Route::get('/home', function () {
 Route::get('/catalogue', function () {
     return view('catalogue');
 });
+
+Route::get('/product', function () {
+    return view('product');
+});

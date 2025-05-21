@@ -95,6 +95,7 @@ input[type="checkbox"] {
     padding: 5px;
     border: 1px solid transparent;
     border-radius: 5px;
+    font-weight: bold;
 }
 
 #price_set_button:hover {
