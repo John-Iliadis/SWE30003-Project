@@ -109,3 +109,67 @@ input[type="number"] {
 #catalogue {
     width: 80%;
 }
+
+.catalogue_item {
+    display: flex;
+    height: 200px;
+    border-top: 1px solid lightgray;
+    padding: 10px;
+}
+
+.catalogue_item:last-child {
+    border-bottom: 1px solid lightgray;
+}
+
+.catalogue_item_left {
+    width: 20%;
+}
+
+.catalogue_item_left a img {
+    height: 100%;
+    width: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.catalogue_item_mid {
+    width: 60%;
+    border-left: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    padding: 0 10px;
+    overflow: auto;
+}
+
+.catalogue_item_mid a {
+    text-decoration: none;
+    color: black;
+}
+
+.catalogue_item_mid a h1 {
+    margin-bottom: 10px;
+}
+
+.catalogue_item_right {
+    width: 20%;
+    padding: 10px 0 0 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.catalogue_item_right h2 {
+    text-align: center;
+}
+
+.catalogue_item_right button {
+    width: 100%;
+    height: 40px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.catalogue_item_right button:hover {
+    cursor: pointer;
+    border: 1px solid black;
+}

@@ -124,6 +124,43 @@
         </div>
 
         <div id="catalogue">
+
+            <div class="catalogue_item">
+                <div class="catalogue_item_left">
+                    <a href="#">
+                        <img src="{{asset('img/phones/iphone16promax.png')}}" alt="Iphone 16 Pro Max">
+                    </a>
+                </div>
+                <div class="catalogue_item_mid">
+                    <a href="#"><h1>Apple - iPhone 16 Pro Max</h1></a>
+                    <p class="catalogue_item_desc">iPhone 16 Pro Max. Built for Apple Intelligence. Featuring a stunning
+                        titanium design. Camera Control. 4K 120 fps Dolby Vision. And A18 Pro chip.
+                    </p>
+                </div>
+                <div class="catalogue_item_right">
+                    <h2>$2000</h2>
+                    <button>Add to cart</button>
+                </div>
+            </div>
+
+            <div class="catalogue_item">
+                <div class="catalogue_item_left">
+                    <a href="#">
+                        <img src="{{asset('img/phones/iphone16promax.png')}}" alt="Iphone 16 Pro Max">
+                    </a>
+                </div>
+                <div class="catalogue_item_mid">
+                    <a href="#"><h1>Apple - iPhone 16 Pro Max</h1></a>
+                    <p class="catalogue_item_desc">iPhone 16 Pro Max. Built for Apple Intelligence. Featuring a stunning
+                        titanium design. Camera Control. 4K 120 fps Dolby Vision. And A18 Pro chip.
+                    </p>
+                </div>
+                <div class="catalogue_item_right">
+                    <h2>$2000</h2>
+                    <button>Add to cart</button>
+                </div>
+            </div>
+
         </div>
     </main>
 
