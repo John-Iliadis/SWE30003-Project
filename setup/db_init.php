@@ -42,13 +42,6 @@ if (json_last_error() !== JSON_ERROR_NONE)
 
 /* Delete Records ------------------------------------------------------------------------- */
 
-//$sql_del_records = "DELETE FROM orderline; DELETE FROM products; DELETE FROM categories";
-//
-//if ($conn->query($sql_del_records) !== TRUE)
-//{
-//    die("Error: " . $sql_del_records . "<br>" . $conn->error);
-//}
-//
 $tables = ['orderline', 'products', 'categories'];
 
 foreach ($tables as $table)

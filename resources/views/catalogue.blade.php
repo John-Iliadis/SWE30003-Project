@@ -14,6 +14,12 @@
 <body>
 
     @include('header')
+
+    <aside id="filter">
+        <p>aside</p>
+        <p>ah</p>
+    </aside>
+
     @include('footer')
 
 </body>

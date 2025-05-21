@@ -15,7 +15,7 @@
 
     @include('header')
 
-    <div id="spacing_div" style="height: 100px"></div>
+    <div id="spacing_div" style="height: 200px"></div>
 
     <main>
         <h1 id="welcome_header">Welcome to AWE Electronics</h1>
