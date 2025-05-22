@@ -101,8 +101,6 @@
         </div>
     </main>
 
-    {{$brands}}
-
     <div id="spacing_bottom" style="height: 80px"></div>
 
     @include('footer')
