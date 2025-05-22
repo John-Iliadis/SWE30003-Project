@@ -19,18 +19,16 @@
 
     <main>
         <div class="product_item_left">
-            <img src="{{asset('img/phones/iphone16promax.png')}}" alt="Iphone 16 Pro Max">
+            <img src="{{asset($product['image_url'])}}" alt="{{$product['name']}}">
         </div>
 
         <div class="product_item_mid">
-            <h1>Apple - iPhone 16 Pro Max</h1>
-            <p class="product_item_desc">iPhone 16 Pro Max. Built for Apple Intelligence. Featuring a stunning
-                titanium design. Camera Control. 4K 120 fps Dolby Vision. And A18 Pro chip.
-            </p>
+            <h1>{{$product['brand'] . ' ' . $product['name']}}</h1>
+            <p class="product_item_desc">{{$product['description']}}</p>
         </div>
 
         <div class="product_item_right">
-            <h1>$2000</h1>
+            <h1>{{$product['price']}}</h1>
             <label><input type="number" name="quantity" value="1"></label>
             <button>Add to cart</button>
         </div>

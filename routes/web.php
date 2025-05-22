@@ -13,6 +13,4 @@ Route::get('/home', function () {
 
 Route::get('/catalogue', [CommerceController::class, 'catalogue']);
 
-Route::get('/product', function () {
-    return view('product');
-});
+Route::get('/product/{id}', [CommerceController::class, 'product']);
