@@ -6,6 +6,7 @@ main {
     gap: 10px;
     border-top: 2px solid lightgray;
     border-bottom: 2px solid lightgray;
+    min-width: 950px;
 }
 
 .product_item_left {
