@@ -18,4 +18,22 @@ class Product extends Model
         'category_name',
         'image_url'
     ];
+
+    public static function getBrands()
+    {
+        return Product::select('brand')->distinct()->pluck('brand');
+    }
+
+    public static function getPriceRanges()
+    {
+        return [
+            [0, 50],
+            [50, 100],
+            [200, 500],
+            [500, 1000],
+            [1000, 2000],
+            [2000, 5000],
+            [5000, 10000]
+        ];
+    }
 }

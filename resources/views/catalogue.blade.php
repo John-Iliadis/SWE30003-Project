@@ -43,37 +43,21 @@
 
             <div class="filter_section">Category</div>
 
-            <label class="filter_checkbox">
-                <input type="checkbox" name="category" value="phones">
-                <span class="checkbox_title">Phones</span>
-            </label>
-
-            <label class="filter_checkbox">
-                <input type="checkbox" name="category" value="Laptops">
-                <span class="checkbox_title">Laptops</span>
-            </label>
-
-            <label class="filter_checkbox">
-                <input type="checkbox" name="category" value="cameras">
-                <span class="checkbox_title">Cameras</span>
-            </label>
+            @foreach($categories as $category)
+                <label class="filter_checkbox">
+                    <input type="checkbox" name="category" value="{{$category['category_name']}}">
+                    <span class="checkbox_title">{{$category['category_name']}}</span>
+                </label>
+            @endforeach
 
             <div class="filter_section">Brand</div>
 
-            <label class="filter_checkbox">
-                <input type="checkbox" name="brand" value="samsung">
-                <span class="checkbox_title">Samsung</span>
-            </label>
-
-            <label class="filter_checkbox">
-                <input type="checkbox" name="brand" value="apple">
-                <span class="checkbox_title">Apple</span>
-            </label>
-
-            <label class="filter_checkbox">
-                <input type="checkbox" name="brand" value="google">
-                <span class="checkbox_title">Google</span>
-            </label>
+            @foreach($brands as $brand)
+                <label class="filter_checkbox">
+                    <input type="checkbox" name="brand" value="{{$brand}}">
+                    <span class="checkbox_title">{{$brand}}</span>
+                </label>
+            @endforeach
 
             <div class="filter_section">Price</div>
 
@@ -84,30 +68,12 @@
                 <button id="price_set_button">Set</button>
             </div>
 
-            <label class="filter_checkbox">
-                <input type="checkbox" name="price_range" value="0 50">
-                <span class="checkbox_title">$0 - $50</span>
-            </label>
-
-            <label class="filter_checkbox">
-                <input type="checkbox" name="price_range" value="50 100">
-                <span class="checkbox_title">$50 - $100</span>
-            </label>
-
-            <label class="filter_checkbox">
-                <input type="checkbox" name="price_range" value="100 200">
-                <span class="checkbox_title">$100 - $200</span>
-            </label>
-
-            <label class="filter_checkbox">
-                <input type="checkbox" name="price_range" value="200 500">
-                <span class="checkbox_title">$200 - $500</span>
-            </label>
-
-            <label class="filter_checkbox">
-                <input type="checkbox" name="price_range" value="500 1000">
-                <span class="checkbox_title">$500 - $1000</span>
-            </label>
+            @foreach($price_ranges as $range)
+                <label class="filter_checkbox">
+                    <input type="checkbox" name="price_range" value="{{$range[0] . ' ' . $range[1]}}">
+                    <span class="checkbox_title">${{$range[0]}} - ${{$range[1]}}</span>
+                </label>
+            @endforeach
 
             <button id="reset_button">Reset Filters</button>
         </div>
@@ -134,6 +100,8 @@
 
         </div>
     </main>
+
+    {{$brands}}
 
     <div id="spacing_bottom" style="height: 80px"></div>
 

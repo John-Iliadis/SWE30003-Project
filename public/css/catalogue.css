@@ -61,7 +61,6 @@ input[type="checkbox"] {
 #reset_button {
     width: 100%;
     margin-top: 10px;
-    background-color: lightgray;
     padding: 5px;
     border-radius: 5px;
     border: 1px solid transparent;

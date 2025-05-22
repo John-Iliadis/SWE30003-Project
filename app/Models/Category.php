@@ -8,6 +8,7 @@ class Category extends Model
 {
     protected $table = 'categories';
     protected $primaryKey = 'category_name';
+    public $incrementing = false;
 
     protected $fillable = [
         'category_name',

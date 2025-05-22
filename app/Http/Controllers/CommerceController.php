@@ -11,8 +11,10 @@ class CommerceController
     public function catalogue()
     {
         $data = [
+            'products' => Product::orderBy('brand', 'ASC')->get(),
             'categories' => Category::all(),
-            'products' => Product::all(),
+            'brands' => Product::getBrands(),
+            'price_ranges' => Product::getPriceRanges()
         ];
 
         return view('catalogue', $data);
