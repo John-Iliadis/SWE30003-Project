@@ -46,19 +46,16 @@
             <label class="filter_checkbox">
                 <input type="checkbox" name="category" value="phones">
                 <span class="checkbox_title">Phones</span>
-                <span class="checkbox_count">15</span>
             </label>
 
             <label class="filter_checkbox">
                 <input type="checkbox" name="category" value="Laptops">
                 <span class="checkbox_title">Laptops</span>
-                <span class="checkbox_count">12</span>
             </label>
 
             <label class="filter_checkbox">
                 <input type="checkbox" name="category" value="cameras">
                 <span class="checkbox_title">Cameras</span>
-                <span class="checkbox_count">20</span>
             </label>
 
             <div class="filter_section">Brand</div>
@@ -66,19 +63,16 @@
             <label class="filter_checkbox">
                 <input type="checkbox" name="brand" value="samsung">
                 <span class="checkbox_title">Samsung</span>
-                <span class="checkbox_count">15</span>
             </label>
 
             <label class="filter_checkbox">
                 <input type="checkbox" name="brand" value="apple">
                 <span class="checkbox_title">Apple</span>
-                <span class="checkbox_count">12</span>
             </label>
 
             <label class="filter_checkbox">
                 <input type="checkbox" name="brand" value="google">
                 <span class="checkbox_title">Google</span>
-                <span class="checkbox_count">20</span>
             </label>
 
             <div class="filter_section">Price</div>
@@ -93,31 +87,26 @@
             <label class="filter_checkbox">
                 <input type="checkbox" name="price_range" value="0 50">
                 <span class="checkbox_title">$0 - $50</span>
-                <span class="checkbox_count">20</span>
             </label>
 
             <label class="filter_checkbox">
                 <input type="checkbox" name="price_range" value="50 100">
                 <span class="checkbox_title">$50 - $100</span>
-                <span class="checkbox_count">20</span>
             </label>
 
             <label class="filter_checkbox">
                 <input type="checkbox" name="price_range" value="100 200">
                 <span class="checkbox_title">$100 - $200</span>
-                <span class="checkbox_count">20</span>
             </label>
 
             <label class="filter_checkbox">
                 <input type="checkbox" name="price_range" value="200 500">
                 <span class="checkbox_title">$200 - $500</span>
-                <span class="checkbox_count">20</span>
             </label>
 
             <label class="filter_checkbox">
                 <input type="checkbox" name="price_range" value="500 1000">
                 <span class="checkbox_title">$500 - $1000</span>
-                <span class="checkbox_count">20</span>
             </label>
 
             <button id="reset_button">Reset Filters</button>

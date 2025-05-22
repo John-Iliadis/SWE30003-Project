@@ -52,10 +52,6 @@ input[type="radio"] {
     margin-bottom: 5px;
 }
 
-.checkbox_count {
-    margin-left: auto;
-}
-
 input[type="checkbox"] {
     width: 20px;
     height: 20px;
