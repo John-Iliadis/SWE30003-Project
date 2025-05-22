@@ -3,6 +3,7 @@ main {
     gap: 1rem;
     margin: 0 22px;
     min-width: 950px;
+    align-items: flex-start;
 }
 
 #filter {
@@ -10,6 +11,7 @@ main {
     border: 2px solid lightgray;
     border-radius: 5px;
     width: 20%;
+    height: auto;
 }
 
 .filter_section {
