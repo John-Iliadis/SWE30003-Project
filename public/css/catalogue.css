@@ -124,13 +124,17 @@ input[type="number"] {
 
 .catalogue_item_left {
     width: 20%;
+    padding: 10px 10px 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .catalogue_item_left a img {
-    height: 100%;
-    width: auto;
     display: block;
-    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 .catalogue_item_mid {
