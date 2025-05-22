@@ -10,13 +10,16 @@ main {
 
 .product_item_left {
     width: 30%;
-    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .product_item_left img {
     display: block;
+    width: 100%;
     height: 100%;
-    width: auto;
+    object-fit: contain;
 }
 
 .product_item_mid {

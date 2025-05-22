@@ -128,7 +128,7 @@
             @foreach($products as $product)
                 <div class="catalogue_item">
                     <div class="catalogue_item_left">
-                        <a href="#">
+                        <a href="/product">
                             <img src="{{asset($product['image_url'])}}" alt="{{$product['name']}}">
                         </a>
                     </div>
