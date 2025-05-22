@@ -51,7 +51,7 @@
                 "price": "1000",
                 "stock": "100",
                 "category_name": "phone",
-                "image_url": "img/phones/s25ultra"
+                "image_url": "img/phones/s25ultra.png"
             }
         ],
         "laptops": [
@@ -109,7 +109,7 @@
                 "price": "400",
                 "stock": "100",
                 "category_name": "camera",
-                "image_url": "img/cameras/panasonic_lumix_fz80d"
+                "image_url": "img/cameras/panasonic_lumix_fz80d.png"
             },
             {
                 "name": "EOS R50",
@@ -212,7 +212,7 @@
                 "price": "880",
                 "stock": "100",
                 "category_name": "tablet",
-                "image_url": "img/tablets/samsung_galaxy_s10+.png"
+                "image_url": "img/tablets/samsung_galaxy_s10.png"
             },
             {
                 "name": "iPad Pro M4",
