@@ -14,7 +14,7 @@
 
     <div class="register_container">
         <h2>Register</h2>
-        <form class="register_form" action="/register" method="POST">
+        <form class="register_form" action="/continue" method="POST">
             @csrf
             <input name="name" type="text" placeholder="name">
             <input name="email" type="email" placeholder="email">

@@ -12,6 +12,12 @@
 <body>
     @include('header')
 
+    @auth
+
+    @else
+
+    @endauth
+
     <div class="login_container">
     <h2>Login</h2>
     <form class="login_form" action="/login" method="POST">
