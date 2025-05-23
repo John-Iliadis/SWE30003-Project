@@ -8,7 +8,7 @@
 
     <nav id="header_nav">
         <p class="menu"><a href="/home">Home</a></p>
-        <p class="menu"><a href="#">Account</a></p>
+        <p class="menu"><a href="/login">Account</a></p>
         <p class="menu"><a href="/catalogue">Catalogue</a></p>
         <p class="menu"><a href="#">Cart</a></p>
         <p class="menu"><a href="#">Admin</a></p>
