@@ -17,7 +17,7 @@ return new class extends Migration
             $table->bigIncrements('product_id');
             $table->string('name');
             $table->string('brand');
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->decimal('price');
             $table->integer('stock');
             $table->string('category_name')->nullable(); // Match data type of referenced column
