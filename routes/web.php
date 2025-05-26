@@ -21,11 +21,10 @@ Route::get('/register', function() {
 });
 
 Route::get('/catalogue', [CommerceController::class, 'catalogue']);
-
+Route::get('/cart', [CommerceController::class, 'cart']);
 Route::get('/product/{id}', [CommerceController::class, 'product']);
 
 Route::post('/login', [AccountController::class, 'login']);
-
 Route::post('continue', function() {
     return view('register_details');
 });

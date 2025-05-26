@@ -28,4 +28,9 @@ class CommerceController
 
         return view('product', $data);
     }
+
+    public function cart()
+    {
+        return view('cart');
+    }
 }
