@@ -59,13 +59,20 @@ input[type="checkbox"] {
 }
 
 #reset_button {
-    width: 100%;
-    margin-top: 10px;
+    /*display: block;*/
+    /*width: 60%;*/
+    /*margin-top: 5px;*/
+    /*margin: 10px auto 0 auto;*/
     padding: 5px;
     border-radius: 5px;
     border: 1px solid transparent;
     color: black;
     font-weight: bold;
+}
+
+#filter_line {
+    margin: 10px 0 10px 0;
+    border: 1px solid lightgray;
 }
 
 #reset_button:hover {
@@ -140,7 +147,6 @@ input[type="number"] {
     border-left: 1px solid lightgray;
     border-right: 1px solid lightgray;
     padding: 0 10px;
-    /*overflow: auto;*/
 }
 
 .catalogue_item_desc {

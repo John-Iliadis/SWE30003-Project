@@ -75,6 +75,8 @@
                 </label>
             @endforeach
 
+            <hr id="filter_line">
+
             <button id="reset_button">Reset Filters</button>
         </div>
 
