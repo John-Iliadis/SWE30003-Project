@@ -140,7 +140,14 @@ input[type="number"] {
     border-left: 1px solid lightgray;
     border-right: 1px solid lightgray;
     padding: 0 10px;
-    overflow: auto;
+    /*overflow: auto;*/
+}
+
+.catalogue_item_desc {
+    display: -webkit-box;
+    -webkit-line-clamp: 7;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .catalogue_item_mid a {

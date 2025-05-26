@@ -15,6 +15,8 @@
 
     @include('header')
 
+    {{--    todo: make cart image and title direct to the product page --}}
+
     <div id="spacing_top" style="height: 80px"></div>
 
     <main>
