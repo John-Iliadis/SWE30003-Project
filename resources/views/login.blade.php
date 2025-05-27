@@ -20,7 +20,7 @@
 
     <div class="login_container">
     <h2>Login</h2>
-    <form class="login_form" action="/login" method="POST">
+    <form method="POST" action="{{ route('login.post') }}">
         @csrf
         <input name="email" type="email" placeholder="email">
         <input name="password" type="password" placeholder="password">
