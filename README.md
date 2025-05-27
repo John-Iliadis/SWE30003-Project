@@ -18,6 +18,7 @@ A full-stack online retail system built with Laravel featuring:
 php artisan migrate
 ```
 ## Project Structure
+```bash
 SWE30003-Project/
 ├── app/                  # Core application logic
 │   ├── Http/Controllers/ # All application controllers
@@ -42,6 +43,7 @@ SWE30003-Project/
 │   └── web.php          # Main application routes
 ├── storage/             # Uploaded files, logs, and framework cache
 └── tests/               # PHPUnit test cases
+```
 
 ## Key Features
 ### Admin Panel
