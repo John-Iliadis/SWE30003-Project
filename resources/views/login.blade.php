@@ -18,13 +18,17 @@
 
     @endauth
 
-    <div class="login_container">
-    <h2>Login</h2>
+    <div class="auth-container">
+    <h2 class="login-header">Login</h2>
     <form method="POST" action="{{ route('login.post') }}">
         @csrf
-        <input name="email" type="email" placeholder="email">
-        <input name="password" type="password" placeholder="password">
-        <button>Login</button>
+        <div class="form-group">
+            <input type="email" name="email" placeholder="Email" required>
+        </div>
+        <div class="form-group">
+            <input type="password" name="password" placeholder="Password" required>
+        </div>
+        <button type="submit" class="login-button">Login</button>
     </form>
     <div class="login_links">
         <p>Don't have an account? <a href="/register">Register here</a></p>

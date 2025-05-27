@@ -1,4 +1,12 @@
 
+@import 'global.css';
+
+/* Register-specific styles */
+.register-header {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+}
+
 body {
     margin: 0;
     padding: 0;
