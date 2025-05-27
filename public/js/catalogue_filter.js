@@ -61,4 +61,22 @@ document.addEventListener('DOMContentLoaded', function() {
     {
         filterVal.addEventListener('change', updateCatalogue);
     }
+
+    document.getElementById('reset_button').addEventListener('click', function() {
+        let update = false;
+
+        document.querySelectorAll('#filter .filter_val').forEach(function(input) {
+            if (input.checked !== input.defaultChecked)
+            {
+                input.checked = input.defaultChecked;
+                update = true;
+            }
+        });
+
+        if (update)
+        {
+            console.log(update);
+            updateCatalogue();
+        }
+    });
 });
