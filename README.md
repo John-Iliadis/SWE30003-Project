@@ -18,28 +18,30 @@ A full-stack online retail system built with Laravel featuring:
 php artisan migrate
 ```
 ## Project Structure
-├── app/
-│   ├── Http/Controllers/ - All application controllers
-│   ├── Models/ - Database models (Product, Category, Order etc.)
-│   └── Providers/ - Service providers
-├── config/ - Application configuration
+SWE30003-Project/
+├── app/                  # Core application logic
+│   ├── Http/Controllers/ # All application controllers
+│   ├── Models/          # Database models (Product, Category, Order etc.)
+│   └── Providers/       # Service providers
+├── config/              # Application configuration files
 ├── database/
-│   ├── migrations/ - Database schema definitions
-│   └── seeders/ - Test data generators
+│   ├── migrations/      # Database schema definitions
+│   └── seeders/         # Test data generators
 ├── public/
-│   ├── css/ - Stylesheets
-│   │   ├── admin.css - Admin panel styles
-│   │   └── global.css - Shared styles
-│   └── img/ - Product images
+│   ├── css/             # Stylesheets
+│   │   ├── admin.css    # Admin panel styles
+│   │   ├── global.css   # Shared styles
+│   │   └── ...         # Other style files
+│   └── img/             # Product images
 ├── resources/views/
-│   ├── admin/ - Admin dashboard templates
-│   ├── auth/ - Authentication pages
-│   ├── catalogue/ - Product listing pages
-│   └── partials/ - Reusable components
+│   ├── admin/           # Admin dashboard templates
+│   ├── auth/            # Authentication pages
+│   ├── catalogue/       # Product listing pages
+│   └── ...              # Other view templates
 ├── routes/
-│   └── web.php - Main application routes
-├── storage/ - Uploaded files and logs
-└── tests/ - PHPUnit test cases
+│   └── web.php          # Main application routes
+├── storage/             # Uploaded files, logs, and framework cache
+└── tests/               # PHPUnit test cases
 
 ## Key Features
 ### Admin Panel
