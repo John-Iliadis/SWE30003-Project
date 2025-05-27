@@ -26,5 +26,13 @@ Route::post('continue', function() {
 });
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
-    Route::resource('products', ProductController::class)->except(['show']);
+    Route::resource('products', \App\Http\Controllers\ProductController::class)
+        ->names([
+            'index' => 'admin.products.index',
+            'create' => 'admin.products.create',
+            'store' => 'admin.products.store',
+            'edit' => 'admin.products.edit',
+            'update' => 'admin.products.update',
+            'destroy' => 'admin.products.destroy'
+        ]);
 });
