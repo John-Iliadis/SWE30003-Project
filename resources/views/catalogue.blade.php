@@ -61,13 +61,6 @@
 
             <div class="filter_section">Price</div>
 
-            <div id="price_range_input">
-                <label><input type="number" name="min_price" class="price_text_input" placeholder="$"></label>
-                <span>to</span>
-                <label><input type="number" name="max_price" class="price_text_input" placeholder="$"></label>
-                <button id="price_set_button">Set</button>
-            </div>
-
             @foreach($price_ranges as $range)
                 <label class="filter_checkbox">
                     <input type="checkbox" name="price_range" value="{{$range[0] . ' ' . $range[1]}}">
@@ -81,25 +74,7 @@
         </div>
 
         <div id="catalogue">
-
-            @foreach($products as $product)
-                <div class="catalogue_item">
-                    <div class="catalogue_item_left">
-                        <a href="/product/{{$product['product_id']}}">
-                            <img src="{{asset($product['image_url'])}}" alt="{{$product['name']}}">
-                        </a>
-                    </div>
-                    <div class="catalogue_item_mid">
-                        <a href="/product/{{$product['product_id']}}"><h1>{{$product['brand'] . ' ' . $product['name']}}</h1></a>
-                        <p class="catalogue_item_desc">{{$product['description']}}</p>
-                    </div>
-                    <div class="catalogue_item_right">
-                        <h2>{{'$' . $product['price']}}</h2>
-                        <button>Add to cart</button>
-                    </div>
-                </div>
-            @endforeach
-
+            @include('catalogue_items', ['products' => $products])
         </div>
     </main>
 
