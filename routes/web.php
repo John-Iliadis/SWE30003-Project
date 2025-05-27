@@ -10,7 +10,7 @@ Route::get('/home', function () { return view('home'); });
 
 Route::get('/login', function () {
     return view('login');
-});
+})->name('login'); // Add ->name('login') here
 
 Route::get('/register', function() {
     return view('register');
@@ -20,7 +20,7 @@ Route::get('/catalogue', [CommerceController::class, 'catalogue']);
 Route::get('/cart', [CommerceController::class, 'cart']);
 Route::get('/product/{id}', [CommerceController::class, 'product']);
 
-Route::post('/login', [AccountController::class, 'login']);
+Route::post('/login', [AccountController::class, 'login'])->name('login.post');
 Route::post('continue', function() {
     return view('register_details');
 });
