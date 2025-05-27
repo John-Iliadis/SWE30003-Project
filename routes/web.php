@@ -19,6 +19,7 @@ Route::get('/register', function() {
 Route::get('/catalogue', [CommerceController::class, 'catalogue']);
 Route::get('/cart', [CommerceController::class, 'cart']);
 Route::get('/product/{id}', [CommerceController::class, 'product']);
+Route::post('/catalogue/filter', [CommerceController::class, 'filter']);
 
 Route::post('/login', [AccountController::class, 'login'])->name('login.post');
 Route::post('continue', function() {
@@ -26,7 +27,7 @@ Route::post('continue', function() {
 });
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
-    Route::resource('products', \App\Http\Controllers\ProductController::class)
+    Route::resource('products', ProductController::class)
         ->names([
             'index' => 'admin.products.index',
             'create' => 'admin.products.create',

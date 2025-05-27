@@ -75,8 +75,80 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (update)
         {
-            console.log(update);
             updateCatalogue();
         }
     });
+
+    document.getElementById('price_set_button').addEventListener('click', function() {
+        const minInput = document.querySelector("input[name='min_price']");
+        const maxInput = document.querySelector("input[name='max_price']");
+
+        let min = minInput.value;
+        let max = maxInput.value;
+
+        if (min === "" || max === "")
+        {
+            alert('Please enter a valid price.');
+            return;
+        }
+
+        min = parseFloat(min);
+        max = parseFloat(max);
+
+        if (max < min)
+        {
+            alert('Max needs to be greater or equal than min.');
+            return;
+        }
+
+        const newValue = `${min} ${max}`;
+
+        // Check if checkbox with same value already exists
+        const existingCheckboxes = document.querySelectorAll("input[name='price_range']");
+        for (let checkbox of existingCheckboxes)
+        {
+            if (checkbox.value === newValue) {
+                alert("This price range already exists.");
+                return;
+            }
+        }
+
+        const label = document.createElement("label");
+        label.className = "filter_checkbox";
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.className = "filter_val";
+        checkbox.name = "price_range";
+        checkbox.value = `${min} ${max}`;
+        checkbox.checked = true;
+        checkbox.addEventListener('change', updateCatalogue);
+
+        const span = document.createElement("span");
+        span.className = "checkbox_title";
+        span.textContent = `$${min} - $${max}`;
+
+        // Append checkbox and span to label
+        label.appendChild(checkbox);
+        label.appendChild(span);
+
+        // Insert into DOM before the filter line
+        const filterLine = document.getElementById("filter_line");
+        filterLine.parentNode.insertBefore(label, filterLine);
+
+        minInput.value = '';
+        maxInput.value = '';
+
+        updateCatalogue();
+    });
 });
+
+/*
+<label class="filter_checkbox">
+    <input type="checkbox" class="filter_val" name="price_range" value="{{$range[0] . ' ' . $range[1]}}">
+    <span class="checkbox_title">${{$range[0]}} - ${{$range[1]}}</span>
+</label>
+
+
+
+* */

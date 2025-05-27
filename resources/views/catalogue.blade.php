@@ -63,9 +63,9 @@
             <div class="filter_section">Price</div>
 
             <div id="price_range_input">
-                <label><input type="number" name="min_price" class="price_text_input" placeholder="$"></label>
+                <label><input type="number" name="min_price" class="price_text_input" min="0" placeholder="$"></label>
                 <span>to</span>
-                <label><input type="number" name="max_price" class="price_text_input" placeholder="$"></label>
+                <label><input type="number" name="max_price" class="price_text_input" min="0" placeholder="$"></label>
                 <button id="price_set_button">Set</button>
             </div>
 
