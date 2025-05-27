@@ -72,7 +72,7 @@
 
         <div id="cart_bottom">
             <p id="total_price">Total: $2000</p>
-            <button id="checkout_button">Checkout</button>
+            <a href="{{ route('transaction.checkout') }}" id="checkout_button">Checkout</a>
         </div>
     </main>
 
