@@ -45,29 +45,28 @@ function updateCatalogue()
 {
     const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-    let xhr = new XMLHttpRequest();
-
-    xhr.open('post', '/catalogue/filter', true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-    xhr.setRequestHeader('X-CSRF-TOKEN', token);
-
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4)
-        {
-            if (xhr.status === 200)
-            {
-                document.getElementById('catalogue').innerHTML = xhr.responseText;
-                addToCartListeners();
+    fetch('/catalogue/filter', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRF-TOKEN': token
+        },
+        body: JSON.stringify(getFilterData())
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Error: ${response.statusText}`);
             }
-            else
-            {
-                console.error('Error:', xhr.statusText);
-            }
-        }
-    }
-
-    xhr.send(JSON.stringify(getFilterData()));
+            return response.text();
+        })
+        .then(html => {
+            document.getElementById('catalogue').innerHTML = html;
+            addToCartListeners();
+        })
+        .catch(error => {
+            console.error(error);
+        });
 }
 
 document.addEventListener('DOMContentLoaded', function() {
