@@ -6,26 +6,21 @@
     margin-bottom: 20px;
 }
 
-#enter_store {
-    text-align: center;
+main a {
     text-decoration: none;
-    background-color: white;
-    display:block;
-    margin: auto;
-    width: 200px;
-    align-content: center;
-    padding: .5rem;
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: black;
-    border-radius: 10px;
-    border: 1px solid black;
-    transition: all 0.15s ease-in-out;
 }
 
-#enter_store:hover{
-    background-image: linear-gradient(0deg, #ff753f, #ffbc40);
-    color: white;
-    box-shadow: 0 0 10px green;
-    border: none;
+#enter_store_button {
+    display: block;
+    margin: auto;
+    padding: 10px 30px;
+    font-weight: bold;
+    font-size: large;
+    border: 1px solid transparent;
+    border-radius: 5px;
+}
+
+#enter_store_button:hover {
+    cursor: pointer;
+    border: 1px solid black;
 }
