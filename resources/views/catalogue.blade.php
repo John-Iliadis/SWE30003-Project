@@ -90,7 +90,7 @@
 
     @include('footer')
 
-    <script src="{{asset('js/catalogue_filter.js')}}"></script>
+    <script src="{{asset('js/catalogue.js')}}"></script>
 
 </body>
 </html>

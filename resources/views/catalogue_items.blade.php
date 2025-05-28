@@ -12,7 +12,7 @@
         </div>
         <div class="catalogue_item_right">
             <h2>{{'$' . $product['price']}}</h2>
-            <button>Add to cart</button>
+            <button class="add_to_cart_button" data-productId="{{$product['product_id']}}">Add to cart</button>
         </div>
     </div>
 @endforeach

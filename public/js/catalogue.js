@@ -26,6 +26,21 @@ function getFilterData()
     return filterData;
 }
 
+function addToCartListeners()
+{
+    document.querySelectorAll('.add_to_cart_button').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const productID = e.currentTarget.dataset.productid;
+            const qty = 1;
+
+            fetch(`/cart/add/${productID}/${qty}`)
+                .then(response => response.json())
+                .then(data => {alert(JSON.stringify(data))})
+                .catch(error => {console.log(error);});
+        });
+    });
+}
+
 function updateCatalogue()
 {
     const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -43,6 +58,7 @@ function updateCatalogue()
             if (xhr.status === 200)
             {
                 document.getElementById('catalogue').innerHTML = xhr.responseText;
+                addToCartListeners();
             }
             else
             {
@@ -61,6 +77,8 @@ document.addEventListener('DOMContentLoaded', function() {
     {
         filterVal.addEventListener('change', updateCatalogue);
     }
+
+    addToCartListeners();
 
     document.getElementById('reset_button').addEventListener('click', function() {
         let update = false;
@@ -128,11 +146,9 @@ document.addEventListener('DOMContentLoaded', function() {
         span.className = "checkbox_title";
         span.textContent = `$${min} - $${max}`;
 
-        // Append checkbox and span to label
         label.appendChild(checkbox);
         label.appendChild(span);
 
-        // Insert into DOM before the filter line
         const filterLine = document.getElementById("filter_line");
         filterLine.parentNode.insertBefore(label, filterLine);
 
@@ -142,13 +158,3 @@ document.addEventListener('DOMContentLoaded', function() {
         updateCatalogue();
     });
 });
-
-/*
-<label class="filter_checkbox">
-    <input type="checkbox" class="filter_val" name="price_range" value="{{$range[0] . ' ' . $range[1]}}">
-    <span class="checkbox_title">${{$range[0]}} - ${{$range[1]}}</span>
-</label>
-
-
-
-* */

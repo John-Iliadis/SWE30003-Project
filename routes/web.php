@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CommerceController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ProductController;
 
@@ -20,6 +21,8 @@ Route::get('/catalogue', [CommerceController::class, 'catalogue']);
 Route::get('/cart', [CommerceController::class, 'cart']);
 Route::get('/product/{id}', [CommerceController::class, 'product']);
 Route::post('/catalogue/filter', [CommerceController::class, 'filter']);
+
+Route::get('/cart/add/{product_id}/{qty}', [CartController::class, 'add']);
 
 Route::post('/login', [AccountController::class, 'login'])->name('login.post');
 Route::post('continue', function() {
