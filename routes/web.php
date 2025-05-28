@@ -5,6 +5,7 @@ use App\Http\Controllers\CommerceController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TransactionController;
 
 Route::get('/', function () { return view('home'); });
 Route::get('/home', function () { return view('home'); });
@@ -35,6 +36,12 @@ Route::post('/login', [AccountController::class, 'login'])->name('login.post');
 Route::post('continue', function() {
     return view('register_details');
 });
+
+// Transaction routes
+Route::get('/checkout', [TransactionController::class, 'checkout'])->name('transaction.checkout');
+Route::get('/payment', [TransactionController::class, 'payment'])->name('transaction.payment');
+Route::post('/process-payment', [TransactionController::class, 'processPayment'])->name('transaction.process');
+Route::get('/confirmation/{order_id}', [TransactionController::class, 'confirmation'])->name('transaction.confirmation');
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::resource('products', ProductController::class)
