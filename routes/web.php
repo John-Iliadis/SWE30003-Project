@@ -17,11 +17,15 @@ Route::get('/register', function() {
     return view('register');
 });
 
+Route::get('/restart-session', [CartController::class, 'restartSession']);
+
+// catalogue
 Route::get('/catalogue', [CommerceController::class, 'catalogue']);
-Route::get('/cart', [CommerceController::class, 'cart']);
 Route::get('/product/{id}', [CommerceController::class, 'product']);
 Route::post('/catalogue/filter', [CommerceController::class, 'filter']);
 
+// cart
+Route::get('/cart', [CartController::class, 'cart']);
 Route::get('/cart/add/{product_id}/{qty}', [CartController::class, 'add']);
 
 Route::post('/login', [AccountController::class, 'login'])->name('login.post');

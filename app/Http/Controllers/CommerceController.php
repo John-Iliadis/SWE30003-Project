@@ -30,11 +30,6 @@ class CommerceController
         return view('product', $data);
     }
 
-    public function cart()
-    {
-        return view('cart');
-    }
-
     public function filter(Request $request)
     {
         $data = $request->all();
