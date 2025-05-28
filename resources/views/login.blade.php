@@ -14,19 +14,20 @@
 
     @auth
 
+    <script>
+        window.location.href = "/account";
+    </script>
+
     @else
-
-    @endauth
-
     <div class="auth-container">
     <h2 class="login-header">Login</h2>
     <form method="POST" action="{{ route('login.post') }}">
         @csrf
         <div class="form-group">
-            <input type="email" name="email" placeholder="Email" required>
+            <input type="email" name="email" placeholder="Email">
         </div>
         <div class="form-group">
-            <input type="password" name="password" placeholder="Password" required>
+            <input type="password" name="password" placeholder="Password">
         </div>
         <button type="submit" class="login-button">Login</button>
     </form>
@@ -34,6 +35,8 @@
         <p>Don't have an account? <a href="/register">Register here</a></p>
     </div>
     </div>
+
+    @endauth
     
     @include('footer')
 </body>

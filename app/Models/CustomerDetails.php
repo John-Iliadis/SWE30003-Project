@@ -19,4 +19,8 @@ class CustomerDetails extends Model
         'state',
         'country',
     ];
+
+    public function customer() {
+        return $this->hasOne(Customer::class, 'customer_details_id');
+    }
 }

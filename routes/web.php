@@ -17,6 +17,9 @@ Route::get('/login', function () {
 Route::get('/register', function() {
     return view('register');
 });
+Route::get('/account', function() {
+    return view('account');
+});
 
 Route::get('/restart-session', [CartController::class, 'restartSession']);
 
@@ -33,9 +36,7 @@ Route::get('cart/clear', [CartController::class, 'clear']);
 Route::get('/cart/modify/{product_id}/{qty}', [CartController::class, 'modify']);
 
 Route::post('/login', [AccountController::class, 'login'])->name('login.post');
-Route::post('continue', function() {
-    return view('register_details');
-});
+Route::post('/register', [AccountController::class, 'register'])->name('register.post');
 
 // Transaction routes
 Route::get('/checkout', [TransactionController::class, 'checkout'])->name('transaction.checkout');
