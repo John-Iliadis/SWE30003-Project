@@ -27,6 +27,7 @@ Route::post('/catalogue/filter', [CommerceController::class, 'filter']);
 // cart
 Route::get('/cart', [CartController::class, 'cart']);
 Route::get('/cart/add/{product_id}/{qty}', [CartController::class, 'add']);
+Route::get('/cart/remove/{productId}', [CartController::class, 'remove']);
 
 Route::post('/login', [AccountController::class, 'login'])->name('login.post');
 Route::post('continue', function() {

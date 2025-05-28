@@ -15,8 +15,6 @@
 
     @include('header')
 
-    {{--    todo: make cart image and title direct to the product page --}}
-
     <div id="spacing_top" style="height: 80px"></div>
 
     <main>
@@ -53,7 +51,7 @@
                         <span class="cart_total_price">{{ '$' . $subtotal }}</span>
                     </div>
                     <div class="cart_clear_container">
-                        <button class="remove_item">Remove</button>
+                        <button class="remove_item" data-productId="{{$product['product_id']}}">Remove</button>
                     </div>
                 </div>
             @endforeach
@@ -76,6 +74,8 @@
     <div id="spacing_bottom" style="height: 80px"></div>
 
     @include('footer')
+
+    <script src="{{asset('js/cart.js')}}"></script>
 
 </body>
 </html>

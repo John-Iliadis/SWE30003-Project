@@ -18,23 +18,8 @@ class CartController
     {
         $cart = session()->get('cart', []);
 
-        $cart_items = [];
-        $total = 0;
-
-        foreach ($cart as $key => $value)
-        {
-            $product = Product::find($key);
-
-            $subtotal = $product->price * $value;
-
-            $cart_items[] = [
-                'product' => $product,
-                'qty' => $value,
-                'subtotal' => $subtotal
-            ];
-
-            $total += $product->price;
-        }
+        $cart_items = $this->getCartItems($cart);
+        $total = $this->getCartTotal($cart_items);
 
         $data = [
             'cart_items' => $cart_items,
@@ -61,5 +46,52 @@ class CartController
         session()->put('cart', $cart);
 
         return $cart;
+    }
+
+    public function remove($product_id)
+    {
+        $cart = session()->get('cart', []);
+
+        // remove item
+        if (isset($cart[$product_id]))
+            unset($cart[$product_id]);
+
+        session()->put('cart', $cart);
+
+        // calculate the new total
+        $cart_items = $this->getCartItems($cart);
+        $total = $this->getCartTotal($cart_items);
+
+        return ['total' => $total];
+    }
+
+    private function getCartItems($cart)
+    {
+        $cart_items = [];
+
+        foreach ($cart as $key => $value)
+        {
+            $product = Product::find($key);
+            $subtotal = $product->price * $value;
+            $cart_items[] = [
+                'product' => $product,
+                'qty' => $value,
+                'subtotal' => $subtotal
+            ];
+        }
+
+        return $cart_items;
+    }
+
+    private function getCartTotal($cart_items)
+    {
+        $total = 0;
+
+        foreach ($cart_items as $cart_item)
+        {
+            $total += $cart_item['subtotal'];
+        }
+
+        return $total;
     }
 }
