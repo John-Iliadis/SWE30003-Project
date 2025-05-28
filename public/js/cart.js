@@ -40,4 +40,19 @@ document.addEventListener("DOMContentLoaded", function() {
                 });
         });
     });
+
+    document.getElementById('clear_cart_button').addEventListener('click', function () {
+        fetch(`/cart/clear`)
+        .then(() => {
+            document.querySelectorAll('.cart_listing').forEach(el => {
+                el.remove();
+            });
+
+            checkIfCartIsEmpty();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error occurred.');
+        })
+    });
 });

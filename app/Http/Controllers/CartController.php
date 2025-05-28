@@ -65,6 +65,11 @@ class CartController
         return ['total' => $total];
     }
 
+    public function clear()
+    {
+        session()->put('cart', []);
+    }
+
     private function getCartItems($cart)
     {
         $cart_items = [];

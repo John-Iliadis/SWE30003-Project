@@ -24,7 +24,7 @@
                 <span class="column_title" id="unit_price_column">Unit Price</span>
                 <span class="column_title" id="qty_column">Quantity</span>
                 <span class="column_title" id="total_column">Subtotal</span>
-                <span class="column_title" id="clear_column">Clear Cart</span>
+                <button class="column_title" id="clear_cart_button">Clear Cart</button>
             </div>
 
             @foreach($cart_items as $cart_item)
