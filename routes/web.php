@@ -29,6 +29,7 @@ Route::get('/cart', [CartController::class, 'cart']);
 Route::get('/cart/add/{product_id}/{qty}', [CartController::class, 'add']);
 Route::get('/cart/remove/{productId}', [CartController::class, 'remove']);
 Route::get('cart/clear', [CartController::class, 'clear']);
+Route::get('/cart/modify/{product_id}/{qty}', [CartController::class, 'modify']);
 
 Route::post('/login', [AccountController::class, 'login'])->name('login.post');
 Route::post('continue', function() {

@@ -34,7 +34,7 @@
                     $subtotal = $cart_item['subtotal'];
                 @endphp
 
-                <div class="cart_listing">
+                <div class="cart_listing" data-productid="{{$product['product_id']}}">
                     <div class="cart_img_container">
                         <img class="cart_listing_img" src="{{ asset($product['image_url']) }}" alt="{{ $product['name'] }}">
                     </div>
@@ -45,7 +45,7 @@
                         <span class="cart_listing_price">{{ '$' . (int) $product['price'] }}</span>
                     </div>
                     <div class="cart_qty_container">
-                        <label><input type="number" name="min_price" class="qty_num_input" value="{{ $qty }}"></label>
+                        <label><input type="number" name="min_price" class="qty_num_input" value="{{ $qty }}" min="1"></label>
                     </div>
                     <div class="cart_total_container">
                         <span class="cart_total_price">{{ '$' . $subtotal }}</span>
@@ -57,7 +57,7 @@
             @endforeach
 
             <div id="cart_bottom">
-                <p id="total_price">Total: {{ '$' . $total }}</p>
+                <p id="total_price">Total: {{ '$' . (int)$total }}</p>
                 <button id="checkout_button">Checkout</button>
             </div>
         @else

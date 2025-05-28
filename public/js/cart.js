@@ -1,6 +1,6 @@
 function updateTotalPrice(total)
 {
-    document.getElementById('total_price').textContent = 'Total: $' + total.toFixed(2);
+    document.getElementById('total_price').textContent = 'Total: $' + parseInt(total);
 }
 
 function checkIfCartIsEmpty()
@@ -54,5 +54,31 @@ document.addEventListener("DOMContentLoaded", function() {
             console.error('Error:', error);
             alert('Error occurred.');
         })
+    });
+
+    document.querySelectorAll('.qty_num_input').forEach(input => {
+        input.addEventListener('change', function () {
+            const productID = input.closest('.cart_listing')
+                .getAttribute('data-productid')
+                .valueOf();
+
+            const qty = input.value;
+
+            if (qty < 1 || isNaN(qty)) {
+                input.value = 1;
+                return;
+            }
+
+            fetch(`/cart/modify/${productID}/${qty}`)
+            .then(response => response.json())
+            .then(data => {
+                input.closest('.cart_listing').querySelector('.cart_total_price').innerText = '$' + data['subtotal'];
+                document.querySelector('#total_price').textContent = 'Total: $' + data['total'];
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error occurred.');
+            });
+        });
     });
 });

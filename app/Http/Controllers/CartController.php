@@ -70,6 +70,23 @@ class CartController
         session()->put('cart', []);
     }
 
+    public function modify($product_id, $quantity)
+    {
+        $product = Product::find($product_id);
+
+        $cart = session()->get('cart', []);
+        $cart[$product_id] = $quantity;
+        $subtotal = $cart[$product_id] * $product['price'];
+        $total = $this->getCartTotal($this->getCartItems($cart));
+
+        session()->put('cart', $cart);
+
+        return [
+            'subtotal' => $subtotal,
+            'total' => $total
+        ];
+    }
+
     private function getCartItems($cart)
     {
         $cart_items = [];
