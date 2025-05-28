@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function()  {
         fetch(`/cart/add/${productID}/${qty}`)
         .then(response => response.json())
         .then(json => {
-            alert(JSON.stringify(json));
+            alert(json['msg']);
         })
         .catch(error => {
             console.log(error);

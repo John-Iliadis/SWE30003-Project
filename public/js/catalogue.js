@@ -35,7 +35,7 @@ function addToCartListeners()
 
             fetch(`/cart/add/${productID}/${qty}`)
                 .then(response => response.json())
-                .then(data => {alert(JSON.stringify(data))})
+                .then(json => {alert(json['msg'])})
                 .catch(error => {console.log(error);});
         });
     });
