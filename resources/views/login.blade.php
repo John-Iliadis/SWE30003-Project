@@ -20,14 +20,19 @@
 
     @else
     <div class="auth-container">
+        @if ($errors->has('login'))
+        <div class="error-message">
+            <p style="color: red">{{ $errors->first('login') }}</p>
+        </div>
+    @endif
     <h2 class="login-header">Login</h2>
     <form method="POST" action="{{ route('login.post') }}">
         @csrf
         <div class="form-group">
-            <input type="email" name="email" placeholder="Email">
+            <input type="email" name="email" placeholder="Email" required>
         </div>
         <div class="form-group">
-            <input type="password" name="password" placeholder="Password">
+            <input type="password" name="password" placeholder="Password" required>
         </div>
         <button type="submit" class="login-button">Login</button>
     </form>

@@ -1,0 +1,150 @@
+@import 'global.css';
+
+.account-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.account-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.account-header h2 {
+    color: #2c3e50;
+}
+
+.heading-line {
+    height: 2px;
+    background: linear-gradient(to right, #4CAF50, #ddd);
+    margin-bottom: 1rem;
+    margin-top: 0.5rem;
+}
+
+.account-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.account-section {
+    padding: 1.5rem;
+}
+
+.section-title {
+    color: #2c3e50;
+    border-bottom: 2px solid #4CAF50;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.info-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+}
+
+.info-row:hover {
+    background: #f9f9f9;
+}
+
+.info-label {
+    font-weight: 600;
+    min-width: 150px;
+    color: #555;
+}
+
+.info-value {
+    flex-grow: 1;
+    margin: 0 1rem;
+}
+
+.edit-btn {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.edit-btn:hover {
+    background: #45a049;
+}
+
+.edit-input {
+    padding: 5px;
+    font-size: 14px;
+    margin-left: 10px;
+    width: 200px;
+}
+
+.save-btn {
+    margin-left: 10px;
+    font-size: 13px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.save-btn:hover {
+    background: #45a049;
+}
+
+.cancel-btn {
+    margin-left: 15px;
+    font-size: 13px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.cancel-btn:hover {
+    background: #45a049;
+}
+
+.logout-button {
+    background-color: #dc3545;
+    color: white;
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 1rem;
+}
+
+.logout-button:hover {
+    background-color: #c82333;
+}
+
+@media (max-width: 768px) {
+    .account-container {
+        padding: 1rem;
+    }
+    
+    .info-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .info-value {
+        margin: 0.5rem 0;
+    }
+    
+    .edit-btn {
+        align-self: flex-end;
+    }
+}
