@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Customer;
+use App\Models\User; // Add this line
 use App\Models\CreditCard;
 use Illuminate\Http\Request;
 use App\Models\CustomerDetails;
@@ -21,30 +21,45 @@ class AccountController
 
     public function show()
     {
-        $customer = Auth::user()->load(['details', 'creditCard']);
-        return view('account.show', compact('customer'));
+        // No change needed here if Auth::user() correctly returns your User model instance.
+        // If Intelephense still complains, you could add a check or PHPDoc, but it's usually fine.
+        $user = Auth::user();
+        if ($user) {
+            $customer = User::with(['details', 'creditCard'])->find($user->id);
+            return view('account.show', compact('customer'));
+        }
+        return redirect('/login'); // Or handle unauthenticated user appropriately
     }
 
     public function update(Request $request)
     {
-        $customer = auth()->user();
-        $request['password'] = bcrypt($request['password']);
-        $data = $request->all();
+        $user = Auth::user(); // Changed from auth()->user()
+        if (!$user) {
+            return response()->json(['success' => false, 'message' => 'Unauthenticated.'], 401);
+        }
+        // Ensure password is only updated if provided and not empty
+        if ($request->filled('password')) {
+            $request['password'] = bcrypt($request['password']);
+        } else {
+            // Remove password from data if not being updated
+            unset($request['password']);
+        }
+        $data = $request->except('password_confirmation'); // Assuming you might have password confirmation
 
         try {
-            $customer->update($data);
+            $user->update($data);
 
-            if ($customer->details) {
-                $customer->details->update($data);
+            if ($user->details) {
+                $user->details->update($data);
             }
 
-            if ($customer->creditCard) {
-                $customer->creditCard->update($data);
+            if ($user->creditCard) {
+                $user->creditCard->update($data);
             }
 
             return response()->json([
                 'success' => true,
-                'customer' => $customer->load('details', 'creditCard')
+                'customer' => $user->load('details', 'creditCard') // Or 'user' => $user->load(...) if you prefer consistency
             ]);
 
         } catch (\Exception $e) {
@@ -61,7 +76,7 @@ class AccountController
             'password' => 'required'
         ]);
 
-        if (auth()->attempt(['email' => $incomingFields['email'], 'password' => $incomingFields['password']])){
+        if (Auth::attempt(['email' => $incomingFields['email'], 'password' => $incomingFields['password']])){ // Changed from auth()->attempt()
             $request->session()->regenerate();
             return redirect('/account');
         }
@@ -75,7 +90,8 @@ class AccountController
         $incomingFields = $request->validate([
             // Personal Information
             'name' => ['required', 'string', 'max:50'],
-            'email' => ['required', 'string', 'email', 'max:50', Rule::unique('customers', 'email')],
+            // Ensure email validation checks the 'users' table
+            'email' => ['required', 'string', 'email', 'max:50', Rule::unique('users', 'email')],
             'password' => ['required', 'string', 'min:8', 'max:20'],
             'phone_number' => ['required', 'string', 'regex:/^[0-9\s]{8,12}$/'],
             
@@ -93,14 +109,24 @@ class AccountController
             'card_cvv' => ['required', 'regex:/^[0-9\s]{3,4}$/']
         ]);
         
-        $incomingFields['password'] = bcrypt($incomingFields['password']);
+        // Password is already hashed in User model's mutator if you set it up like that,
+        // but explicit hashing here is also fine.
+        // $incomingFields['password'] = bcrypt($incomingFields['password']);
         $expire = explode("-", $incomingFields['card_expire']);
 
         DB::beginTransaction();
         try {
-            $details = CustomerDetails::create([
+            // Create the User first
+            $user = User::create([
                 'name' => $incomingFields['name'],
                 'email' => $incomingFields['email'],
+                'password' => $incomingFields['password'], // User model should handle hashing
+            ]);
+    
+            // Create CustomerDetails and associate with the User
+            $details = new CustomerDetails([
+                'name' => $incomingFields['name'],
+                'email' => $incomingFields['email'], // Or $user->email
                 'phone_number' => $incomingFields['phone_number'],
                 'address' => $incomingFields['address'],
                 'city' => $incomingFields['city'],
@@ -108,27 +134,25 @@ class AccountController
                 'state' => $incomingFields['state'],
                 'country' => $incomingFields['country'],
             ]);
+            $user->details()->save($details);
     
-            $card = CreditCard::create([
+            // Create CreditCard and associate with the User
+            $card = new CreditCard([
                 'cardholder_name' => $incomingFields['card_holder'],
                 'card_number' => $incomingFields['card_number'],
                 'expiration_month' => $expire[1],
                 'expiration_year' => $expire[0],
             ]);
-    
-            $customer = Customer::create([
-                'name' => $incomingFields['name'],
-                'email' => $incomingFields['email'],
-                'password' => $incomingFields['password'],
-                'customer_details_id' => $details->customer_details_id,
-                'card_id' => $card->card_id,
-            ]);
+            $user->creditCard()->save($card);
+            
             DB::commit();
-            auth()->login($customer);
+            Auth::login($user); // Changed from auth()->login()
             return redirect('/account')->with('success', 'Registration successful!');
         } catch (\Exception $e) {
             DB::rollBack();
-            return back()->with('error', 'Registration failed: '.$e->getMessage());
+            // It's good to log the actual error for debugging
+            // Log::error('Registration failed: ' . $e->getMessage());
+            return back()->with('error', 'Registration failed. Please try again. Error: '.$e->getMessage()); // Added $e->getMessage() for more info
         }
     }
 }
