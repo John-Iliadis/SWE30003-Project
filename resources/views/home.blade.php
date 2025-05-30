@@ -19,7 +19,7 @@
 
     <main>
         <h1 id="welcome_header">Welcome to AWE Electronics</h1>
-        <a href="/catalogue" id="enter_store">Enter Store</a>
+        <a href="/catalogue"><button id="enter_store_button">Enter Store</button> </a>
     </main>
 
     @include('footer')

@@ -22,6 +22,14 @@ class Customer extends Model implements Authenticatable, CanResetPassword
         'card_id'
     ];
 
+    public function details() {
+        return $this->belongsTo(CustomerDetails::class, 'customer_details_id');
+    }
+
+    public function creditCard() {
+        return $this->belongsTo(CreditCard::class, 'card_id');
+    }
+
     // Required for CanResetPassword
     public function getEmailForPasswordReset()
     {

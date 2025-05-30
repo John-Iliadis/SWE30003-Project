@@ -14,11 +14,17 @@
 
     @auth
 
+    <script>
+        window.location.href = "/account";
+    </script>
+
     @else
-
-    @endauth
-
     <div class="auth-container">
+        @if ($errors->has('login'))
+        <div class="error-message">
+            <p style="color: red">{{ $errors->first('login') }}</p>
+        </div>
+    @endif
     <h2 class="login-header">Login</h2>
     <form method="POST" action="{{ route('login.post') }}">
         @csrf
@@ -34,6 +40,8 @@
         <p>Don't have an account? <a href="/register">Register here</a></p>
     </div>
     </div>
+
+    @endauth
     
     @include('footer')
 </body>

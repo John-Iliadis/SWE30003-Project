@@ -15,4 +15,8 @@ class CreditCard extends Model
         'expiration_month',
         'expiration_year',
     ];
+
+    public function customer() {
+        return $this->hasOne(Customer::class, 'card_id');
+    }
 }

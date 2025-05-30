@@ -45,7 +45,11 @@ class CartController
 
         session()->put('cart', $cart);
 
-        return $cart;
+        $product = Product::find($product_id);
+
+        $msg = "Added " . $quantity . "x " . $product['brand'] . " " . $product['name'] ." to the cart.";
+
+        return ['msg' => $msg];
     }
 
     public function remove($product_id)

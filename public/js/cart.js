@@ -20,6 +20,14 @@ function checkIfCartIsEmpty()
 }
 
 document.addEventListener("DOMContentLoaded", function() {
+    // Add event listener for checkout button
+    const checkoutButton = document.getElementById('checkout_button');
+    if (checkoutButton) {
+        checkoutButton.addEventListener('click', function() {
+            window.location.href = '/payment';
+        });
+    }
+
     const removeButtons = document.querySelectorAll('.remove_item');
 
     removeButtons.forEach(button => {
@@ -62,11 +70,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 .getAttribute('data-productid')
                 .valueOf();
 
-            const qty = input.value;
+            let qty = input.value;
 
-            if (qty < 1 || isNaN(qty)) {
+            if (qty < 1 || isNaN(qty))
+            {
                 input.value = 1;
-                return;
+                qty = 1;
             }
 
             fetch(`/cart/modify/${productID}/${qty}`)

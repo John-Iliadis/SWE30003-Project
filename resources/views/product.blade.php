@@ -29,14 +29,16 @@
 
         <div class="product_item_right">
             <h1>{{$product['price']}}</h1>
-            <label><input type="number" name="quantity" value="1"></label>
-            <button>Add to cart</button>
+            <label><input type="number" id="qty" data-productid="{{$product['product_id']}}" name="quantity" value="1" min="1"></label>
+            <button id="add_to_cart_button">Add to cart</button>
         </div>
     </main>
 
     <div id="spacing_bottom" style="height: 80px"></div>
 
     @include('footer')
+
+    <script src="{{asset('js/product.js')}}"></script>
 
 </body>
 </html>
