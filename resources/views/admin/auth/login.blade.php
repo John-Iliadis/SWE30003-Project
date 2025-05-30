@@ -37,7 +37,7 @@
         <button type="submit" class="login-button">Login</button>
     </form>
     <div class="login_links">
-        <p>Don't have an account? <a href="{{ route('admin.register') }}">Register here</a></p>
+        <p class="mt-3">Don't have an admin account? <a href="{{ route('admin.register') }}">Register here</a></p>
     </div>
     </div>
 
