@@ -5,7 +5,7 @@ use App\Http\Controllers\Admin\AuthController as AdminAuthController; // Good, t
 use App\Http\Controllers\CommerceController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AccountController;
-use App\Http\Controllers\ProductController;
+// ProductController is already imported as Admin\ProductController below
 use App\Http\Controllers\TransactionController;
 
 Route::get('/', function () { return view('home'); });
@@ -48,7 +48,7 @@ Route::post('/process-payment', [TransactionController::class, 'processPayment']
 Route::get('/confirmation/{order_id}', [TransactionController::class, 'confirmation'])->name('transaction.confirmation');
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
-    Route::resource('products', ProductController::class)
+    Route::resource('products', \App\Http\Controllers\Admin\ProductController::class)
         ->names([
             'index' => 'admin.products.index',
             'create' => 'admin.products.create',
@@ -59,15 +59,22 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
         ]);
 });
 
-// Admin Authentication Routes
-// Comment out or delete these admin-specific routes
-// Route::prefix('admin')->name('admin.')->group(function () {
-//     Route::get('/register', [App\Http\Controllers\Admin\AuthController::class, 'showRegistrationForm'])->name('register');
-//     Route::post('/register', [App\Http\Controllers\Admin\AuthController::class, 'register']);
-//     Route::get('/login', [App\Http\Controllers\Admin\AuthController::class, 'showLoginForm'])->name('login');
-//     Route::post('/login', [App\Http\Controllers\Admin\AuthController::class, 'login']);
-//     Route::post('/logout', [App\Http\Controllers\Admin\AuthController::class, 'logout'])->name('logout');
-//     Route::get('/dashboard', function () {
-//         return view('admin.dashboard'); 
-//     })->middleware('auth.admin')->name('dashboard');
-// });
+use App\Http\Controllers\Admin\ProductController; 
+
+// Admin Routes
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard'); // We'll create this view soon
+    })->name('dashboard');
+
+    // Product Catalogue Management Routes
+    Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+    Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
+    Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+    Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
+    Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
+    Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+    
+    // You can add routes for category management here later
+    // Route::resource('categories', AdminCategoryController::class);
+});
