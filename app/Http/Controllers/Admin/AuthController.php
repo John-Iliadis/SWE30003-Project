@@ -39,7 +39,7 @@ class AuthController extends Controller
      */
     public function showRegistrationForm()
     {
-        return view('admin.auth.register'); // We'll create this view next
+        return view('admin.auth.register'); // This should point to resources/views/admin/auth/register.blade.php
     }
 
     /**
