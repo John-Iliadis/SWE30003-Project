@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User; // Add this line
+use App\Models\User; // Ensure this line is present
 use App\Models\CreditCard;
 use Illuminate\Http\Request;
 use App\Models\CustomerDetails;
@@ -33,7 +33,9 @@ class AccountController
 
     public function update(Request $request)
     {
-        $user = Auth::user(); // Changed from auth()->user()
+        /** @var \App\Models\User|null $user */
+        $user = Auth::user(); 
+
         if (!$user) {
             return response()->json(['success' => false, 'message' => 'Unauthenticated.'], 401);
         }
@@ -44,10 +46,10 @@ class AccountController
             // Remove password from data if not being updated
             unset($request['password']);
         }
-        $data = $request->except('password_confirmation'); // Assuming you might have password confirmation
+        $data = $request->except('password_confirmation');
 
         try {
-            $user->update($data);
+            $user->update($data); // Intelephense should now recognize $user as User model
 
             if ($user->details) {
                 $user->details->update($data);
@@ -59,7 +61,7 @@ class AccountController
 
             return response()->json([
                 'success' => true,
-                'customer' => $user->load('details', 'creditCard') // Or 'user' => $user->load(...) if you prefer consistency
+                'customer' => $user->load('details', 'creditCard') // And here for load()
             ]);
 
         } catch (\Exception $e) {
