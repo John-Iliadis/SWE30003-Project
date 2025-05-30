@@ -61,12 +61,13 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
 
 // Admin Authentication Routes
 Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/admin/register', [AdminAuthController::class, 'showRegistrationForm'])->name('admin.register');
-    Route::post('/admin/register', [AdminAuthController::class, 'register'])->name('admin.register.post');
+    // Admin Registration Routes - URLs will be /admin/register
+    Route::get('/register', [AdminAuthController::class, 'showRegistrationForm'])->name('register');
+    Route::post('/register', [AdminAuthController::class, 'register'])->name('register.post');
 
-    // Admin Login Routes
+    // Admin Login Routes - URLs will be /admin/login
     Route::get('/login', [AdminAuthController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [AdminAuthController::class, 'login'])->name('login.post'); // Ensure this name matches your form action
+    Route::post('/login', [AdminAuthController::class, 'login'])->name('login.post'); 
     Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');
 
     // We'll add dashboard routes here later (protected by middleware)
