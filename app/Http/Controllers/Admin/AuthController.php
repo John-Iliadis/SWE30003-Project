@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\AdminDetail; // Import the AdminDetail model
+use App\Models\AdminDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator; // For input validation
-use Illuminate\Foundation\Auth\RegistersUsers; // Optional: for traits if you want to use them
 
-class AuthController extends \App\Http\Controllers\Admin\AuthController
+class AuthController extends Controller
 {
     // Optional: If you want to use built-in registration traits (less flexible for custom guards initially)
     // use RegistersUsers;
