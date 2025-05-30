@@ -68,7 +68,7 @@ return [
         'users' => [
             'driver' => 'eloquent',
             // Ensure this points to your primary user model (e.g., App\Models\Customer::class or App\Models\User::class)
-            'model' => \App\Models\Customer::class, 
+            'model' => App\Models\User::class, 
         ],
         // Remove this section
         // 'admins' => [ 
