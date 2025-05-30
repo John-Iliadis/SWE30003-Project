@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\AuthController; // Make sure to import the controller
+use App\Http\Controllers\Admin\AuthController as AdminAuthController; // Make sure to import the controller
 use App\Http\Controllers\CommerceController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AccountController;
@@ -61,13 +61,13 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
 
 // Admin Authentication Routes
 Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
-    Route::post('/register', [AuthController::class, 'register']);
+    Route::get('/admin/register', [AdminAuthController::class, 'showRegistrationForm'])->name('admin.register');
+    Route::post('/admin/register', [AdminAuthController::class, 'register'])->name('admin.register.post');
 
     // Admin Login Routes
-    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [AuthController::class, 'login'])->name('login.post'); // Ensure this name matches your form action
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/login', [AdminAuthController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [AdminAuthController::class, 'login'])->name('login.post'); // Ensure this name matches your form action
+    Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');
 
     // We'll add dashboard routes here later (protected by middleware)
     // Route::middleware('auth:admin')->group(function () {
