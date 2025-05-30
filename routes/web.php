@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AuthController; // Make sure to import the controller
 use App\Http\Controllers\CommerceController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AccountController;
@@ -56,4 +57,20 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
             'update' => 'admin.products.update',
             'destroy' => 'admin.products.destroy'
         ]);
+});
+
+// Admin Authentication Routes
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
+    Route::post('/register', [AuthController::class, 'register']);
+
+    // We'll add login routes here later
+    // Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+    // Route::post('/login', [AuthController::class, 'login']);
+    // Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    // We'll add dashboard routes here later (protected by middleware)
+    // Route::middleware('auth:admin')->group(function () {
+    //     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    // });
 });
