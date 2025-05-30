@@ -20,6 +20,14 @@ function checkIfCartIsEmpty()
 }
 
 document.addEventListener("DOMContentLoaded", function() {
+    // Add event listener for checkout button
+    const checkoutButton = document.getElementById('checkout_button');
+    if (checkoutButton) {
+        checkoutButton.addEventListener('click', function() {
+            window.location.href = '/payment';
+        });
+    }
+
     const removeButtons = document.querySelectorAll('.remove_item');
 
     removeButtons.forEach(button => {
