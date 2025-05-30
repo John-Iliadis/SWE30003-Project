@@ -47,4 +47,10 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\AuthenticateAdmin::class, // You might need to create this middleware if you want a custom redirect for unauthenticated admins
         // For now, using 'auth:admin' directly in routes.php is simpler
     ];
+    protected $routeMiddleware = [
+        // ... other middleware
+        // Remove this line
+        // 'auth.admin' => \App\Http\Middleware\AuthenticateAdmin::class,
+        // ... other middleware
+    ];
 }
