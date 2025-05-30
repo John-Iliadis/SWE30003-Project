@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\AuthController as AdminAuthController; // Make sure to import the controller
+use App\Http\Controllers\Admin\AuthController as AdminAuthController; // Good, this is imported
 use App\Http\Controllers\CommerceController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AccountController;
@@ -63,15 +63,23 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
 Route::prefix('admin')->name('admin.')->group(function () {
     // Admin Registration Routes - URLs will be /admin/register
     Route::get('/register', [AdminAuthController::class, 'showRegistrationForm'])->name('register');
-    Route::post('/register', [AdminAuthController::class, 'register'])->name('register.post');
+    Route::post('/register', [AdminAuthController::class, 'register'])->name('register.post'); // This was already correct
 
     // Admin Login Routes - URLs will be /admin/login
     Route::get('/login', [AdminAuthController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [AdminAuthController::class, 'login'])->name('login.post'); 
-    Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');
+    Route::post('/login', [AdminAuthController::class, 'login'])->name('login.post'); // This was already correct
+    
+    // Admin Logout Route - URL will be /admin/logout
+    Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout'); // This was already correct
 
-    // We'll add dashboard routes here later (protected by middleware)
-    // Route::middleware('auth:admin')->group(function () {
-    //     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    // });
+    // Protected Admin Routes (Example: Dashboard)
+    // You'll need to create a DashboardController or similar for this
+    // And ensure the 'auth:admin' middleware is correctly configured
+    Route::middleware(['auth:admin'])->group(function () { // Add 'auth:admin' middleware here
+        // Example: Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+        // For now, let's add a simple test route for the dashboard
+        Route::get('/dashboard', function() {
+            return "Admin Dashboard - Welcome " . auth()->guard('admin')->user()->name;
+        })->name('dashboard');
+    });
 });
