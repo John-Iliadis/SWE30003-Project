@@ -60,26 +60,14 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
 });
 
 // Admin Authentication Routes
-Route::prefix('admin')->name('admin.')->group(function () {
-    // Admin Registration Routes - URLs will be /admin/register
-    Route::get('/register', [AdminAuthController::class, 'showRegistrationForm'])->name('register');
-    Route::post('/register', [AdminAuthController::class, 'register'])->name('register.post'); // This was already correct
-
-    // Admin Login Routes - URLs will be /admin/login
-    Route::get('/login', [AdminAuthController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [AdminAuthController::class, 'login'])->name('login.post'); // This was already correct
-    
-    // Admin Logout Route - URL will be /admin/logout
-    Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout'); // This was already correct
-
-    // Protected Admin Routes (Example: Dashboard)
-    // You'll need to create a DashboardController or similar for this
-    // And ensure the 'auth:admin' middleware is correctly configured
-    Route::middleware(['auth:admin'])->group(function () { // Add 'auth:admin' middleware here
-        // Example: Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
-        // For now, let's add a simple test route for the dashboard
-        Route::get('/dashboard', function() {
-            return "Admin Dashboard - Welcome " . auth()->guard('admin')->user()->name;
-        })->name('dashboard');
-    });
-});
+// Comment out or delete these admin-specific routes
+// Route::prefix('admin')->name('admin.')->group(function () {
+//     Route::get('/register', [App\Http\Controllers\Admin\AuthController::class, 'showRegistrationForm'])->name('register');
+//     Route::post('/register', [App\Http\Controllers\Admin\AuthController::class, 'register']);
+//     Route::get('/login', [App\Http\Controllers\Admin\AuthController::class, 'showLoginForm'])->name('login');
+//     Route::post('/login', [App\Http\Controllers\Admin\AuthController::class, 'login']);
+//     Route::post('/logout', [App\Http\Controllers\Admin\AuthController::class, 'logout'])->name('logout');
+//     Route::get('/dashboard', function () {
+//         return view('admin.dashboard'); 
+//     })->middleware('auth.admin')->name('dashboard');
+// });
