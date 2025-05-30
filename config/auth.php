@@ -40,10 +40,9 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-
-        'admin' => [ // New admin guard
+        'admin' => [ // This is your admin guard
             'driver' => 'session',
-            'provider' => 'admins',
+            'provider' => 'admins', // This should match a provider below
         ],
     ],
 
@@ -67,18 +66,12 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Customer::class,
+            'model' => \App\Models\User::class, // Or your default User model
         ],
-
-        'admins' => [ // New admins provider
+        'admins' => [ // Provider for the admin guard
             'driver' => 'eloquent',
-            'model' => App\Models\AdminDetail::class,
+            'model' => App\Models\AdminDetail::class, // Your Admin model
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
 
     /*
