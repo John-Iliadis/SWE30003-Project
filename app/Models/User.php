@@ -6,6 +6,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\CustomerDetails; 
+use App\Models\CreditCard;    
 
 class User extends Authenticatable
 {
@@ -45,5 +47,21 @@ class User extends Authenticatable
             'password' => 'hashed',
             'is_admin' => 'boolean',
         ];
+    }
+
+    /**
+     * Get the customer details associated with the user.
+     */
+    public function details()
+    {
+        return $this->hasOne(CustomerDetails::class); // Assuming 'user_id' in 'customer_details' table
+    }
+
+    /**
+     * Get the credit card associated with the user.
+     */
+    public function creditCard()
+    {
+        return $this->hasOne(CreditCard::class); // Assuming 'user_id' in 'credit_cards' table
     }
 }
