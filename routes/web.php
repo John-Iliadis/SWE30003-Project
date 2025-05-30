@@ -64,10 +64,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
     Route::post('/register', [AuthController::class, 'register']);
 
-    // We'll add login routes here later
-    // Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-    // Route::post('/login', [AuthController::class, 'login']);
-    // Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    // Admin Login Routes
+    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [AuthController::class, 'login'])->name('login.post'); // Ensure this name matches your form action
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     // We'll add dashboard routes here later (protected by middleware)
     // Route::middleware('auth:admin')->group(function () {
