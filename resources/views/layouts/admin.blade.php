@@ -4,17 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - @yield('title')</title>
-    <link rel="stylesheet" href="{{ asset('css/global.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
-    <!-- Bootstrap CSS -->
+    <!-- Bootstrap CSS first to establish base styles -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Then custom styles to override as needed -->
+    <link rel="stylesheet" href="{{ asset('css/global.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/header.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
 </head>
 <body>
     @include('header')
     
-    <div class="admin-container container mt-4">
-        @yield('content')
-    </div>
+    <main class="py-4">
+        <div class="admin-container container">
+            @yield('content')
+        </div>
+    </main>
 
     @include('footer')
     

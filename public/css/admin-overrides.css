@@ -1,0 +1,25 @@
+/* Fixes for header in admin context */
+#header_nav {
+    z-index: 1000; /* Ensure header nav appears above other elements */
+}
+
+/* Ensure proper spacing between header and admin content */
+main.py-4 {
+    padding-top: 2rem !important;
+}
+
+/* Fix for footer in admin pages */
+footer {
+    margin-top: auto;
+}
+
+/* Fix for Bootstrap table responsiveness */
+.table-responsive {
+    overflow-x: auto;
+}
+
+/* Fix for image display in tables */
+.admin-table img {
+    max-width: 100%;
+    height: auto;
+}
