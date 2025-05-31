@@ -72,6 +72,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // Route::resource('categories', AdminCategoryController::class);
 });
 
+
+
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::resource('products', ProductController::class)
         ->names([
