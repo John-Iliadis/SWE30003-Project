@@ -42,43 +42,11 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
             'category_name' => 'required|exists:categories,category_name',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image_url' => 'required|string|max:255',  // Make image_url required
         ]);
         
-        $data = $request->except('image');
-        
-        // Handle image upload with detailed error logging
-        if ($request->hasFile('image')) {
-            try {
-                $image = $request->file('image');
-                
-                // Log file information
-                Log::info('Uploading image: ' . $image->getClientOriginalName());
-                Log::info('Image is valid: ' . ($image->isValid() ? 'Yes' : 'No'));
-                
-                if ($image->isValid()) {
-                    $imageName = time() . '.' . $image->getClientOriginalExtension();
-                    $targetPath = public_path('img/products');
-                    
-                    // Log directory information
-                    Log::info('Target directory: ' . $targetPath);
-                    Log::info('Directory exists: ' . (file_exists($targetPath) ? 'Yes' : 'No'));
-                    Log::info('Directory is writable: ' . (is_writable($targetPath) ? 'Yes' : 'No'));
-                    
-                    $image->move($targetPath, $imageName);
-                    $data['image_url'] = 'img/products/' . $imageName;
-                    
-                    Log::info('Image uploaded successfully to: ' . $data['image_url']);
-                }
-            } catch (\Exception $e) {
-                Log::error('Image upload failed: ' . $e->getMessage());
-                return redirect()->back()->with('error', 'Image upload failed: ' . $e->getMessage());
-            }
-        } else {
-            Log::info('No image file provided in the request');
-        }
-        
-        Product::create($data);
+        // Create the product with all data including image_url
+        Product::create($request->all());
     
         return redirect()->route('admin.products.index')
                          ->with('success', 'Product created successfully.');
@@ -114,49 +82,11 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
             'category_name' => 'required|exists:categories,category_name',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image_url' => 'required|string|max:255',  // Make image_url required
         ]);
     
-        $data = $request->except('image');
-        
-        // Handle image upload with detailed error logging
-        if ($request->hasFile('image')) {
-            try {
-                $image = $request->file('image');
-                
-                // Log file information
-                Log::info('Updating image: ' . $image->getClientOriginalName());
-                Log::info('Image is valid: ' . ($image->isValid() ? 'Yes' : 'No'));
-                
-                if ($image->isValid()) {
-                    // Delete old image if it exists
-                    if ($product->image_url && file_exists(public_path($product->image_url))) {
-                        Log::info('Deleting old image: ' . $product->image_url);
-                        unlink(public_path($product->image_url));
-                    }
-                    
-                    $imageName = time() . '.' . $image->getClientOriginalExtension();
-                    $targetPath = public_path('img/products');
-                    
-                    // Log directory information
-                    Log::info('Target directory: ' . $targetPath);
-                    Log::info('Directory exists: ' . (file_exists($targetPath) ? 'Yes' : 'No'));
-                    Log::info('Directory is writable: ' . (is_writable($targetPath) ? 'Yes' : 'No'));
-                    
-                    $image->move($targetPath, $imageName);
-                    $data['image_url'] = 'img/products/' . $imageName;
-                    
-                    Log::info('Image updated successfully to: ' . $data['image_url']);
-                }
-            } catch (\Exception $e) {
-                Log::error('Image update failed: ' . $e->getMessage());
-                return redirect()->back()->with('error', 'Image update failed: ' . $e->getMessage());
-            }
-        } else {
-            Log::info('No new image file provided in the update request');
-        }
-        
-        $product->update($data);
+        // Update the product with all data including image_url
+        $product->update($request->all());
     
         return redirect()->route('admin.products.index')
                          ->with('success', 'Product updated successfully.');
