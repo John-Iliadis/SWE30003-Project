@@ -32,18 +32,19 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        // Basic validation (we'll enhance this later)
+        // Validation based on your Product model fields
         $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'required|string',
+            'brand' => 'required|string|max:255',
+            'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
-            'stock_quantity' => 'required|integer|min:0',
-            'category_id' => 'required|exists:categories,id',
-            // 'image_url' => 'nullable|url', // Or handle file uploads
+            'stock' => 'required|integer|min:0',
+            'category_name' => 'required|exists:categories,category_name',
+            'image_url' => 'nullable|string|max:255',
         ]);
-
+    
         Product::create($request->all());
-
+    
         return redirect()->route('admin.products.index')
                          ->with('success', 'Product created successfully.');
     }
@@ -73,15 +74,16 @@ class ProductController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'required|string',
+            'brand' => 'required|string|max:255',
+            'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
-            'stock_quantity' => 'required|integer|min:0',
-            'category_id' => 'required|exists:categories,id',
-            // 'image_url' => 'nullable|url',
+            'stock' => 'required|integer|min:0',
+            'category_name' => 'required|exists:categories,category_name',
+            'image_url' => 'nullable|string|max:255',
         ]);
-
+    
         $product->update($request->all());
-
+    
         return redirect()->route('admin.products.index')
                          ->with('success', 'Product updated successfully.');
     }
