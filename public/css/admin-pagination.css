@@ -1,29 +1,41 @@
-/* Hide all pagination items except first and last (prev/next buttons) */
-.pagination .page-item:not(:first-child):not(:last-child) {
+/* Target all pagination items */
+.pagination li:not(:first-child):not(:last-child) {
     display: none !important;
+    visibility: hidden !important;
+    width: 0 !important;
+    height: 0 !important;
+    opacity: 0 !important;
+    position: absolute !important;
+    pointer-events: none !important;
 }
 
-/* Only show Previous and Next buttons */
-.pagination .page-item:first-child,
-.pagination .page-item:last-child {
+/* Ensure only Previous and Next buttons are visible */
+.pagination li:first-child,
+.pagination li:last-child {
     display: block !important;
 }
 
-/* Hide the arrow icons completely */
-.pagination .page-link span[aria-hidden="true"] {
+/* Hide all arrow icons and symbols */
+.pagination .page-link span,
+.pagination .page-link svg,
+.pagination .page-link [aria-hidden="true"] {
     display: none !important;
 }
 
 /* Style the Previous/Next text */
 .pagination .page-link {
-    border: none;
-    background: none;
-    color: #007bff;
-    font-weight: bold;
+    border: none !important;
+    background: none !important;
+    color: #007bff !important;
+    font-weight: bold !important;
+    padding: 10px 15px !important;
 }
 
 /* Add spacing between pagination elements */
 .pagination {
-    justify-content: center;
-    margin-top: 20px;
+    justify-content: space-between !important;
+    margin-top: 20px !important;
+    width: 200px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
 }
