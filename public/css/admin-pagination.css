@@ -1,5 +1,6 @@
 /* Target all pagination items */
-.pagination li:not(:first-child):not(:last-child) {
+.pagination span[aria-current="page"],
+.pagination a[aria-label^="Go to page"] {
     display: none !important;
     visibility: hidden !important;
     width: 0 !important;
@@ -10,20 +11,20 @@
 }
 
 /* Ensure only Previous and Next buttons are visible */
-.pagination li:first-child,
-.pagination li:last-child {
+.pagination span[aria-label="&laquo; Previous"],
+.pagination a[aria-label="Next &raquo;"] {
     display: block !important;
 }
 
 /* Hide all arrow icons and symbols */
-.pagination .page-link span,
-.pagination .page-link svg,
-.pagination .page-link [aria-hidden="true"] {
+.pagination svg,
+.pagination path {
     display: none !important;
 }
 
 /* Style the Previous/Next text */
-.pagination .page-link {
+.pagination span[aria-disabled="true"],
+.pagination a[rel="next"] {
     border: none !important;
     background: none !important;
     color: #007bff !important;
