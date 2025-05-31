@@ -47,34 +47,26 @@ Route::get('/payment', [TransactionController::class, 'payment'])->name('transac
 Route::post('/process-payment', [TransactionController::class, 'processPayment'])->name('transaction.process');
 Route::get('/confirmation/{order_id}', [TransactionController::class, 'confirmation'])->name('transaction.confirmation');
 
-Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
-    Route::resource('products', \App\Http\Controllers\Admin\ProductController::class)
-        ->names([
-            'index' => 'admin.products.index',
-            'create' => 'admin.products.create',
-            'store' => 'admin.products.store',
-            'edit' => 'admin.products.edit',
-            'update' => 'admin.products.update',
-            'destroy' => 'admin.products.destroy'
-        ]);
-});
-
-use App\Http\Controllers\Admin\ProductController; 
-
-// Admin Routes
-Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+// UPDATED Admin Routes: Middleware removed
+Route::prefix('admin')->name('admin.')->group(function () { 
     Route::get('/dashboard', function () {
-        return view('admin.dashboard'); // We'll create this view soon
+        // Redirect to products index, or show a dashboard view
+        return redirect()->route('admin.products.index'); 
     })->name('dashboard');
 
-    // Product Catalogue Management Routes
-    Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-    Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
-    Route::post('/products', [ProductController::class, 'store'])->name('products.store');
-    Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
-    Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
-    Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+    // Product Catalogue Management Routes using Route::resource
+    Route::resource('products', \App\Http\Controllers\Admin\ProductController::class)
+        ->names([
+            'index' => 'products.index', 
+            'create' => 'products.create',
+            'store' => 'products.store',
+            'show' => 'products.show',
+            'edit' => 'products.edit',
+            'update' => 'products.update',
+            'destroy' => 'products.destroy'
+        ]);
     
     // You can add routes for category management here later
     // Route::resource('categories', AdminCategoryController::class);
 });
+
