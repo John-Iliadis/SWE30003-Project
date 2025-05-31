@@ -49,7 +49,7 @@ Route::get('/payment', [TransactionController::class, 'payment'])->name('transac
 Route::post('/process-payment', [TransactionController::class, 'processPayment'])->name('transaction.process');
 Route::get('/confirmation/{order_id}', [TransactionController::class, 'confirmation'])->name('transaction.confirmation');
 
-// UPDATED Admin Routes: Middleware removed
+// UPDATED Admin Routes: Remove authentication for direct access
 Route::prefix('admin')->name('admin.')->group(function () { 
     Route::get('/dashboard', function () {
         // Redirect to products index, or show a dashboard view
@@ -57,44 +57,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
     })->name('dashboard');
 
     // Product Catalogue Management Routes using Route::resource
-    Route::resource('products', \App\Http\Controllers\Admin\ProductController::class)
-        ->names([
-            'index' => 'products.index', 
-            'create' => 'products.create',
-            'store' => 'products.store',
-            'show' => 'products.show',
-            'edit' => 'products.edit',
-            'update' => 'products.update',
-            'destroy' => 'products.destroy'
-        ]);
+    Route::resource('products', \App\Http\Controllers\Admin\ProductController::class);
     
     // You can add routes for category management here later
     // Route::resource('categories', AdminCategoryController::class);
 });
 
-
-
-Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
-    Route::resource('products', ProductController::class)
-        ->names([
-            'index' => 'admin.products.index',
-            'create' => 'admin.products.create',
-            'store' => 'admin.products.store',
-            'edit' => 'admin.products.edit',
-            'update' => 'admin.products.update',
-            'destroy' => 'admin.products.destroy'
-        ]);
-});
-
-// Admin Authentication Routes
-// Comment out or delete these admin-specific routes
-// Route::prefix('admin')->name('admin.')->group(function () {
-//     Route::get('/register', [App\Http\Controllers\Admin\AuthController::class, 'showRegistrationForm'])->name('register');
-//     Route::post('/register', [App\Http\Controllers\Admin\AuthController::class, 'register']);
-//     Route::get('/login', [App\Http\Controllers\Admin\AuthController::class, 'showLoginForm'])->name('login');
-//     Route::post('/login', [App\Http\Controllers\Admin\AuthController::class, 'login']);
-//     Route::post('/logout', [App\Http\Controllers\Admin\AuthController::class, 'logout'])->name('logout');
-//     Route::get('/dashboard', function () {
-//         return view('admin.dashboard');
-//     })->middleware('auth.admin')->name('dashboard');
-// });
