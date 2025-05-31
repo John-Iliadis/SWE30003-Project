@@ -119,17 +119,41 @@ class ProductController extends Controller
     
         $data = $request->except('image');
         
-        // Handle image upload
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            // Delete old image if it exists
-            if ($product->image_url && file_exists(public_path($product->image_url))) {
-                unlink(public_path($product->image_url));
+        // Handle image upload with detailed error logging
+        if ($request->hasFile('image')) {
+            try {
+                $image = $request->file('image');
+                
+                // Log file information
+                Log::info('Updating image: ' . $image->getClientOriginalName());
+                Log::info('Image is valid: ' . ($image->isValid() ? 'Yes' : 'No'));
+                
+                if ($image->isValid()) {
+                    // Delete old image if it exists
+                    if ($product->image_url && file_exists(public_path($product->image_url))) {
+                        Log::info('Deleting old image: ' . $product->image_url);
+                        unlink(public_path($product->image_url));
+                    }
+                    
+                    $imageName = time() . '.' . $image->getClientOriginalExtension();
+                    $targetPath = public_path('img/products');
+                    
+                    // Log directory information
+                    Log::info('Target directory: ' . $targetPath);
+                    Log::info('Directory exists: ' . (file_exists($targetPath) ? 'Yes' : 'No'));
+                    Log::info('Directory is writable: ' . (is_writable($targetPath) ? 'Yes' : 'No'));
+                    
+                    $image->move($targetPath, $imageName);
+                    $data['image_url'] = 'img/products/' . $imageName;
+                    
+                    Log::info('Image updated successfully to: ' . $data['image_url']);
+                }
+            } catch (\Exception $e) {
+                Log::error('Image update failed: ' . $e->getMessage());
+                return redirect()->back()->with('error', 'Image update failed: ' . $e->getMessage());
             }
-            
-            $image = $request->file('image');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('img/products'), $imageName);
-            $data['image_url'] = 'img/products/' . $imageName;
+        } else {
+            Log::info('No new image file provided in the update request');
         }
         
         $product->update($data);
