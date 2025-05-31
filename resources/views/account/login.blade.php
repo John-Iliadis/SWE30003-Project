@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{asset('css/footer.css')}}">
 </head>
 <body>
-    @include('header')
+    @include('partials.header')
 
     <div id="spacing_top" style="height: 80px"></div>
 
@@ -45,6 +45,6 @@
 
     @endauth
 
-    @include('footer')
+    @include('partials.footer')
 </body>
 </html>

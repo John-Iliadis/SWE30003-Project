@@ -13,7 +13,7 @@
 </head>
 <body>
 
-    @include('header')
+    @include('partials.header')
 
     <div id="spacing_top" style="height: 80px"></div>
 
@@ -73,7 +73,7 @@
 
     <div id="spacing_bottom" style="height: 80px"></div>
 
-    @include('footer')
+    @include('partials.footer')
 
     <script src="{{asset('js/cart.js')}}"></script>
 

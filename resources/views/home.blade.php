@@ -13,7 +13,7 @@
 </head>
 <body>
 
-    @include('header')
+    @include('partials.header')
 
     <div id="spacing_div" style="height: 200px"></div>
 
@@ -22,7 +22,7 @@
         <a href="/catalogue"><button id="enter_store_button">Enter Store</button> </a>
     </main>
 
-    @include('footer')
+    @include('partials.footer')
 
 </body>
 </html>

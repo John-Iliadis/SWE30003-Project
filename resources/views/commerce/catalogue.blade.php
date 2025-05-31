@@ -14,7 +14,7 @@
 </head>
 <body>
 
-    @include('header')
+    @include('partials.header')
 
     <div id="spacing_top" style="height: 80px"></div>
 
@@ -82,13 +82,13 @@
         </div>
 
         <div id="catalogue">
-            @include('catalogue_items', ['products' => $products])
+            @include('partials.catalogue_items', ['products' => $products])
         </div>
     </main>
 
     <div id="spacing_bottom" style="height: 80px"></div>
 
-    @include('footer')
+    @include('partials.footer')
 
     <script src="{{asset('js/catalogue.js')}}"></script>
 

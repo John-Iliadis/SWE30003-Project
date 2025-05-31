@@ -18,7 +18,7 @@ class CatalogueController
             'price_ranges' => Product::getPriceRanges()
         ];
 
-        return view('catalogue', $data);
+        return view('commerce.catalogue', $data);
     }
 
     public function product($id)
@@ -27,7 +27,7 @@ class CatalogueController
             'product' => Product::find($id)
         ];
 
-        return view('product', $data);
+        return view('commerce.product', $data);
     }
 
     public function filter(Request $request)
@@ -81,6 +81,6 @@ class CatalogueController
 
         $products = $products->get();
 
-        return view('catalogue_items', ['products' => $products]);
+        return view('partials.catalogue_items', ['products' => $products]);
     }
 }
