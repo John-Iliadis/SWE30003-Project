@@ -41,10 +41,20 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
             'category_name' => 'required|exists:categories,category_name',
-            'image_url' => 'nullable|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-    
-        Product::create($request->all());
+        
+        $data = $request->except('image');
+        
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('img/products'), $imageName);
+            $data['image_url'] = 'img/products/' . $imageName;
+        }
+        
+        Product::create($data);
     
         return redirect()->route('admin.products.index')
                          ->with('success', 'Product created successfully.');
@@ -80,10 +90,25 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
             'category_name' => 'required|exists:categories,category_name',
-            'image_url' => 'nullable|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
     
-        $product->update($request->all());
+        $data = $request->except('image');
+        
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            // Delete old image if it exists
+            if ($product->image_url && file_exists(public_path($product->image_url))) {
+                unlink(public_path($product->image_url));
+            }
+            
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('img/products'), $imageName);
+            $data['image_url'] = 'img/products/' . $imageName;
+        }
+        
+        $product->update($data);
     
         return redirect()->route('admin.products.index')
                          ->with('success', 'Product updated successfully.');
