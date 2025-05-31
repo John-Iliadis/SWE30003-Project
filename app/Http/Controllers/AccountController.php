@@ -80,6 +80,12 @@ class AccountController
 
         if (Auth::attempt(['email' => $incomingFields['email'], 'password' => $incomingFields['password']])){ // Changed from auth()->attempt()
             $request->session()->regenerate();
+            
+            /** @var \App\Models\User $user */
+            $user = Auth::user();
+            if ($user && $user->is_admin) {
+                return redirect()->route('admin.products.index'); // Or 'admin.dashboard' if you prefer
+            }
             return redirect('/account');
         }
 
