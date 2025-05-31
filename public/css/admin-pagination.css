@@ -1,17 +1,17 @@
-/* Hide the unwanted pagination elements */
-.pagination .page-item:not(.active):not(.disabled) {
-    display: none;
+/* Hide all pagination items except first and last (prev/next buttons) */
+.pagination .page-item:not(:first-child):not(:last-child) {
+    display: none !important;
 }
 
 /* Only show Previous and Next buttons */
 .pagination .page-item:first-child,
 .pagination .page-item:last-child {
-    display: block;
+    display: block !important;
 }
 
-/* Hide the arrow icons */
+/* Hide the arrow icons completely */
 .pagination .page-link span[aria-hidden="true"] {
-    display: none;
+    display: none !important;
 }
 
 /* Style the Previous/Next text */
@@ -20,13 +20,6 @@
     background: none;
     color: #007bff;
     font-weight: bold;
-}
-
-/* Style the active page */
-.pagination .page-item.active .page-link {
-    background-color: #007bff;
-    border-color: #007bff;
-    color: white;
 }
 
 /* Add spacing between pagination elements */
