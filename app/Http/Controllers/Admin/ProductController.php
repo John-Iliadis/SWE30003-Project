@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product; // Make sure this points to your Product model
 use App\Models\Category; // We'll need this for product forms
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log; // Add this import for the Log facade
 
 class ProductController extends Controller
 {
@@ -46,12 +47,35 @@ class ProductController extends Controller
         
         $data = $request->except('image');
         
-        // Handle image upload
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $image = $request->file('image');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('img/products'), $imageName);
-            $data['image_url'] = 'img/products/' . $imageName;
+        // Handle image upload with detailed error logging
+        if ($request->hasFile('image')) {
+            try {
+                $image = $request->file('image');
+                
+                // Log file information
+                Log::info('Uploading image: ' . $image->getClientOriginalName());
+                Log::info('Image is valid: ' . ($image->isValid() ? 'Yes' : 'No'));
+                
+                if ($image->isValid()) {
+                    $imageName = time() . '.' . $image->getClientOriginalExtension();
+                    $targetPath = public_path('img/products');
+                    
+                    // Log directory information
+                    Log::info('Target directory: ' . $targetPath);
+                    Log::info('Directory exists: ' . (file_exists($targetPath) ? 'Yes' : 'No'));
+                    Log::info('Directory is writable: ' . (is_writable($targetPath) ? 'Yes' : 'No'));
+                    
+                    $image->move($targetPath, $imageName);
+                    $data['image_url'] = 'img/products/' . $imageName;
+                    
+                    Log::info('Image uploaded successfully to: ' . $data['image_url']);
+                }
+            } catch (\Exception $e) {
+                Log::error('Image upload failed: ' . $e->getMessage());
+                return redirect()->back()->with('error', 'Image upload failed: ' . $e->getMessage());
+            }
+        } else {
+            Log::info('No image file provided in the request');
         }
         
         Product::create($data);
