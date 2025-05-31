@@ -1,22 +1,22 @@
-/* Target all pagination items */
+/* Reset the pagination CSS file with more specific selectors */
+
+/* Hide the page number elements - target exactly what we see in the inspection */
 .pagination span[aria-current="page"],
-.pagination a[aria-label^="Go to page"] {
+.pagination a[href*="page="]:not([rel="next"]):not([aria-label*="Previous"]) {
     display: none !important;
-    visibility: hidden !important;
-    width: 0 !important;
-    height: 0 !important;
-    opacity: 0 !important;
-    position: absolute !important;
-    pointer-events: none !important;
 }
 
-/* Ensure only Previous and Next buttons are visible */
-.pagination span[aria-label="&laquo; Previous"],
-.pagination a[aria-label="Next &raquo;"] {
-    display: block !important;
+/* Ensure the container is properly styled */
+.pagination {
+    display: flex !important;
+    justify-content: center !important;
+    margin-top: 20px !important;
+    width: 250px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
 }
 
-/* Hide all arrow icons and symbols */
+/* Hide SVG icons/paths */
 .pagination svg,
 .pagination path {
     display: none !important;
@@ -24,19 +24,12 @@
 
 /* Style the Previous/Next text */
 .pagination span[aria-disabled="true"],
+.pagination a[aria-label*="Previous"],
 .pagination a[rel="next"] {
     border: none !important;
     background: none !important;
     color: #007bff !important;
     font-weight: bold !important;
     padding: 10px 15px !important;
-}
-
-/* Add spacing between pagination elements */
-.pagination {
-    justify-content: space-between !important;
-    margin-top: 20px !important;
-    width: 200px !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
+    text-decoration: none !important;
 }
