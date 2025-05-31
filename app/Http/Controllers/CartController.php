@@ -26,7 +26,7 @@ class CartController
             'total' => $total
         ];
 
-        return view('cart', $data);
+        return view('commerce.cart', $data);
     }
 
     public function add($product_id, $quantity)
