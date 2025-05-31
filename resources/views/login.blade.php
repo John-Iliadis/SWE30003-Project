@@ -12,6 +12,8 @@
 <body>
     @include('header')
 
+    <div id="spacing_top" style="height: 80px"></div>
+
     @auth
 
     <script>
@@ -25,24 +27,24 @@
             <p style="color: red">{{ $errors->first('login') }}</p>
         </div>
     @endif
-    <h2 class="login-header">Login</h2>
-    <form method="POST" action="{{ route('login.post') }}">
-        @csrf
-        <div class="form-group">
-            <input type="email" name="email" placeholder="Email" required>
+        <h2 class="login-header">Login</h2>
+        <form method="POST" action="{{ route('login.post') }}">
+            @csrf
+            <div class="form-group">
+                <input type="email" name="email" placeholder="Email" required>
+            </div>
+            <div class="form-group">
+                <input type="password" name="password" placeholder="Password" required>
+            </div>
+            <button type="submit" class="login-button">Login</button>
+        </form>
+        <div class="login_links">
+            <p>Don't have an account? <a href="/register">Register here</a></p>
         </div>
-        <div class="form-group">
-            <input type="password" name="password" placeholder="Password" required>
-        </div>
-        <button type="submit" class="login-button">Login</button>
-    </form>
-    <div class="login_links">
-        <p>Don't have an account? <a href="/register">Register here</a></p>
-    </div>
     </div>
 
     @endauth
-    
+
     @include('footer')
 </body>
 </html>

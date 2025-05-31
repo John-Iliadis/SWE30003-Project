@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\AuthController as AdminAuthController; // Good, this is imported
+use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 use App\Http\Controllers\CatalogueController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AccountController;
@@ -34,6 +34,7 @@ Route::get('/cart/remove/{productId}', [CartController::class, 'remove']);
 Route::get('cart/clear', [CartController::class, 'clear']);
 Route::get('/cart/modify/{product_id}/{qty}', [CartController::class, 'modify']);
 
+// account
 Route::post('/login', [AccountController::class, 'login'])->name('login.post');
 Route::post('/register', [AccountController::class, 'register'])->name('register.post');
 Route::middleware('auth')->group(function() {

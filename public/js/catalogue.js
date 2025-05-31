@@ -70,8 +70,7 @@ function updateCatalogue()
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    let filterVals = document.getElementsByClassName('filter_val');
-
+    let filterVals = document.getElementsByClassName('filter_val')
     for (let filterVal of filterVals)
     {
         filterVal.addEventListener('change', updateCatalogue);
