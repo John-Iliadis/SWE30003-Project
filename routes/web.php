@@ -50,15 +50,15 @@ Route::post('/process-payment', [TransactionController::class, 'processPayment']
 Route::get('/confirmation/{order_id}', [TransactionController::class, 'confirmation'])->name('transaction.confirmation');
 
 // UPDATED Admin Routes: Remove authentication for direct access
-Route::prefix('admin')->name('admin.')->group(function () { 
+Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', function () {
         // Redirect to products index, or show a dashboard view
-        return redirect()->route('admin.products.index'); 
+        return redirect()->route('admin.products.index');
     })->name('dashboard');
 
     // Product Catalogue Management Routes using Route::resource
-    Route::resource('products', \App\Http\Controllers\Admin\ProductController::class);
-    
+    Route::resource('products', ProductController::class);
+
     // You can add routes for category management here later
     // Route::resource('categories', AdminCategoryController::class);
 });

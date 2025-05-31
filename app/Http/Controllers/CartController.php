@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Core\Cart;
 use App\Models\Product;
 
 class CartController
@@ -16,14 +17,11 @@ class CartController
 
     public function cart()
     {
-        $cart = session()->get('cart', []);
-
-        $cart_items = $this->getCartItems($cart);
-        $total = $this->getCartTotal($cart_items);
+        $cart = new Cart();
 
         $data = [
-            'cart_items' => $cart_items,
-            'total' => $total
+            'cart_items' => $cart->getAllItems(),
+            'total' => $cart->getTotal()
         ];
 
         return view('commerce.cart', $data);
@@ -31,19 +29,9 @@ class CartController
 
     public function add($product_id, $quantity)
     {
-        $cart = session()->get('cart', []);
-        $quantity = (integer)$quantity;
-
-        if (isset($cart[$product_id]))
-        {
-            $cart[$product_id] += $quantity;
-        }
-        else
-        {
-            $cart[$product_id] = $quantity;
-        }
-
-        session()->put('cart', $cart);
+        $cart = new Cart();
+        $cart->add($product_id, $quantity);
+        $cart->put();
 
         $product = Product::find($product_id);
 
@@ -54,70 +42,35 @@ class CartController
 
     public function remove($product_id)
     {
-        $cart = session()->get('cart', []);
-
-        // remove item
-        if (isset($cart[$product_id]))
-            unset($cart[$product_id]);
-
-        session()->put('cart', $cart);
+        $cart = new Cart();
+        $cart->remove($product_id);
+        $cart->put();
 
         // calculate the new total
-        $cart_items = $this->getCartItems($cart);
-        $total = $this->getCartTotal($cart_items);
+        $total = $cart->getTotal();
 
         return ['total' => $total];
     }
 
     public function clear()
     {
-        session()->put('cart', []);
+        $cart = new Cart();
+        $cart->clear();
     }
 
     public function modify($product_id, $quantity)
     {
-        $product = Product::find($product_id);
+        $cart = new Cart();
+        $cart->modify($product_id, $quantity);
+        $cart->put();
 
-        $cart = session()->get('cart', []);
-        $cart[$product_id] = $quantity;
-        $subtotal = $cart[$product_id] * $product['price'];
-        $total = $this->getCartTotal($this->getCartItems($cart));
-
-        session()->put('cart', $cart);
+        $cartItem = $cart->getItem($product_id);
+        $total = $cart->getTotal();
+        $subtotal = $cartItem['subtotal'];
 
         return [
-            'subtotal' => $subtotal,
-            'total' => $total
+            'total' => $total,
+            'subtotal' => $subtotal
         ];
-    }
-
-    private function getCartItems($cart)
-    {
-        $cart_items = [];
-
-        foreach ($cart as $key => $value)
-        {
-            $product = Product::find($key);
-            $subtotal = $product->price * $value;
-            $cart_items[] = [
-                'product' => $product,
-                'qty' => $value,
-                'subtotal' => $subtotal
-            ];
-        }
-
-        return $cart_items;
-    }
-
-    private function getCartTotal($cart_items)
-    {
-        $total = 0;
-
-        foreach ($cart_items as $cart_item)
-        {
-            $total += $cart_item['subtotal'];
-        }
-
-        return $total;
     }
 }
