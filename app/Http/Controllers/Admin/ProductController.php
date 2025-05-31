@@ -14,7 +14,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::latest()->paginate(10); // Get latest products, 10 per page
+        // Change this line in the index method:
+        $products = Product::latest()->simplePaginate(10); // This only shows Previous/Next
         return view('admin.products.index', compact('products')); // We'll create this view
     }
 
