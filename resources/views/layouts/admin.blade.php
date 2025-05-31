@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="{{ asset('css/admin-pagination.css') }}">
 </head>
 <body>
-    @include('header')
+    @include('partials.header')
     
     <main class="py-4">
         <div class="admin-container container">
@@ -22,7 +22,7 @@
         </div>
     </main>
 
-    @include('footer')
+    @include('partials.footer')
     
     <!-- Bootstrap JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
