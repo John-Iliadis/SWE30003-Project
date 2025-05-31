@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 // todo: product may not exist
 
-class CommerceController
+class CatalogueController
 {
     public function catalogue()
     {

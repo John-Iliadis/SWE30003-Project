@@ -125,7 +125,7 @@ input[type="number"] {
 
 .catalogue_item_left {
     width: 20%;
-    padding: 10px 10px 10px 0;
+    padding-right: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
