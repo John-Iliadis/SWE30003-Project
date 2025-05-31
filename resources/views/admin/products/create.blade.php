@@ -78,15 +78,6 @@
                 @enderror
             </div>
             
-            <div class="mb-3">
-                <label for="image_url" class="form-label">Image URL</label>
-                <input type="text" class="form-control @error('image_url') is-invalid @enderror" id="image_url" name="image_url" value="{{ old('image_url') }}">
-                <small class="form-text text-muted">Enter the path to the image (e.g., img/products/product1.jpg)</small>
-                @error('image_url')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
-            
             <div class="d-flex justify-content-between">
                 <a href="{{ route('admin.products.index') }}" class="btn btn-secondary">Cancel</a>
                 <button type="submit" class="btn btn-primary">Create Product</button>

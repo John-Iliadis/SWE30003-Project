@@ -47,7 +47,7 @@ class ProductController extends Controller
         $data = $request->except('image');
         
         // Handle image upload
-        if ($request->hasFile('image')) {
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('img/products'), $imageName);
@@ -96,7 +96,7 @@ class ProductController extends Controller
         $data = $request->except('image');
         
         // Handle image upload
-        if ($request->hasFile('image')) {
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
             // Delete old image if it exists
             if ($product->image_url && file_exists(public_path($product->image_url))) {
                 unlink(public_path($product->image_url));
