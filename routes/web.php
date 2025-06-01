@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 use App\Http\Controllers\CatalogueController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AccountController;
@@ -11,6 +10,7 @@ use App\Http\Controllers\TransactionController;
 Route::get('/', function () { return view('home'); });
 Route::get('/home', function () { return view('home'); });
 
+// todo: These 2 should be handled by the account controller
 Route::get('/login', function () {
     return view('account.login');
 })->name('login'); // Add ->name('login') here
@@ -18,9 +18,6 @@ Route::get('/login', function () {
 Route::get('/register', function() {
     return view('account.register');
 });
-
-// todo: delete this
-Route::get('/restart-session', [CartController::class, 'restartSession']);
 
 // catalogue
 Route::get('/catalogue', [CatalogueController::class, 'catalogue']);

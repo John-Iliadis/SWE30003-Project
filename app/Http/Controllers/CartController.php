@@ -7,14 +7,6 @@ use App\Models\Product;
 
 class CartController
 {
-    public function restartSession()
-    {
-        session()->flush();
-        session()->regenerate();
-
-        return view('home');
-    }
-
     public function cart()
     {
         $cart = new Cart();
