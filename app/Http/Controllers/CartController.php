@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Core\Cart;
 use App\Models\Product;
+use Illuminate\View\View;
 
 class CartController
 {
+    /**
+     * Display the current cart with all items and total.
+     *
+     * @return View
+     */
     public function cart()
     {
         $cart = new Cart();
@@ -19,7 +25,14 @@ class CartController
         return view('commerce.cart', $data);
     }
 
-    public function add($product_id, $quantity)
+    /**
+     * Add a product to the cart.
+     *
+     * @param int $product_id
+     * @param int $quantity
+     * @return array<string, string>
+     */
+    public function add(int $product_id, int $quantity)
     {
         $cart = new Cart();
         $cart->add($product_id, $quantity);
@@ -32,7 +45,13 @@ class CartController
         return ['msg' => $msg];
     }
 
-    public function remove($product_id)
+    /**
+     * Remove a product from the cart.
+     *
+     * @param int $product_id
+     * @return array<string, float>
+     */
+    public function remove(int $product_id)
     {
         $cart = new Cart();
         $cart->remove($product_id);
@@ -44,13 +63,25 @@ class CartController
         return ['total' => $total];
     }
 
+    /**
+     * Clear all items from the cart.
+     *
+     * @return void
+     */
     public function clear()
     {
         $cart = new Cart();
         $cart->clear();
     }
 
-    public function modify($product_id, $quantity)
+    /**
+     * Modify the quantity of a specific product in the cart.
+     *
+     * @param int $product_id
+     * @param int $quantity
+     * @return array<string, float>
+     */
+    public function modify(int $product_id, int $quantity)
     {
         $cart = new Cart();
         $cart->modify($product_id, $quantity);

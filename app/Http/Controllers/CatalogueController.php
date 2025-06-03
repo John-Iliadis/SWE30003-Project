@@ -4,11 +4,18 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
-// todo: product may not exist
-
+/**
+ * Controller handling catalogue views, individual product display, and product filtering.
+ */
 class CatalogueController
 {
+    /**
+     * Display the product catalogue with categories, brands, and price ranges.
+     *
+     * @return View
+     */
     public function catalogue()
     {
         $data = [
@@ -21,6 +28,13 @@ class CatalogueController
         return view('commerce.catalogue', $data);
     }
 
+    /**
+     * Display a single product by its ID.
+     * Note: Product may not exist.
+     *
+     * @param  int  $id
+     * @return View
+     */
     public function product($id)
     {
         $data = [
@@ -30,6 +44,12 @@ class CatalogueController
         return view('commerce.product', $data);
     }
 
+    /**
+     * Filter products based on category, brand, price range, and sort order.
+     *
+     * @param Request $request
+     * @return View
+     */
     public function filter(Request $request)
     {
         $data = $request->all();

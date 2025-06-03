@@ -18,7 +18,11 @@
 <div id="spacing_top" style="height: 80px"></div>
 
 <main>
+    {{-- If there are items in the cart, render the cart management UI. Else, render the cart empty UI.   --}}
+
     @if(count($cart_items) > 0)
+
+        {{-- Header row --}}
         <div id="column_title_row">
             <span class="column_title" id="item_column">Item</span>
             <span class="column_title" id="unit_price_column">Unit Price</span>
@@ -27,6 +31,7 @@
             <button class="column_title" id="clear_cart_button">Clear Cart</button>
         </div>
 
+        {{-- Cart item rows --}}
         @foreach($cart_items as $cart_item)
             @php
                 $product = $cart_item['product'];
@@ -56,11 +61,14 @@
             </div>
         @endforeach
 
+        {{-- Checkout button and total price --}}
         <div id="cart_bottom">
             <p id="total_price">Total: {{ '$' . (int)$total }}</p>
             <button id="checkout_button">Checkout</button>
         </div>
     @else
+
+        {{-- Empty shopping cart UI       --}}
         <div id="empty_cart_container">
             <h1>Your shopping cart is empty</h1>
             <p>Check out some of our most popular products below, or feel free to browse!</p>
@@ -68,6 +76,7 @@
                 <button id="start_shopping_button">Start Shopping</button>
             </a>
         </div>
+
     @endif
 </main>
 

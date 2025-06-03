@@ -19,7 +19,11 @@
     <div id="spacing_top" style="height: 80px"></div>
 
     <main>
+
+        {{-- Filter section on the left of the page --}}
         <div id="filter">
+
+            {{-- Sort section --}}
             <div class="filter_section">Sort</div>
 
             <label class="sort_radio">
@@ -42,6 +46,7 @@
                 Price Descending
             </label>
 
+            {{-- Category section --}}
             <div class="filter_section">Category</div>
 
             @foreach($categories as $category)
@@ -51,6 +56,7 @@
                 </label>
             @endforeach
 
+            {{-- Brand section --}}
             <div class="filter_section">Brand</div>
 
             @foreach($brands as $brand)
@@ -60,6 +66,7 @@
                 </label>
             @endforeach
 
+            {{-- Price selector section --}}
             <div class="filter_section">Price</div>
 
             <div id="price_range_input">
@@ -81,6 +88,7 @@
             <button id="reset_button">Reset Filters</button>
         </div>
 
+        {{-- Renders catalogue from a partial view --}}
         <div id="catalogue">
             @include('partials.catalogue_items', ['products' => $products])
         </div>
