@@ -4,13 +4,29 @@ namespace App\Core;
 
 use App\Models\Product;
 
+/**
+ * Class Cart
+ *
+ * Handles operations related to the shopping cart, such as adding,
+ * modifying, removing items, and calculating totals.
+ */
 class Cart
 {
+    // Stores cart items with product ID as the key
     private array $cartItems;
 
+    /**
+     * Cart constructor.
+     *
+     * Initializes the cart from session data, retrieving saved product IDs and quantities.
+     * Calculates subtotal for each item and stores full product info.
+     */
     public function __construct()
     {
+        $this->cartItems = [];
+
         $cart = session()->get('cart', []);
+
         foreach ($cart as $productId => $quantity)
         {
             $product = Product::find($productId);
@@ -24,7 +40,13 @@ class Cart
         }
     }
 
-    public function add($product_id, $quantity)
+    /**
+     * Adds a product to the cart or updates quantity if already exists.
+     *
+     * @param int $product_id
+     * @param int $quantity
+     */
+    public function add(int $product_id, int $quantity)
     {
         $quantity = (int)$quantity;
 
@@ -45,25 +67,43 @@ class Cart
         }
     }
 
-    public function modify($product_id, $quantity)
+    /**
+     * Modifies the quantity of a product in the cart.
+     *
+     * @param int $product_id
+     * @param int $quantity
+     */
+    public function modify(int $product_id, int $quantity)
     {
         $cartItem =& $this->cartItems[$product_id];
         $cartItem['quantity'] = $quantity;
         $cartItem['subtotal'] = $quantity * $cartItem['product']['price'];
     }
 
-    public function remove($product_id)
+    /**
+     * Removes a product from the cart.
+     *
+     * @param int $product_id
+     */
+    public function remove(int $product_id)
     {
         if (isset($this->cartItems[$product_id]))
             unset($this->cartItems[$product_id]);
     }
 
+    /**
+     * Clears all items from the cart and updates the session.
+     */
     public function clear()
     {
         $this->cartItems = [];
         session()->put('cart', []);
     }
 
+    /**
+     * Saves the current cart item quantities into the session.
+     * Only product ID and quantity are saved (not full product info).
+     */
     public function put()
     {
         $cart = array_map(function ($item) {
@@ -72,6 +112,11 @@ class Cart
         session()->put('cart', $cart);
     }
 
+    /**
+     * Calculates and returns the total cost of all items in the cart.
+     *
+     * @return int
+     */
     public function getTotal()
     {
         $total = 0;
@@ -82,6 +127,11 @@ class Cart
         return $total;
     }
 
+    /**
+     * Returns all items currently in the cart.
+     *
+     * @return array
+     */
     public function getAllItems()
     {
         $cartItems = [];
@@ -92,7 +142,13 @@ class Cart
         return $cartItems;
     }
 
-    public function getItem($product_id)
+    /**
+     * Returns a specific item from the cart by product ID.
+     *
+     * @param int $product_id
+     * @return array|null
+     */
+    public function getItem(int $product_id)
     {
         if (isset($this->cartItems[$product_id]))
             return $this->cartItems[$product_id];
