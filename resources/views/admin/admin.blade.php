@@ -15,15 +15,19 @@
 </head>
 <body>
     @include('partials.header')
-    
+
+    <div id="spacing_top" style="height: 80px"></div>
+
     <main class="py-4">
         <div class="admin-container container">
             @yield('content')
         </div>
     </main>
 
+    <div id="spacing_bottom" style="height: 80px"></div>
+
     @include('partials.footer')
-    
+
     <!-- Bootstrap JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>

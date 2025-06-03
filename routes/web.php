@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CatalogueController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AccountController;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CatalogueManagerController;
 use App\Http\Controllers\TransactionController;
 
 Route::get('/', function () { return view('home'); });
@@ -47,6 +47,9 @@ Route::post('/process-payment', [TransactionController::class, 'processPayment']
 Route::get('/confirmation/{order_id}', [TransactionController::class, 'confirmation'])->name('transaction.confirmation');
 
 // UPDATED Admin Routes: Remove authentication for direct access
+
+// todo Ahnaf: change the /products route to catalogue-manager
+
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', function () {
         // Redirect to products index, or show a dashboard view
@@ -54,7 +57,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     })->name('dashboard');
 
     // Product Catalogue Management Routes using Route::resource
-    Route::resource('products', ProductController::class);
+    Route::resource('products', CatalogueManagerController::class);
 
     // You can add routes for category management here later
     // Route::resource('categories', AdminCategoryController::class);
