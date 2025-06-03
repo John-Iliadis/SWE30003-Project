@@ -1,5 +1,6 @@
 # Laravel E-Commerce Platform
 
+
 ## Project Overview
 
 A full-stack online retail system built with Laravel featuring:
@@ -9,17 +10,17 @@ A full-stack online retail system built with Laravel featuring:
 - 📦 Transaction and order handling
 - 👔 Admin dashboard for catalogue management
 
+
 ## Project Setup Guide
 
-1. Clone repository
-2. Install dependencies:
-3. Configure environment
-4. Generate application key
-5. Run database setup:
+1. Install and setup XAMPP
+2. Install and setup composer
+3. Clone this project inside the htdocs folder within XAMPP
+4. Run `composer install` to install the project dependencies
+5. Run laravel migrations
+6. Run the setup/db_init.php script to populate the DB with data
+7. Run `php artisan serve` to run the app
 
-```
-php artisan migrate
-```
 
 ## Project Structure
 ```
@@ -43,6 +44,7 @@ SWE30003-Project/
 └── routes/
     └── web.php           # Application routes
 ```
+
 
 ## Features
 
