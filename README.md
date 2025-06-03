@@ -1,51 +1,65 @@
 # Laravel E-Commerce Platform
 
 ## Project Overview
-A full-stack online retail system built with Laravel featuring:
-- 🛍️ Product catalog with categories
-- 👥 User authentication system
-- 🛒 Shopping cart functionality
-- 📦 Order management system
-- 👔 Admin dashboard for inventory control
 
-## Installation Guide
+A full-stack online retail system built with Laravel featuring:
+- 🛍️ Product catalogue with filtering functionality
+- 👥 User account authentication system
+- 🛒 Shopping cart
+- 📦 Transaction and order handling
+- 👔 Admin dashboard for catalogue management
+
+## Project Setup Guide
+
 1. Clone repository
 2. Install dependencies:
 3. Configure environment
 4. Generate application key
 5. Run database setup:
-```bash
+
+```
 php artisan migrate
 ```
+
 ## Project Structure
-```bash
+```
 SWE30003-Project/
 ├── app/                  # Core application logic
-│   ├── Http/Controllers/ # All application controllers
-│   ├── Models/          # Database models (Product, Category, Order etc.)
-│   └── Providers/       # Service providers
-├── config/              # Application configuration files
+│   ├── Core              # Core app classes  
+│   ├── Http/Controllers/ # Stores app controllers
+│   └── Models/           # Stores app models
+├── config/               # Application configuration files
 ├── database/
-│   ├── migrations/      # Database schema definitions
-│   └── seeders/         # Test data generators
+│   └── migrations/       # Database schema definitions
 ├── public/
-│   ├── css/             # Stylesheets
-│   │   ├── admin.css    # Admin panel styles
-│   │   ├── global.css   # Shared styles
-│   │   └── ...         # Other style files
-│   └── img/             # Product images
-├── resources/views/
-│   ├── admin/           # Admin dashboard templates
-│   ├── auth/            # Authentication pages
-│   ├── catalogue/       # Product listing pages
-│   └── ...              # Other view templates
-├── routes/
-│   └── web.php          # Main application routes
-├── storage/             # Uploaded files, logs, and framework cache
-└── tests/               # PHPUnit test cases
+│   ├── css/              # Stylesheets
+│   ├── js/               # JavaScript files 
+│   └── img/              # Images
+├── resources/views/      # Stores all app views
+│   ├── admin/           
+│   ├── cart/           
+│   ├── catalogue/       
+│   └── ...              
+└── routes/
+    └── web.php           # Application routes
 ```
 
-## Key Features
+## Features
+
+### Product Catalogue
+- Structured display of all products 
+- Product sorting
+- Filter by brand, category, or price
+- Add to cart functionality
+- Product detail pages
+
+### Cart Management
+- Cart dashboard
+- Modify item quantity
+- Remove item
+- Clear all
+- Check item subtotal and total price
+
 ### Admin Panel
 - Path: `/admin`
 - Manage products/categories
@@ -57,14 +71,10 @@ SWE30003-Project/
 - Password reset functionality
 - Role-based access control
 
-### Product Catalog
-- Browse by category
-- Search functionality
-- Product detail pages
 
 ## Technologies Used
+- HTML, CSS, JS, PHP
 - Laravel 
-- MySQL
-- Bootstrap 
-- PHP 
+- MariaDB
+- Bootstrap
 - XAMPP
