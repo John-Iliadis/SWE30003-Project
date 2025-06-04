@@ -1,35 +1,42 @@
 /* Reset the pagination CSS file with more specific selectors */
 
-/* Hide the page number elements - target exactly what we see in the inspection */
-.pagination span[aria-current="page"],
-.pagination a[href*="page="]:not([rel="next"]):not([aria-label*="Previous"]) {
+/* Hide the large navigation arrows */
+.pagination svg {
     display: none !important;
 }
 
-/* Ensure the container is properly styled */
+/* Style the pagination container */
 .pagination {
     display: flex !important;
     justify-content: center !important;
     margin-top: 20px !important;
-    width: 250px !important;
     margin-left: auto !important;
     margin-right: auto !important;
 }
 
-/* Hide SVG icons/paths */
-.pagination svg,
-.pagination path {
+/* Style the page number links */
+.pagination span.page-link,
+.pagination a.page-link {
+    padding: 0.375rem 0.75rem !important;
+    font-size: 0.9rem !important;
+    line-height: 1.5 !important;
+    border: 1px solid #dee2e6 !important;
+    margin: 0 2px !important;
+}
+
+/* Hide the large arrows completely */
+.pagination a.page-link[rel="prev"] svg,
+.pagination a.page-link[rel="next"] svg,
+.pagination a.page-link[aria-label="pagination.previous"] svg,
+.pagination a.page-link[aria-label="pagination.next"] svg {
     display: none !important;
 }
 
-/* Style the Previous/Next text */
-.pagination span[aria-disabled="true"],
-.pagination a[aria-label*="Previous"],
-.pagination a[rel="next"] {
-    border: none !important;
-    background: none !important;
-    color: #007bff !important;
-    font-weight: bold !important;
-    padding: 10px 15px !important;
-    text-decoration: none !important;
+/* Replace with text if you prefer */
+.pagination a.page-link[rel="prev"]:before {
+    content: "Prev" !important;
+}
+
+.pagination a.page-link[rel="next"]:after {
+    content: "Next" !important;
 }
