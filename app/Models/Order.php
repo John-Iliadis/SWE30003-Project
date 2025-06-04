@@ -30,4 +30,9 @@ class Order extends Model
     {
         return $this->belongsTo(CreditCard::class, 'card_id', 'card_id');
     }
+    
+    public function orderlines()
+    {
+        return $this->hasMany(Orderline::class, 'order_id', 'order_id');
+    }
 }
