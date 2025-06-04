@@ -18,11 +18,11 @@ class AccountController
     public function orderHistory()
     {
         try {
-            $user = auth()->user();
+            $user = Auth::user();
             
             // Check if user has customer details
             if (!$user->details) {
-                \Log::error('No customer details found for user: ' . $user->id);
+                \Illuminate\Support\Facades\Log::error('No customer details found for user: ' . $user->id);
                 return view('account.history', [
                     'orders' => collect(),
                     'error' => 'Customer profile not found'
@@ -30,7 +30,7 @@ class AccountController
             }
 
             // Debug: Log customer details ID
-            \Log::info('Fetching orders for customer_details_id: ' . $user->details->customer_details_id);
+            \Illuminate\Support\Facades\Log::info('Fetching orders for customer_details_id: ' . $user->details->customer_details_id);
 
             // Get orders using customer_details_id directly
             $orders = Order::with(['orderlines.product', 'customerDetails', 'creditCard'])
@@ -39,7 +39,7 @@ class AccountController
                 ->get();
 
             // Debug: Log number of orders found
-            \Log::info('Found ' . $orders->count() . ' orders');
+            \Illuminate\Support\Facades\Log::info('Found ' . $orders->count() . ' orders');
 
             return view('account.history', [
                 'orders' => $orders,
@@ -47,7 +47,7 @@ class AccountController
             ]);
 
         } catch (\Exception $e) {
-            \Log::error('Order history error: ' . $e->getMessage());
+            \Illuminate\Support\Facades\Log::error('Order history error: ' . $e->getMessage());
             return view('account.history', [
                 'orders' => collect(),
                 'error' => 'Could not load order history. Please try again later.'
@@ -57,7 +57,7 @@ class AccountController
     
     public function showOrder($orderId)
     {
-        $user = auth()->user();
+        $user = Auth::user();
         
         // Get all orders for the customer (for sidebar)
         $orders = Order::with(['orderlines.product', 'customerDetails', 'creditCard'])
