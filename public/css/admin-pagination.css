@@ -1,8 +1,11 @@
 /* Reset the pagination CSS file with more specific selectors */
 
 /* Hide the large navigation arrows */
-.pagination svg {
-    display: none !important;
+.pagination .page-link[aria-label="pagination.previous"],
+.pagination .page-link[aria-label="pagination.next"],
+.pagination .page-link[rel="prev"],
+.pagination .page-link[rel="next"] {
+    font-size: 0 !important; /* Hide the text/entities but keep the element */
 }
 
 /* Style the pagination container */
@@ -24,19 +27,15 @@
     margin: 0 2px !important;
 }
 
-/* Hide the large arrows completely */
-.pagination a.page-link[rel="prev"] svg,
-.pagination a.page-link[rel="next"] svg,
-.pagination a.page-link[aria-label="pagination.previous"] svg,
-.pagination a.page-link[aria-label="pagination.next"] svg {
-    display: none !important;
-}
-
-/* Replace with text if you prefer */
-.pagination a.page-link[rel="prev"]:before {
+/* Replace with text for prev/next links */
+.pagination .page-link[aria-label="pagination.previous"]:after,
+.pagination .page-link[rel="prev"]:after {
     content: "Prev" !important;
+    font-size: 0.9rem !important;
 }
 
-.pagination a.page-link[rel="next"]:after {
+.pagination .page-link[aria-label="pagination.next"]:after,
+.pagination .page-link[rel="next"]:after {
     content: "Next" !important;
+    font-size: 0.9rem !important;
 }
