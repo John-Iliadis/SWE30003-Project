@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CreditCard;
+use App\Models\Customer;
 use App\Models\CustomerDetails;
 use App\Models\Order;
 use App\Models\Orderline;
@@ -49,7 +50,34 @@ class TransactionController extends Controller
             $creditCard = $customer->creditCard;
         }
 
-        return view('transaction.payment', compact('userDetails', 'creditCard'));
+        // Get cart items and calculate pricing details
+        $cartItems = session('cart', []);
+        $products = [];
+        $subtotal = 0;
+
+        foreach ($cartItems as $productId => $item) {
+            $product = Product::find($productId);
+            $quantity = isset($item['quantity']) ? $item['quantity'] : $item;
+            $itemTotal = $product->price * $quantity;
+            $subtotal += $itemTotal;
+
+            $products[] = [
+                'product' => $product,
+                'quantity' => $quantity,
+                'total' => $itemTotal
+            ];
+        }
+
+        // Total is now just the subtotal (no tax or shipping)
+        $total = $subtotal;
+
+        return view('transaction.payment', compact(
+            'userDetails',
+            'creditCard',
+            'products',
+            'subtotal',
+            'total'
+        ));
     }
 
     /**
@@ -75,8 +103,7 @@ class TransactionController extends Controller
             // Payment information validation
             'cardholder_name' => 'required|string|max:255',
             'card_number' => 'required|string|size:16',
-            'expiration_month' => 'required|numeric|min:1|max:12',
-            'expiration_year' => 'required|numeric|min:' . date('Y') . '|max:' . (date('Y') + 10),
+            'card_expire' => 'required|date_format:Y-m|after_or_equal:' . now()->format('Y-m'),
             'cvv' => 'required|numeric|min:100|max:9999',
         ]);
 
@@ -133,17 +160,27 @@ class TransactionController extends Controller
         }
 
         // Create a new credit card
+        $expire = explode("-", $request->card_expire);
         $creditCard = CreditCard::create([
             'cardholder_name' => $request->cardholder_name,
             'card_number' => $request->card_number,
-            'expiration_month' => $request->expiration_month,
-            'expiration_year' => $request->expiration_year,
+            'expiration_month' => $expire[1],
+            'expiration_year' => $expire[0],
         ]);
 
         // Create a new order
+        // Check if the authenticated user exists in the customers table
+        $customerId = null;
+        if (Auth::check()) {
+            $customer = Customer::find(Auth::id());
+            if ($customer) {
+                $customerId = $customer->customer_id;
+            }
+        }
+
         $order = Order::create([
             'order_date' => now(),
-            'customer_id' => Auth::id(), // Will be null for guest users
+            'customer_id' => $customerId, // Will be null for guest users or if customer doesn't exist
             'customer_details_id' => $customerDetailsId,
             'card_id' => $creditCard->card_id,
         ]);
