@@ -18,15 +18,19 @@
     <div id="spacing_top" style="height: 80px"></div>
 
     <main>
+
+        {{-- Left image section --}}
         <div class="product_item_left">
             <img src="{{asset($product['image_url'])}}" alt="{{$product['name']}}">
         </div>
 
+        {{-- Middle title and description section --}}
         <div class="product_item_mid">
             <h1>{{$product['brand'] . ' ' . $product['name']}}</h1>
             <p class="product_item_desc">{{$product['description']}}</p>
         </div>
 
+        {{-- Right item price and add to cart section --}}
         <div class="product_item_right">
             <h1>{{$product['price']}}</h1>
             <label><input type="number" id="qty" data-productid="{{$product['product_id']}}" name="quantity" value="1" min="1"></label>

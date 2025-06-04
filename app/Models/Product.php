@@ -19,11 +19,21 @@ class Product extends Model
         'image_url'
     ];
 
+    /**
+     * Get all distinct brands from the products table.
+     *
+     * @return array
+     */
     public static function getBrands()
     {
         return Product::select('brand')->distinct()->pluck('brand');
     }
 
+    /**
+     * Get predefined product price ranges.
+     *
+     * @return array<int, array>
+     */
     public static function getPriceRanges()
     {
         return [

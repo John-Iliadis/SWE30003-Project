@@ -64,4 +64,14 @@ class User extends Authenticatable
     {
         return $this->hasOne(CreditCard::class); // Assuming 'user_id' in 'credit_cards' table
     }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'customer_id', 'customer_id');
+    }
+
+    public function customer()
+    {
+        return $this->hasOne(Customer::class, 'user_id', 'id');
+    }
 }

@@ -57,13 +57,18 @@ header, footer {
     .admin-container {
         padding: 10px;
     }
-    
+
     .admin-table {
         font-size: 0.9rem;
     }
-    
+
     .btn-sm {
         padding: 0.2rem 0.4rem;
         font-size: 0.8rem;
     }
+}
+
+.py-4 {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
 }

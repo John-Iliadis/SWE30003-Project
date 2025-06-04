@@ -1,26 +1,26 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 use App\Http\Controllers\CatalogueController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AccountController;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CatalogueManagerController;
 use App\Http\Controllers\TransactionController;
 
 Route::get('/', function () { return view('home'); });
 Route::get('/home', function () { return view('home'); });
 
+// todo: These 2 should be handled by the account controller
 Route::get('/login', function () {
     return view('account.login');
-})->name('login'); // Add ->name('login') here
+})->name('login');
 
 Route::get('/register', function() {
     return view('account.register');
 });
-
-// todo: delete this
-Route::get('/restart-session', [CartController::class, 'restartSession']);
+Route::get('/history', function(){
+    return view('account.history');
+});
 
 // catalogue
 Route::get('/catalogue', [CatalogueController::class, 'catalogue']);
@@ -39,7 +39,9 @@ Route::post('/login', [AccountController::class, 'login'])->name('login.post');
 Route::post('/register', [AccountController::class, 'register'])->name('register.post');
 Route::middleware('auth')->group(function() {
     Route::get('/account', [AccountController::class, 'show'])->name('account');
-    Route::patch('/account', [AccountController::class, 'update'])->name('account.update');
+    Route::patch('/account/update', [AccountController::class, 'update'])->name('account.update');
+    Route::get('/account/orders', [AccountController::class, 'orderHistory'])->name('orders.history');
+    Route::get('/account/orders/{order}', [AccountController::class, 'showOrder'])->name('orders.show');
 });
 Route::post('logout', [AccountController::class, 'logout'])->name('logout');
 
@@ -50,15 +52,18 @@ Route::post('/process-payment', [TransactionController::class, 'processPayment']
 Route::get('/confirmation/{order_id}', [TransactionController::class, 'confirmation'])->name('transaction.confirmation');
 
 // UPDATED Admin Routes: Remove authentication for direct access
-Route::prefix('admin')->name('admin.')->group(function () { 
+
+// todo Ahnaf: change the /products route to catalogue-manager
+
+Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', function () {
         // Redirect to products index, or show a dashboard view
-        return redirect()->route('admin.products.index'); 
+        return redirect()->route('admin.products.index');
     })->name('dashboard');
 
     // Product Catalogue Management Routes using Route::resource
-    Route::resource('products', \App\Http\Controllers\Admin\ProductController::class);
-    
+    Route::resource('products', CatalogueManagerController::class);
+
     // You can add routes for category management here later
     // Route::resource('categories', AdminCategoryController::class);
 });

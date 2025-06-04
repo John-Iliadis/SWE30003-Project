@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Account</title>
 
     <link rel="stylesheet" href="{{ asset('css/global.css') }}">
@@ -11,14 +12,17 @@
     <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 </head>
-<body>
+<body data-account-update-url="{{ route('account.update') }}">
     @include('partials.header')
 
     <div id="spacing_top" style="height: 80px"></div>
 
     <main>
         <div class="account-container">
-            <h1 id="title">My Account</h1>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h1 id="title">My Account</h1>
+                <a href="/history" class="edit-btn">View Order History</a>
+            </div>
 
             <div class="account-section">
                 <h2>Personal Information</h2>
@@ -168,94 +172,7 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
-    <script>
-        $('.edit-btn').on('click', function () {
-            const row = $(this).closest('.info-row');
-            const field = row.data('field');
-            const originalValue = row.find('.info-value').text().trim();
-
-            row.data('original-value', originalValue);
-            row.find('.info-value').hide();
-            row.find('.edit-input').val(originalValue).show();
-            row.find('.edit-btn').hide();
-            row.find('.save-btn, .cancel-btn').show();
-        });
-
-        $('.save-btn').on('click', function () {
-            const row = $(this).closest('.info-row');
-            const field = row.data('field');
-            const newValue = row.find('.edit-input').val();
-            let dataToSend = {};
-
-            if (field === 'card_expire') {
-                if (!/^\d{4}-\d{2}$/.test(newValue)) {
-                    toastr.error('Invalid date format. Use YYYY-MM.');
-                    return;
-                }
-                const [year, month] = newValue.split('-');
-                dataToSend = {
-                    expiration_year: year,
-                    expiration_month: month
-                };
-            }
-
-            else if (field === 'password') {
-                if (newValue.length < 8) {
-                    toastr.error('Password must be at least 8 characters.');
-                    return;
-                }
-                dataToSend = { password: newValue };
-            }
-
-            else {
-                dataToSend = { [field]: newValue };
-            }
-
-            $.ajax({
-                url: '{{ route("account.update") }}',
-                method: 'PATCH',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    'Accept': 'application/json'
-                },
-                data: dataToSend,
-                success: function (response) {
-                    if (response.success) {
-                        if (field === 'card_expire') {
-                            $('#card_expire-value').text(`${dataToSend.expiration_year}-${String(dataToSend.expiration_month).padStart(2, '0')}`);
-                        } else if (field === 'password') {
-                            $('#password-value').text('********');
-                        } else {
-                            $(`#${field}-value`).text(newValue);
-                        }
-
-                        row.find('.info-value').show();
-                        row.find('.edit-input').hide();
-                        row.find('.edit-btn').show();
-                        row.find('.save-btn, .cancel-btn').hide();
-                        toastr.success('Updated successfully!');
-                    } else {
-                        toastr.error('Update failed.');
-                    }
-                },
-                error: function () {
-                    toastr.error('Something went wrong.');
-                }
-            });
-        });
-
-
-        $('.cancel-btn').on('click', function () {
-            const row = $(this).closest('.info-row');
-            const originalValue = row.data('original-value');
-
-            row.find('.edit-input').val(originalValue).hide();
-            row.find('.info-value').show();
-            row.find('.save-btn, .cancel-btn').hide();
-            row.find('.edit-btn').show();
-        });
-    </script>
+    <script src="{{ asset('js/account.js') }}"></script>
 
 </body>
 </html>

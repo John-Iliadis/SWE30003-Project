@@ -2,48 +2,41 @@
 
 namespace App\Http\Controllers;
 
+use App\Core\Cart;
 use App\Models\Product;
+use Illuminate\View\View;
 
 class CartController
 {
-    public function restartSession()
-    {
-        session()->flush();
-        session()->regenerate();
-
-        return view('home');
-    }
-
+    /**
+     * Display the current cart with all items and total.
+     *
+     * @return View
+     */
     public function cart()
     {
-        $cart = session()->get('cart', []);
-
-        $cart_items = $this->getCartItems($cart);
-        $total = $this->getCartTotal($cart_items);
+        $cart = new Cart();
 
         $data = [
-            'cart_items' => $cart_items,
-            'total' => $total
+            'cart_items' => $cart->getAllItems(),
+            'total' => $cart->getTotal()
         ];
 
         return view('commerce.cart', $data);
     }
 
-    public function add($product_id, $quantity)
+    /**
+     * Add a product to the cart.
+     *
+     * @param int $product_id
+     * @param int $quantity
+     * @return array<string, string>
+     */
+    public function add(int $product_id, int $quantity)
     {
-        $cart = session()->get('cart', []);
-        $quantity = (integer)$quantity;
-
-        if (isset($cart[$product_id]))
-        {
-            $cart[$product_id] += $quantity;
-        }
-        else
-        {
-            $cart[$product_id] = $quantity;
-        }
-
-        session()->put('cart', $cart);
+        $cart = new Cart();
+        $cart->add($product_id, $quantity);
+        $cart->put();
 
         $product = Product::find($product_id);
 
@@ -52,72 +45,55 @@ class CartController
         return ['msg' => $msg];
     }
 
-    public function remove($product_id)
+    /**
+     * Remove a product from the cart.
+     *
+     * @param int $product_id
+     * @return array<string, float>
+     */
+    public function remove(int $product_id)
     {
-        $cart = session()->get('cart', []);
-
-        // remove item
-        if (isset($cart[$product_id]))
-            unset($cart[$product_id]);
-
-        session()->put('cart', $cart);
+        $cart = new Cart();
+        $cart->remove($product_id);
+        $cart->put();
 
         // calculate the new total
-        $cart_items = $this->getCartItems($cart);
-        $total = $this->getCartTotal($cart_items);
+        $total = $cart->getTotal();
 
         return ['total' => $total];
     }
 
+    /**
+     * Clear all items from the cart.
+     *
+     * @return void
+     */
     public function clear()
     {
-        session()->put('cart', []);
+        $cart = new Cart();
+        $cart->clear();
     }
 
-    public function modify($product_id, $quantity)
+    /**
+     * Modify the quantity of a specific product in the cart.
+     *
+     * @param int $product_id
+     * @param int $quantity
+     * @return array<string, float>
+     */
+    public function modify(int $product_id, int $quantity)
     {
-        $product = Product::find($product_id);
+        $cart = new Cart();
+        $cart->modify($product_id, $quantity);
+        $cart->put();
 
-        $cart = session()->get('cart', []);
-        $cart[$product_id] = $quantity;
-        $subtotal = $cart[$product_id] * $product['price'];
-        $total = $this->getCartTotal($this->getCartItems($cart));
-
-        session()->put('cart', $cart);
+        $cartItem = $cart->getItem($product_id);
+        $total = $cart->getTotal();
+        $subtotal = $cartItem['subtotal'];
 
         return [
-            'subtotal' => $subtotal,
-            'total' => $total
+            'total' => $total,
+            'subtotal' => $subtotal
         ];
-    }
-
-    private function getCartItems($cart)
-    {
-        $cart_items = [];
-
-        foreach ($cart as $key => $value)
-        {
-            $product = Product::find($key);
-            $subtotal = $product->price * $value;
-            $cart_items[] = [
-                'product' => $product,
-                'qty' => $value,
-                'subtotal' => $subtotal
-            ];
-        }
-
-        return $cart_items;
-    }
-
-    private function getCartTotal($cart_items)
-    {
-        $total = 0;
-
-        foreach ($cart_items as $cart_item)
-        {
-            $total += $cart_item['subtotal'];
-        }
-
-        return $total;
     }
 }

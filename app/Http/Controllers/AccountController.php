@@ -2,16 +2,87 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User; // Ensure this line is present
+use App\Models\Order;
+use App\Models\Customer;
 use App\Models\CreditCard;
 use Illuminate\Http\Request;
 use App\Models\CustomerDetails;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User; // Ensure this line is present
 
 class AccountController
 {
+
+    public function orderHistory()
+    {
+        try {
+            $user = auth()->user();
+            
+            // Debug: Check if user has customer record
+            if (!$user->customer) {
+                \Log::error('No customer record found for user: ' . $user->id);
+                return view('account.history', [
+                    'orders' => collect(),
+                    'error' => 'Customer profile not found'
+                ]);
+            }
+
+            // Debug: Log customer ID
+            \Log::info('Fetching orders for customer ID: ' . $user->customer->customer_id);
+
+            $orders = Order::with(['orderlines.product', 'customerDetails', 'creditCard'])
+                ->where('customer_id', $user->customer->customer_id)
+                ->latest()
+                ->get();
+
+            // Debug: Log number of orders found
+            \Log::info('Found ' . $orders->count() . ' orders');
+
+            return view('account.history', [
+                'orders' => $orders,
+                'selectedOrder' => $orders->first() ?? null
+            ]);
+
+        } catch (\Exception $e) {
+            \Log::error('Order history error: ' . $e->getMessage());
+            return view('account.history', [
+                'orders' => collect(),
+                'error' => 'Could not load order history. Please try again later.'
+            ]);
+        }
+    }
+    
+    public function showOrder($orderId)
+    {
+        $user = auth()->user();
+        
+        // Get all orders for the customer (for sidebar)
+        $orders = Order::with(['orderlines.product', 'customerDetails', 'creditCard'])
+            ->where('customer_id', $user->customer->customer_id)
+            ->latest()
+            ->get();
+
+        // Get the specific order being requested
+        $selectedOrder = $orders->firstWhere('order_id', $orderId);
+
+        if (!$selectedOrder) {
+            abort(404);
+        }
+
+        if (request()->wantsJson()) {
+            return response()->json([
+                'html' => view('partials.order_details', [
+                    'order' => $selectedOrder,
+                    'orders' => $orders // Pass orders for active state
+                ])->render()
+            ]);
+        }
+
+        return view('account.history', compact('orders', 'selectedOrder'));
+    }
+
     public function logout() {
         Auth::logout();
         request()->session()->invalidate();
@@ -26,7 +97,7 @@ class AccountController
         $user = Auth::user();
         if ($user) {
             $customer = User::with(['details', 'creditCard'])->find($user->id);
-            return view('account.show', compact('customer'));
+            return view('account.account', compact('customer'));
         }
         return redirect('/login'); // Or handle unauthenticated user appropriately
     }
@@ -57,6 +128,10 @@ class AccountController
 
             if ($user->creditCard) {
                 $user->creditCard->update($data);
+            }
+            
+            if ($user->customer) {
+                $user->customer->update($data);
             }
 
             return response()->json([
@@ -152,6 +227,12 @@ class AccountController
                 'expiration_year' => $expire[0],
             ]);
             $user->creditCard()->save($card);
+
+            $user = Customer::create([
+                'name' => $incomingFields['name'],
+                'email' => $incomingFields['email'],
+                'password' => $incomingFields['password'], //Not sure why added a new User model but the customer model is what I'm using
+            ]);
             
             DB::commit();
             Auth::login($user); // Changed from auth()->login()
