@@ -45,22 +45,29 @@ svg {
     display: none !important;
 }
 
-/* Target the specific pagination number elements based on the screenshots */
-.relative-inline-flex.items-cent,
-.relative-inline-flex.items-center,
-[aria-label^="Go to page"],
-span[aria-current="page"],
-a[aria-label*="Go to page"] {
+/* Target ONLY the page number links based on the screenshots */
+.pagination span[class*="relative inline-flex"],
+.pagination a[class*="relative inline-flex"]:not([rel="prev"]):not([rel="next"]),
+.pagination span.relative.inline-flex,
+.pagination a.relative.inline-flex:not([rel="prev"]):not([rel="next"]),
+.pagination [aria-label^="Go to page"],
+.pagination span[aria-current="page"] {
     display: none !important;
 }
 
-/* Hide all pagination items except first and last */
-.pagination > *:not(:first-child):not(:last-child) {
+/* More specific selector for the page number links */
+.pagination > *:not(:first-child):not(:last-child):not([rel="prev"]):not([rel="next"]) {
     display: none !important;
 }
 
-/* Additional selector to target the specific numbered links */
+/* Additional selector to target the specific numbered links while preserving prev/next */
 .pagination a:not([rel="prev"]):not([rel="next"]),
-.pagination span:not([aria-label="pagination.previous"]):not([aria-label="pagination.next"]) {
+.pagination span:not(:has([aria-label="pagination.previous"])):not(:has([aria-label="pagination.next"])) {
+    display: none !important;
+}
+
+/* Target the specific span elements that contain page numbers */
+span.relative.inline-flex.items-center,
+span.relative.inline-flex.items-cent {
     display: none !important;
 }
