@@ -13,10 +13,13 @@ Route::get('/home', function () { return view('home'); });
 // todo: These 2 should be handled by the account controller
 Route::get('/login', function () {
     return view('account.login');
-})->name('login'); // Add ->name('login') here
+})->name('login');
 
 Route::get('/register', function() {
     return view('account.register');
+});
+Route::get('/history', function(){
+    return view('account.history');
 });
 
 // catalogue
@@ -36,7 +39,9 @@ Route::post('/login', [AccountController::class, 'login'])->name('login.post');
 Route::post('/register', [AccountController::class, 'register'])->name('register.post');
 Route::middleware('auth')->group(function() {
     Route::get('/account', [AccountController::class, 'show'])->name('account');
-    Route::patch('/account', [AccountController::class, 'update'])->name('account.update');
+    Route::patch('/account/update', [AccountController::class, 'update'])->name('account.update');
+    Route::get('/account/orders', [AccountController::class, 'orderHistory'])->name('orders.history');
+    Route::get('/account/orders/{order}', [AccountController::class, 'showOrder'])->name('orders.show');
 });
 Route::post('logout', [AccountController::class, 'logout'])->name('logout');
 
