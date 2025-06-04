@@ -45,18 +45,22 @@ svg {
     display: none !important;
 }
 
-/* Hide the page numbers (1, 2, 3) */
-.pagination li:not(:first-child):not(:last-child) {
+/* Target the specific pagination number elements based on the screenshots */
+.relative-inline-flex.items-cent,
+.relative-inline-flex.items-center,
+[aria-label^="Go to page"],
+span[aria-current="page"],
+a[aria-label*="Go to page"] {
     display: none !important;
 }
 
-/* Alternative approach if the above doesn't work */
-.pagination .page-item {
+/* Hide all pagination items except first and last */
+.pagination > *:not(:first-child):not(:last-child) {
     display: none !important;
 }
 
-/* But keep the first and last items (prev/next) visible */
-.pagination .page-item:first-child,
-.pagination .page-item:last-child {
-    display: block !important;
+/* Additional selector to target the specific numbered links */
+.pagination a:not([rel="prev"]):not([rel="next"]),
+.pagination span:not([aria-label="pagination.previous"]):not([aria-label="pagination.next"]) {
+    display: none !important;
 }
