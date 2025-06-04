@@ -107,7 +107,7 @@ class AccountController
     {
         /** @var \App\Models\User|null $user */
         $user = Auth::user(); 
-
+    
         if (!$user) {
             return response()->json(['success' => false, 'message' => 'Unauthenticated.'], 401);
         }
@@ -119,27 +119,28 @@ class AccountController
             unset($request['password']);
         }
         $data = $request->except('password_confirmation');
-
+    
         try {
-            $user->update($data); // Intelephense should now recognize $user as User model
-
+            $user->update($data);
+    
             if ($user->details) {
                 $user->details->update($data);
             }
-
+    
             if ($user->creditCard) {
                 $user->creditCard->update($data);
             }
             
-            if ($user->customer) {
-                $user->customer->update($data);
-            }
-
+            // Remove this block that's causing the error
+            // if ($user->customer) {
+            //     $user->customer->update($data);
+            // }
+    
             return response()->json([
                 'success' => true,
-                'customer' => $user->load('details', 'creditCard') // And here for load()
+                'customer' => $user->load('details', 'creditCard')
             ]);
-
+    
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
