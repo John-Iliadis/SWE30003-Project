@@ -193,11 +193,8 @@ class AccountController
             'card_cvv' => ['required', 'regex:/^[0-9\s]{3,4}$/']
         ]);
         
-        // Password is already hashed in User model's mutator if you set it up like that,
-        // but explicit hashing here is also fine.
-        // $incomingFields['password'] = bcrypt($incomingFields['password']);
         $expire = explode("-", $incomingFields['card_expire']);
-
+    
         DB::beginTransaction();
         try {
             // Create the User first
@@ -228,21 +225,16 @@ class AccountController
                 'expiration_year' => $expire[0],
             ]);
             $user->creditCard()->save($card);
-
-            $user = Customer::create([
-                'name' => $incomingFields['name'],
-                'email' => $incomingFields['email'],
-                'password' => $incomingFields['password'], //Not sure why added a new User model but the customer model is what I'm using
-            ]);
+            
+            // Remove the Customer creation code
+            // $user = Customer::create([...]);
             
             DB::commit();
-            Auth::login($user); // Changed from auth()->login()
+            Auth::login($user); // Log in with the User model
             return redirect('/account')->with('success', 'Registration successful!');
         } catch (\Exception $e) {
             DB::rollBack();
-            // It's good to log the actual error for debugging
-            // Log::error('Registration failed: ' . $e->getMessage());
-            return back()->with('error', 'Registration failed. Please try again. Error: '.$e->getMessage()); // Added $e->getMessage() for more info
+            return back()->with('error', 'Registration failed. Please try again. Error: '.$e->getMessage());
         }
     }
 }

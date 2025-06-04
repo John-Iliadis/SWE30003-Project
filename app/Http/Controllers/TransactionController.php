@@ -172,17 +172,17 @@ class TransactionController extends Controller
 
         // Create a new order
         // Check if the authenticated user exists in the customers table
-        $customerId = null;
+        // Replace the customer lookup code with:
         if (Auth::check()) {
-            $customer = Customer::find(Auth::id());
-            if ($customer) {
-                $customerId = $customer->customer_id;
+            $user = Auth::user();
+            if ($user->details) {
+                $customerDetailsId = $user->details->customer_details_id;
             }
         }
-
+        
         $order = Order::create([
             'order_date' => now(),
-            'customer_id' => $customerId, // Will be null for guest users or if customer doesn't exist
+            'customer_id' => null, // We're not using the customers table anymore
             'customer_details_id' => $customerDetailsId,
             'card_id' => $creditCard->card_id,
         ]);
