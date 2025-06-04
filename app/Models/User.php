@@ -65,13 +65,24 @@ class User extends Authenticatable
         return $this->hasOne(CreditCard::class); // Assuming 'user_id' in 'credit_cards' table
     }
 
+    /**
+     * Get the orders associated with the user through customer details.
+     */
     public function orders()
     {
-        return $this->hasMany(Order::class, 'customer_id', 'customer_id');
+        return $this->hasManyThrough(
+            Order::class,
+            CustomerDetails::class,
+            'user_id', // Foreign key on customer_details table
+            'customer_details_id', // Foreign key on orders table
+            'id', // Local key on users table
+            'customer_details_id' // Local key on customer_details table
+        );
     }
 
-    public function customer()
-    {
-        return $this->hasOne(Customer::class, 'user_id', 'id');
-    }
+    // This relationship is likely not needed anymore as we're using User->details directly
+    // public function customer()
+    // {
+    //     return $this->hasOne(Customer::class, 'user_id', 'id');
+    // }
 }
