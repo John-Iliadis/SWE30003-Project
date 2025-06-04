@@ -39,3 +39,14 @@
     content: "Next" !important;
     font-size: 0.9rem !important;
 }
+
+
+/* Nuclear option - hide all SVG elements in the document */
+svg {
+    display: none !important;
+}
+
+/* Or target by viewBox attribute which is visible in your screenshot */
+svg[viewBox="0 0 20 20"] {
+    display: none !important;
+}
