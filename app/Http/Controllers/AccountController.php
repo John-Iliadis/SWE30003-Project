@@ -20,20 +20,21 @@ class AccountController
         try {
             $user = auth()->user();
             
-            // Debug: Check if user has customer record
-            if (!$user->customer) {
-                \Log::error('No customer record found for user: ' . $user->id);
+            // Check if user has customer details
+            if (!$user->details) {
+                \Log::error('No customer details found for user: ' . $user->id);
                 return view('account.history', [
                     'orders' => collect(),
                     'error' => 'Customer profile not found'
                 ]);
             }
 
-            // Debug: Log customer ID
-            \Log::info('Fetching orders for customer ID: ' . $user->customer->customer_id);
+            // Debug: Log customer details ID
+            \Log::info('Fetching orders for customer_details_id: ' . $user->details->customer_details_id);
 
+            // Get orders using customer_details_id directly
             $orders = Order::with(['orderlines.product', 'customerDetails', 'creditCard'])
-                ->where('customer_id', $user->customer->customer_id)
+                ->where('customer_details_id', $user->details->customer_details_id)
                 ->latest()
                 ->get();
 
