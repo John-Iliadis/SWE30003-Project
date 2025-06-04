@@ -40,13 +40,23 @@
     font-size: 0.9rem !important;
 }
 
-
 /* Nuclear option - hide all SVG elements in the document */
 svg {
     display: none !important;
 }
 
-/* Or target by viewBox attribute which is visible in your screenshot */
-svg[viewBox="0 0 20 20"] {
+/* Hide the page numbers (1, 2, 3) */
+.pagination li:not(:first-child):not(:last-child) {
     display: none !important;
+}
+
+/* Alternative approach if the above doesn't work */
+.pagination .page-item {
+    display: none !important;
+}
+
+/* But keep the first and last items (prev/next) visible */
+.pagination .page-item:first-child,
+.pagination .page-item:last-child {
+    display: block !important;
 }
