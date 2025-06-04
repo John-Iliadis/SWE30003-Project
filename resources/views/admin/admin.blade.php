@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="{{ asset('css/header.css') }}">
     <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/admin-pagination.css') }}">
+    <!-- Temporarily comment out the pagination CSS -->
+    <!-- <link rel="stylesheet" href="{{ asset('css/admin-pagination.css') }}"> -->
 </head>
 <body>
     @include('partials.header')
