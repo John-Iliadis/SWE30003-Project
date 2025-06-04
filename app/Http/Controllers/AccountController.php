@@ -59,19 +59,24 @@ class AccountController
     {
         $user = Auth::user();
         
+        // Check if user has customer details
+        if (!$user->details) {
+            abort(404, 'Customer profile not found');
+        }
+        
         // Get all orders for the customer (for sidebar)
         $orders = Order::with(['orderlines.product', 'customerDetails', 'creditCard'])
-            ->where('customer_id', $user->customer->customer_id)
+            ->where('customer_details_id', $user->details->customer_details_id) // Changed from customer_id
             ->latest()
             ->get();
-
+    
         // Get the specific order being requested
         $selectedOrder = $orders->firstWhere('order_id', $orderId);
-
+    
         if (!$selectedOrder) {
             abort(404);
         }
-
+    
         if (request()->wantsJson()) {
             return response()->json([
                 'html' => view('partials.order_details', [
@@ -80,7 +85,7 @@ class AccountController
                 ])->render()
             ]);
         }
-
+    
         return view('account.history', compact('orders', 'selectedOrder'));
     }
 
