@@ -45,29 +45,40 @@ svg {
     display: none !important;
 }
 
-/* Target ONLY the page number links based on the screenshots */
-.pagination span[class*="relative inline-flex"],
-.pagination a[class*="relative inline-flex"]:not([rel="prev"]):not([rel="next"]),
-.pagination span.relative.inline-flex,
-.pagination a.relative.inline-flex:not([rel="prev"]):not([rel="next"]),
-.pagination [aria-label^="Go to page"],
-.pagination span[aria-current="page"] {
+/* SUPER AGGRESSIVE SELECTORS FOR PAGE NUMBERS */
+
+/* Target any direct links with numbers */
+a[href*="page="] {
     display: none !important;
 }
 
-/* More specific selector for the page number links */
-.pagination > *:not(:first-child):not(:last-child):not([rel="prev"]):not([rel="next"]) {
+/* Target the specific page number links shown in your screenshot */
+a.underline, a[href$="page=2"], a[href$="page=3"] {
     display: none !important;
 }
 
-/* Additional selector to target the specific numbered links while preserving prev/next */
-.pagination a:not([rel="prev"]):not([rel="next"]),
-.pagination span:not(:has([aria-label="pagination.previous"])):not(:has([aria-label="pagination.next"])) {
+/* Hide any element that contains just a number between 1-9 */
+a:not([rel]):not([aria-label]) {
     display: none !important;
 }
 
-/* Target the specific span elements that contain page numbers */
-span.relative.inline-flex.items-center,
-span.relative.inline-flex.items-cent {
+/* Target any element with class containing 'page' that isn't prev/next */
+[class*="page"]:not([rel="prev"]):not([rel="next"]):not([aria-label="pagination.previous"]):not([aria-label="pagination.next"]) {
+    display: none !important;
+}
+
+/* Hide all pagination items except first and last (which should be prev/next) */
+.pagination > *:not(:first-child):not(:last-child) {
+    display: none !important;
+}
+
+/* Target the specific numbered links by their content */
+a:not([rel]):not([aria-label]):contains("2"),
+a:not([rel]):not([aria-label]):contains("3") {
+    display: none !important;
+}
+
+/* Target links that are just numbers */
+a.underline[href]:not([rel="prev"]):not([rel="next"]) {
     display: none !important;
 }
