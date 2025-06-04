@@ -44,9 +44,9 @@ class TransactionController extends Controller
         $creditCard = null;
 
         if (Auth::check()) {
-            $customer = Auth::user()->load(['details', 'creditCard']);
-            $userDetails = $customer->details;
-            $creditCard = $customer->creditCard;
+            $user = Auth::user();
+            $userDetails = $user->details; // Access the relationship directly
+            $creditCard = $user->creditCard; // Access the relationship directly
         }
 
         return view('transaction.payment', compact('userDetails', 'creditCard'));
@@ -110,12 +110,14 @@ class TransactionController extends Controller
                     'zip_code' => $request->zip_code,
                     'state' => $request->state,
                     'country' => $request->country,
+                    'user_id' => Auth::id(), // Set the user_id directly when creating
                 ]);
                 $customerDetailsId = $details->customer_details_id;
-
-                // Update customer with details ID
-                $customer->customer_details_id = $customerDetailsId;
-                $customer->save();
+                
+                // No need to update the user model
+                // Remove these lines:
+                // $customer->customer_details_id = $customerDetailsId;
+                // $customer->save();
             }
         } else {
             // Create details for guest user
