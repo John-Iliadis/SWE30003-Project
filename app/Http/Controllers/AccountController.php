@@ -59,7 +59,7 @@ class AccountController
 
     public function createAccount(Request $request)
     {
-        $incomingFields = $request->validate([
+         $incomingFields = $request->validate([
             // Personal Information
             'name' => ['required', 'string', 'max:50'],
 
