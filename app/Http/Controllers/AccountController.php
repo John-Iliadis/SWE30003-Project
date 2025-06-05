@@ -24,28 +24,52 @@ class AccountController
     public function account()
     {
         $user = Auth::user();
-
+    
         if ($user)
         {
             $customer_details = $user->customerDetails();
             $card_details = $user->creditCard();
             
-            // Check if customer details or card details are null
-            if (!$customer_details || !$card_details) {
-                // Redirect to a page where the user can complete their profile
-                return redirect('/complete-profile')->with('message', 'Please complete your profile information');
+            // Create default arrays with empty values to prevent undefined index errors
+            $customer_details_array = [
+                'name' => '',
+                'email' => $user->email ?? '',
+                'phone_number' => '',
+                'address' => '',
+                'city' => '',
+                'post_code' => '',
+                'zip_code' => '', // Match template expectation
+                'state' => '',
+                'country' => ''
+            ];
+            
+            $card_details_array = [
+                'cardholder_name' => '', // Changed from card_holder to match template
+                'card_number' => '',
+                'expiration_month' => '',
+                'expiration_year' => ''
+            ];
+            
+            // If details exist, override the default empty values
+            if ($customer_details) {
+                $customer_details_array = array_merge($customer_details_array, $customer_details->toArray());
+                
+                // Make sure zip_code is set if post_code exists
+                if (isset($customer_details_array['post_code']) && !isset($customer_details_array['zip_code'])) {
+                    $customer_details_array['zip_code'] = $customer_details_array['post_code'];
+                }
             }
             
-            // Convert to arrays for the view
-            $customer_details = $customer_details->toArray();
-            $card_details = $card_details->toArray();
-
+            if ($card_details) {
+                $card_details_array = array_merge($card_details_array, $card_details->toArray());
+            }
+    
             return view('account.account', [
-                'user_details' => $customer_details,
-                'card_details' => $card_details
+                'user_details' => $customer_details_array,
+                'card_details' => $card_details_array
             ]);
         }
-
+    
         return view('account.login');
     }
 

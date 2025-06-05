@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
@@ -16,7 +17,8 @@ class CatalogueManagerController extends Controller
 
     public function create()
     {
-        return view('admin.products.create');
+        $categories = Category::all(); // Get all categories for the form
+        return view('admin.products.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -37,7 +39,8 @@ class CatalogueManagerController extends Controller
 
     public function edit(Product $product)
     {
-        return view('admin.products.edit', compact('product'));
+        $categories = Category::all(); // Get all categories for the form
+        return view('admin.products.edit', compact('product', 'categories'));
     }
 
     public function update(Request $request, Product $product)
