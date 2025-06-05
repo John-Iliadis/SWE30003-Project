@@ -24,18 +24,19 @@ class AccountController
     public function account()
     {
         $user = Auth::user();
-
+    
         if ($user)
         {
-            $customer_details = $user->customerDetails();
-            $card_details = $user->creditCard();
-
+            // Use ->first() or ->get() to retrieve the actual model instances
+            $customer_details = $user->customerDetails()->first();
+            $card_details = $user->creditCard()->first();
+    
             return view('account.account', [
                 'user_details' => $customer_details,
                 'card_details' => $card_details
             ]);
         }
-
+    
         return view('account.login');
     }
 
