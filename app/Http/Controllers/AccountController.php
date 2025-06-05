@@ -27,10 +27,18 @@ class AccountController
     
         if ($user)
         {
-            // Use ->first() or ->get() to retrieve the actual model instances
+            // Use ->first() to retrieve the actual model instances
             $customer_details = $user->customerDetails()->first();
             $card_details = $user->creditCard()->first();
-    
+            
+            // Check if customer details and card details exist
+            if (!$customer_details || !$card_details) {
+                // Redirect to a page where they can complete their profile
+                return redirect('/complete-profile')->with('message', 'Please complete your profile information');
+                // Or you could return a view that handles missing data
+                // return view('account.incomplete_profile');
+            }
+            
             return view('account.account', [
                 'user_details' => $customer_details,
                 'card_details' => $card_details
