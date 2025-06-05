@@ -14,6 +14,21 @@ use App\Models\User; // Ensure this line is present
 
 class AccountController
 {
+    public function loginPage()
+    {
+        return view('account.login');
+    }
+
+    public function registerPage()
+    {
+        return view('account.register');
+    }
+
+    public function historyPage()
+    {
+        return view('account.history');
+    }
+
     public function orderHistory()
     {
         try {
@@ -97,13 +112,17 @@ class AccountController
 
     public function show()
     {
-        // No change needed here if Auth::user() correctly returns your User model instance.
-        // If Intelephense still complains, you could add a check or PHPDoc, but it's usually fine.
         $user = Auth::user();
-        if ($user) {
+
+        // if user exists return account view with user data
+        // else return login view
+
+        if ($user)
+        {
             $customer = User::with(['details', 'creditCard'])->find($user->id);
             return view('account.account', compact('customer'));
         }
+
         return redirect('/login'); // Or handle unauthenticated user appropriately
     }
 
@@ -153,7 +172,8 @@ class AccountController
         }
     }
 
-    public function login(Request $request){
+    public function login(Request $request)
+    {
         $incomingFields = $request->validate([
             'email' => 'required',
             'password' => 'required'
@@ -175,10 +195,11 @@ class AccountController
         ])->onlyInput('email');
     }
 
-    public function register(Request $request) {
+    public function createAccount(Request $request) {
         $incomingFields = $request->validate([
             // Personal Information
             'name' => ['required', 'string', 'max:50'],
+
             // Ensure email validation checks the 'users' table
             'email' => ['required', 'string', 'email', 'max:50', Rule::unique('users', 'email')],
             'password' => ['required', 'string', 'min:8', 'max:20'],
@@ -200,44 +221,46 @@ class AccountController
 
         $expire = explode("-", $incomingFields['card_expire']);
 
-        DB::beginTransaction();
-        try {
-            // Create the User first
-            $user = User::create([
-                'name' => $incomingFields['name'],
-                'email' => $incomingFields['email'],
-                'password' => $incomingFields['password'], // User model should handle hashing
-            ]);
+        try
+        {
+            DB::beginTransaction();
 
-            // Create CustomerDetails and associate with the User
-            $details = new CustomerDetails([
+            // create customer details record
+            $customer_details = CustomerDetails::firstOrCreate([
+                'email' => $incomingFields['email'],
                 'name' => $incomingFields['name'],
-                'email' => $incomingFields['email'], // Or $user->email
                 'phone_number' => $incomingFields['phone_number'],
                 'address' => $incomingFields['address'],
                 'city' => $incomingFields['city'],
                 'zip_code' => $incomingFields['post_code'],
                 'state' => $incomingFields['state'],
-                'country' => $incomingFields['country'],
+                'country' => $incomingFields['country']
             ]);
-            $user->details()->save($details);
 
-            // Create CreditCard and associate with the User
-            $card = new CreditCard([
-                'cardholder_name' => $incomingFields['card_holder'],
+            // create credit record
+            $credit_card = CreditCard::firstOrCreate([
                 'card_number' => $incomingFields['card_number'],
+                'cardholder_name' => $incomingFields['card_holder'],
                 'expiration_month' => $expire[1],
                 'expiration_year' => $expire[0],
             ]);
-            $user->creditCard()->save($card);
 
-            // Remove the Customer creation code
-            // $user = Customer::create([...]);
+            // create customer account
+            $user = User::create([
+                'name' => $incomingFields['name'],
+                'email' => $incomingFields['email'],
+                'password' => $incomingFields['password'],
+                'customer_details_id' => $customer_details['customer_details_id'],
+                'card_id' => $credit_card['card_id'],
+            ]);
 
             DB::commit();
-            Auth::login($user); // Log in with the User model
+            Auth::login($user);
+
             return redirect('/account')->with('success', 'Registration successful!');
-        } catch (\Exception $e) {
+        }
+        catch (\Throwable $e)
+        {
             DB::rollBack();
             return back()->with('error', 'Registration failed. Please try again. Error: '.$e->getMessage());
         }

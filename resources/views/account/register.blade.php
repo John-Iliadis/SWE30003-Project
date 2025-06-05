@@ -34,7 +34,7 @@
                 <div class="error">{{ session('error') }}</div>
             @endif
 
-            <form method="POST" action="{{ route('register.post') }}">
+            <form method="POST" action="/create-account">
                 @csrf
 
                 <div class="form-section">
