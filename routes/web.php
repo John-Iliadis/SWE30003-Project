@@ -10,16 +10,16 @@ use App\Http\Controllers\TransactionController;
 Route::get('/', function () { return view('home'); });
 Route::get('/home', function () { return view('home'); });
 
-// todo: These 2 should be handled by the account controller
-Route::get('/login', function () {
-    return view('account.login');
-})->name('login');
-
-Route::get('/register', function() {
-    return view('account.register');
-});
-Route::get('/history', function(){
-    return view('account.history');
+// account
+Route::get('/login', [AccountController::class, 'account']);
+Route::get('/register', [AccountController::class, 'register']);
+Route::post('/attempt-login', [AccountController::class, 'attemptLogin']);
+Route::post('/create-account', [AccountController::class, 'createAccount']);
+Route::middleware('auth')->group(function() {
+    Route::get('/account', [AccountController::class, 'account']);
+    Route::patch('/account/update', [AccountController::class, 'update']);
+    Route::get('/order-history', [AccountController::class, 'orderHistory']);
+    Route::post('/logout', [AccountController::class, 'logout']);
 });
 
 // catalogue
@@ -34,21 +34,9 @@ Route::get('/cart/remove/{productId}', [CartController::class, 'remove']);
 Route::get('cart/clear', [CartController::class, 'clear']);
 Route::get('/cart/modify/{product_id}/{qty}', [CartController::class, 'modify']);
 
-// account
-Route::post('/login', [AccountController::class, 'login'])->name('login.post');
-Route::post('/register', [AccountController::class, 'register'])->name('register.post');
-Route::middleware('auth')->group(function() {
-    Route::get('/account', [AccountController::class, 'show'])->name('account');
-    Route::patch('/account/update', [AccountController::class, 'update'])->name('account.update');
-    Route::get('/account/orders', [AccountController::class, 'orderHistory'])->name('orders.history');
-    Route::get('/account/orders/{order}', [AccountController::class, 'showOrder'])->name('orders.show');
-});
-Route::post('logout', [AccountController::class, 'logout'])->name('logout');
-
 // Transaction routes
-Route::get('/checkout', [TransactionController::class, 'checkout'])->name('transaction.checkout');
-Route::get('/payment', [TransactionController::class, 'payment'])->name('transaction.payment');
-Route::post('/process-payment', [TransactionController::class, 'processPayment'])->name('transaction.process');
+Route::get('/checkout', [TransactionController::class, 'checkout']);
+Route::post('/process-payment', [TransactionController::class, 'processPayment']);
 Route::get('/confirmation/{order_id}', [TransactionController::class, 'confirmation'])->name('transaction.confirmation');
 
 // UPDATED Admin Routes: Remove authentication for direct access

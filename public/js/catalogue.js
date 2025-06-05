@@ -55,9 +55,11 @@ function updateCatalogue()
         body: JSON.stringify(getFilterData())
     })
         .then(response => {
-            if (!response.ok) {
+            if (!response.ok)
+            {
                 throw new Error(`Error: ${response.statusText}`);
             }
+
             return response.text();
         })
         .then(html => {

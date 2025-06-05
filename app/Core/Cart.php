@@ -130,7 +130,7 @@ class Cart
     /**
      * Returns all items currently in the cart.
      *
-     * @return array
+     * @return array(product, quantity, total)
      */
     public function getAllItems()
     {

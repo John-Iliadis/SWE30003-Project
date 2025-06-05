@@ -14,21 +14,16 @@
 
     <div id="spacing_top" style="height: 80px"></div>
 
-    @auth
-
-    <script>
-        window.location.href = "/account";
-    </script>
-
-    @else
     <div class="auth-container">
+
         @if ($errors->has('login'))
         <div class="error-message">
             <p style="color: red">{{ $errors->first('login') }}</p>
         </div>
-    @endif
+        @endif
+
         <h2 class="login-header">Login</h2>
-        <form method="POST" action="{{ route('login.post') }}">
+        <form method="POST" action="/attempt-login">
             @csrf
             <div class="form-group">
                 <input type="email" name="email" placeholder="Email" required>
@@ -43,7 +38,7 @@
         </div>
     </div>
 
-    @endauth
+    <div id="spacing_bottom" style="height: 80px"></div>
 
     @include('partials.footer')
 </body>
