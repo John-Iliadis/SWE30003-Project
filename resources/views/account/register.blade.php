@@ -22,7 +22,7 @@
             <h2>Register</h2>
             @if ($errors->any())
             <div class="form-errors">
-                <ul>
+                <ul class="inline-bullets">
                     @foreach ($errors->all() as $error)
                         <li class="error">{{ $error }}</li>
                     @endforeach

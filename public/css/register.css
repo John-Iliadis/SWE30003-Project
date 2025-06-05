@@ -1,6 +1,6 @@
 .auth-container {
-    max-width: 600px;
-    margin: 2rem auto;
+    width: 600px;
+    margin: 0 auto;
     padding: 2rem;
     background: white;
     border-radius: 8px;
@@ -27,7 +27,7 @@
 
 .heading-line {
     height: 2px;
-    background: linear-gradient(to right, #4CAF50, #ddd);
+    background: lightgray;
     margin-bottom: 1rem;
 }
 
@@ -65,58 +65,34 @@
 }
 
 .submit-button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 12px 20px;
-    border: none;
+    padding: 12px 0;
+    border: 1px solid transparent;
     border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    width: 100%;
-    margin-top: 1rem;
+    font-size: medium;
+    font-weight: bold;
+    display: block;
+    width: 60%;
+    margin: 1rem auto 0 auto;
 }
 
 .submit-button:hover {
-    background-color: #45a049;
+    cursor: pointer;
+    border: 1px solid black;
+}
+
+.inline-bullets {
+    list-style-position: inside;
+    padding-left: 0;
 }
 
 .error {
     color: red;
     font-size: 14px;
+}
+
+.error:not(:first-child) {
     margin-top: 5px;
 }
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .auth-container {
-        padding: 1.5rem;
-        margin: 1rem;
-    }
-
-    .form-row {
-        flex-direction: column;
-        gap: 0;
-    }
-}
-
-@media (max-width: 480px) {
-    .auth-container {
-        padding: 1rem;
-    }
-
-    .form-group input {
-        padding: 0.65rem;
-    }
-
-    .section-heading {
-        font-size: 1.1rem;
-    }
-
-    .heading-line {
-        margin-bottom: 0.8rem;
-    }
-}
-
 
 .register_container {
     max-width: 600px;
@@ -143,12 +119,6 @@
     font-size: 1.2rem;
     position: relative;
     padding-bottom: 0.5rem;
-}
-
-.heading-line {
-    height: 2px;
-    background: linear-gradient(to right, #4CAF50, #ddd);
-    margin-bottom: 1rem;
 }
 
 .register_form label {
