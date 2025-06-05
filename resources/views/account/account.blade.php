@@ -30,8 +30,8 @@
 
                 <div class="info-row" data-field="name">
                     <span class="info-label">Name:</span>
-                    <span class="info-value" id="name-value">{{ $customer->name }}</span>
-                    <input class="edit-input" id="name-input" type="text" value="{{ $customer->name }}" style="display:none;">
+                    <span class="info-value" id="name-value">{{ $user_details['name'] }}</span>
+                    <input class="edit-input" id="name-input" type="text" value="{{ $user_details['name'] }}" style="display:none;">
                     <button class="edit-btn">Edit</button>
                     <button class="save-btn" style="display:none;">Save</button>
                     <button class="cancel-btn" style="display:none;">Cancel</button>
@@ -39,8 +39,8 @@
 
                 <div class="info-row" data-field="email">
                     <span class="info-label">Email:</span>
-                    <span class="info-value" id="email-value">{{ $customer->email }}</span>
-                    <input class="edit-input" id="email-input" type="email" value="{{ $customer->email }}" style="display:none;">
+                    <span class="info-value" id="email-value">{{ $user_details['email'] }}</span>
+                    <input class="edit-input" id="email-input" type="email" value="{{ $user_details['email'] }}" style="display:none;">
                     <button class="edit-btn">Edit</button>
                     <button class="save-btn" style="display:none;">Save</button>
                     <button class="cancel-btn" style="display:none;">Cancel</button>
@@ -55,110 +55,104 @@
                     <button class="cancel-btn" style="display:none;">Cancel</button>
                 </div>
 
-                @if($customer->details)
-                    <div class="info-row" data-field="phone_number">
-                        <span class="info-label">Phone:</span>
-                        <span class="info-value" id="phone_number-value">{{ $customer->details->phone_number }}</span>
-                        <input class="edit-input" id="phone_number-input" type="text" value="{{ $customer->details->phone_number }}" style="display:none;">
-                        <button class="edit-btn">Edit</button>
-                        <button class="save-btn" style="display:none;">Save</button>
-                        <button class="cancel-btn" style="display:none;">Cancel</button>
-                    </div>
-                @endif
+                <div class="info-row" data-field="phone_number">
+                    <span class="info-label">Phone:</span>
+                    <span class="info-value" id="phone_number-value">{{ $user_details['phone_number'] }}</span>
+                    <input class="edit-input" id="phone_number-input" type="text" value="{{ $user_details['phone_number'] }}" style="display:none;">
+                    <button class="edit-btn">Edit</button>
+                    <button class="save-btn" style="display:none;">Save</button>
+                    <button class="cancel-btn" style="display:none;">Cancel</button>
+                </div>
             </div>
 
-            @if($customer->details)
-                <div class="account-section">
-                    <h2>Address Information</h2>
-                    <div class="heading-line"></div>
+            <div class="account-section">
+                <h2>Address Information</h2>
+                <div class="heading-line"></div>
 
-                    <div class="info-row" data-field="address">
-                        <span class="info-label">Address:</span>
-                        <span class="info-value" id="address-value">{{ $customer->details->address }}</span>
-                        <input class="edit-input" id="address-input" type="text" value="{{ $customer->details->address }}" style="display:none;">
-                        <button class="edit-btn">Edit</button>
-                        <button class="save-btn" style="display:none;">Save</button>
-                        <button class="cancel-btn" style="display:none;">Cancel</button>
-                    </div>
-
-                    <div class="info-row" data-field="city">
-                        <span class="info-label">City:</span>
-                        <span class="info-value" id="city-value">{{ $customer->details->city }}</span>
-                        <input class="edit-input" id="city-input" type="text" value="{{ $customer->details->city }}" style="display:none;">
-                        <button class="edit-btn">Edit</button>
-                        <button class="save-btn" style="display:none;">Save</button>
-                        <button class="cancel-btn" style="display:none;">Cancel</button>
-                    </div>
-
-                    <div class="info-row" data-field="post_code">
-                        <span class="info-label">Post Code:</span>
-                        <span class="info-value" id="zip_code-value">{{ $customer->details->zip_code }}</span>
-                        <input class="edit-input" id="zip_code-input" type="text" value="{{ $customer->details->zip_code }}" style="display:none;">
-                        <button class="edit-btn">Edit</button>
-                        <button class="save-btn" style="display:none;">Save</button>
-                        <button class="cancel-btn" style="display:none;">Cancel</button>
-                    </div>
-
-                    <div class="info-row" data-field="state">
-                        <span class="info-label">State:</span>
-                        <span class="info-value" id="state-value">{{ $customer->details->state }}</span>
-                        <input class="edit-input" id="state-input" type="text" value="{{ $customer->details->state }}" style="display:none;">
-                        <button class="edit-btn">Edit</button>
-                        <button class="save-btn" style="display:none;">Save</button>
-                        <button class="cancel-btn" style="display:none;">Cancel</button>
-                    </div>
-
-                    <div class="info-row" data-field="country">
-                        <span class="info-label">Country:</span>
-                        <span class="info-value" id="country-value">{{ $customer->details->country }}</span>
-                        <input class="edit-input" id="country-input" type="text" value="{{ $customer->details->country }}" style="display:none;">
-                        <button class="edit-btn">Edit</button>
-                        <button class="save-btn" style="display:none;">Save</button>
-                        <button class="cancel-btn" style="display:none;">Cancel</button>
-                    </div>
+                <div class="info-row" data-field="address">
+                    <span class="info-label">Address:</span>
+                    <span class="info-value" id="address-value">{{ $user_details['address'] }}</span>
+                    <input class="edit-input" id="address-input" type="text" value="{{ $user_details['address'] }}" style="display:none;">
+                    <button class="edit-btn">Edit</button>
+                    <button class="save-btn" style="display:none;">Save</button>
+                    <button class="cancel-btn" style="display:none;">Cancel</button>
                 </div>
-            @endif
 
-            @if($customer->creditCard)
-                <div class="account-section">
-                    <h2>Payment Information</h2>
-                    <div class="heading-line"></div>
-
-                    <div class="info-row" data-field="card_holder">
-                        <span class="info-label">Card Holder:</span>
-                        <span class="info-value" id="card_holder-value">{{ $customer->creditCard->cardholder_name }}</span>
-                        <input class="edit-input" id="card_holder-input" type="text" value="{{ $customer->creditCard->cardholder_name }}" style="display:none;">
-                        <button class="edit-btn">Edit</button>
-                        <button class="save-btn" style="display:none;">Save</button>
-                        <button class="cancel-btn" style="display:none;">Cancel</button>
-                    </div>
-
-                    <div class="info-row" data-field="card_number">
-                        <span class="info-label">Card Number:</span>
-                        <span class="info-value" id="card_number-value">{{ $customer->creditCard->card_number }}</span>
-                        <input class="edit-input" id="card_number-input" type="text"
-                               value="{{ $customer->creditCard->card_number }}" style="display:none;">
-                        <button class="edit-btn">Edit</button>
-                        <button class="save-btn" style="display:none;">Save</button>
-                        <button class="cancel-btn" style="display:none;">Cancel</button>
-                    </div>
-
-                    <div class="info-row" data-field="card_expire">
-                        <span class="info-label">Expires:</span>
-                        <span class="info-value" id="card_expire-value">
-                    {{ $customer->creditCard->expiration_year }}-{{ str_pad($customer->creditCard->expiration_month, 2, '0', STR_PAD_LEFT) }}
-                </span>
-
-                        <input class="edit-input" id="card_expire-input" type="month"
-                               value="{{ $customer->creditCard->expiration_year }}-{{ str_pad($customer->creditCard->expiration_month, 2, '0', STR_PAD_LEFT) }}"
-                               style="display:none;">
-
-                        <button class="edit-btn">Edit</button>
-                        <button class="save-btn" style="display:none;">Save</button>
-                        <button class="cancel-btn" style="display:none;">Cancel</button>
-                    </div>
+                <div class="info-row" data-field="city">
+                    <span class="info-label">City:</span>
+                    <span class="info-value" id="city-value">{{ $user_details['city'] }}</span>
+                    <input class="edit-input" id="city-input" type="text" value="{{ $user_details['city'] }}" style="display:none;">
+                    <button class="edit-btn">Edit</button>
+                    <button class="save-btn" style="display:none;">Save</button>
+                    <button class="cancel-btn" style="display:none;">Cancel</button>
                 </div>
-            @endif
+
+                <div class="info-row" data-field="post_code">
+                    <span class="info-label">Post Code:</span>
+                    <span class="info-value" id="zip_code-value">{{ $user_details['zip_code'] }}</span>
+                    <input class="edit-input" id="zip_code-input" type="text" value="{{ $user_details['zip_code'] }}" style="display:none;">
+                    <button class="edit-btn">Edit</button>
+                    <button class="save-btn" style="display:none;">Save</button>
+                    <button class="cancel-btn" style="display:none;">Cancel</button>
+                </div>
+
+                <div class="info-row" data-field="state">
+                    <span class="info-label">State:</span>
+                    <span class="info-value" id="state-value">{{ $user_details['state'] }}</span>
+                    <input class="edit-input" id="state-input" type="text" value="{{ $user_details['state'] }}" style="display:none;">
+                    <button class="edit-btn">Edit</button>
+                    <button class="save-btn" style="display:none;">Save</button>
+                    <button class="cancel-btn" style="display:none;">Cancel</button>
+                </div>
+
+                <div class="info-row" data-field="country">
+                    <span class="info-label">Country:</span>
+                    <span class="info-value" id="country-value">{{ $user_details['country'] }}</span>
+                    <input class="edit-input" id="country-input" type="text" value="{{ $user_details['country'] }}" style="display:none;">
+                    <button class="edit-btn">Edit</button>
+                    <button class="save-btn" style="display:none;">Save</button>
+                    <button class="cancel-btn" style="display:none;">Cancel</button>
+                </div>
+            </div>
+
+            <div class="account-section">
+                <h2>Payment Information</h2>
+                <div class="heading-line"></div>
+
+                <div class="info-row" data-field="card_holder">
+                    <span class="info-label">Card Holder:</span>
+                    <span class="info-value" id="card_holder-value">{{ $card_details['cardholder_name'] }}</span>
+                    <input class="edit-input" id="card_holder-input" type="text" value="{{ $card_details['cardholder_name'] }}" style="display:none;">
+                    <button class="edit-btn">Edit</button>
+                    <button class="save-btn" style="display:none;">Save</button>
+                    <button class="cancel-btn" style="display:none;">Cancel</button>
+                </div>
+
+                <div class="info-row" data-field="card_number">
+                    <span class="info-label">Card Number:</span>
+                    <span class="info-value" id="card_number-value">{{ $card_details['card_number'] }}</span>
+                    <input class="edit-input" id="card_number-input" type="text"
+                           value="{{ $card_details['card_number'] }}" style="display:none;">
+                    <button class="edit-btn">Edit</button>
+                    <button class="save-btn" style="display:none;">Save</button>
+                    <button class="cancel-btn" style="display:none;">Cancel</button>
+                </div>
+
+                <div class="info-row" data-field="card_expire">
+                    <span class="info-label">Expires:</span>
+                    <span class="info-value" id="card_expire-value">
+                {{ $card_details['expiration_year'] }}-{{ str_pad($card_details['expiration_month'], 2, '0', STR_PAD_LEFT) }}
+            </span>
+
+                    <input class="edit-input" id="card_expire-input" type="month"
+                           value="{{ $card_details['expiration_year'] }}-{{ str_pad($card_details['expiration_month'], 2, '0', STR_PAD_LEFT) }}"
+                           style="display:none;">
+
+                    <button class="edit-btn">Edit</button>
+                    <button class="save-btn" style="display:none;">Save</button>
+                    <button class="cancel-btn" style="display:none;">Cancel</button>
+                </div>
+            </div>
             <form method="POST" action="{{ route('logout') }}" style="text-align: center;">
                 @csrf
                 <button type="submit" class="logout-button">Log Out</button>

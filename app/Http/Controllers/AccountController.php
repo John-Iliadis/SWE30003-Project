@@ -114,16 +114,18 @@ class AccountController
     {
         $user = Auth::user();
 
-        // if user exists return account view with user data
-        // else return login view
-
         if ($user)
         {
-            $customer = User::with(['details', 'creditCard'])->find($user->id);
-            return view('account.account', compact('customer'));
+            $user_details = CustomerDetails::find($user['customer_details_id']);
+            $card_details = CreditCard::find($user['card_id']);
+
+            return view('account.account', [
+                'user_details' => $user_details,
+                'card_details' => $card_details
+            ]);
         }
 
-        return redirect('/login'); // Or handle unauthenticated user appropriately
+        return view('account.login');
     }
 
     public function update(Request $request)
@@ -195,7 +197,8 @@ class AccountController
         ])->onlyInput('email');
     }
 
-    public function createAccount(Request $request) {
+    public function createAccount(Request $request)
+    {
         $incomingFields = $request->validate([
             // Personal Information
             'name' => ['required', 'string', 'max:50'],
@@ -257,7 +260,10 @@ class AccountController
             DB::commit();
             Auth::login($user);
 
-            return redirect('/account')->with('success', 'Registration successful!');
+            return view('account.account', [
+                'user_details' => $customer_details,
+                'card_details' => $credit_card
+            ]);
         }
         catch (\Throwable $e)
         {
