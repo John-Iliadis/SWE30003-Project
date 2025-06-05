@@ -9,11 +9,11 @@ use App\Models\CustomerDetails;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User; // Ensure this line is present
+use App\Models\User;
 
 class AccountController
 {
-    public function registerPage()
+    public function register()
     {
         return view('account.register');
     }
@@ -126,40 +126,36 @@ class AccountController
     {
         $user = Auth::user();
 
-        if (!$user) {
+        if (!$user)
+        {
             return response()->json(['success' => false, 'message' => 'Unauthenticated.'], 401);
         }
+
         // Ensure password is only updated if provided and not empty
-        if ($request->filled('password')) {
+        if ($request->filled('password'))
+        {
             $request['password'] = bcrypt($request['password']);
-        } else {
+        }
+        else
+        {
             // Remove password from data if not being updated
             unset($request['password']);
         }
+
         $data = $request->except('password_confirmation');
 
-        try {
+        try
+        {
             $user->update($data);
-
-            if ($user->details) {
-                $user->details->update($data);
-            }
-
-            if ($user->creditCard) {
-                $user->creditCard->update($data);
-            }
-
-            // Remove this block that's causing the error
-            // if ($user->customer) {
-            //     $user->customer->update($data);
-            // }
+            $user->customerDetails()->update($data);
+            $user->creditCard()->update($data);
 
             return response()->json([
-                'success' => true,
-                'customer' => $user->load('details', 'creditCard')
+                'success' => true
             ]);
-
-        } catch (\Exception $e) {
+        }
+        catch (\Exception $e)
+        {
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to update: ' . $e->getMessage()

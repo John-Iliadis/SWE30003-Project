@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
 </head>
-<body data-account-update-url="{{ route('account.update') }}">
+<body>
     @include('partials.header')
 
     <div id="spacing_top" style="height: 80px"></div>
@@ -166,8 +166,6 @@
 
     @include('partials.footer')
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="{{ asset('js/account.js') }}"></script>
 
 </body>
