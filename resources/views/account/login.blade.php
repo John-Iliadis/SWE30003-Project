@@ -36,8 +36,9 @@
         <div class="login_links">
             <p>Don't have an account? <a href="/register">Register here</a></p>
         </div>
-
     </div>
+
+    <div id="spacing_bottom" style="height: 80px"></div>
 
     @include('partials.footer')
 </body>
