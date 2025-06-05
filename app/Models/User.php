@@ -26,11 +26,11 @@ class User extends Authenticatable
 
     public function customerDetails()
     {
-        return CustomerDetails::find($this['customer_details_id']);
+        return $this->belongsTo(CustomerDetails::class, 'customer_details_id', 'customer_details_id');
     }
 
     public function creditCard()
     {
-        return CreditCard::find($this['card_id']);
+        return $this->belongsTo(CreditCard::class, 'card_id', 'card_id');
     }
 }
