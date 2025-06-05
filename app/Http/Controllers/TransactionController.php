@@ -37,13 +37,12 @@ class TransactionController extends Controller
         $cartItems = $cart->getAllItems();
         $total = $cart->getTotal();
 
-        return view('transaction.payment', [
+        return view('transaction.checkout', [
             'userDetails' => $userDetails,
             'creditCard' => $creditCard,
             'cartItems' => $cartItems,
             'total' => $total
         ]);
-//        return view('home');
     }
 
     /**
