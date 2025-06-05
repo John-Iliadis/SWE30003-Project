@@ -13,14 +13,12 @@ Route::get('/home', function () { return view('home'); });
 // account
 Route::get('/login', [AccountController::class, 'account']);
 Route::get('/register', [AccountController::class, 'register']);
-Route::get('/history', [AccountController::class, 'historyPage']);
 Route::post('/attempt-login', [AccountController::class, 'attemptLogin']);
 Route::post('/create-account', [AccountController::class, 'createAccount']);
 Route::middleware('auth')->group(function() {
     Route::get('/account', [AccountController::class, 'account']);
     Route::patch('/account/update', [AccountController::class, 'update']);
-    Route::get('/account/orders', [AccountController::class, 'orderHistory'])->name('orders.history');
-    Route::get('/account/orders/{order}', [AccountController::class, 'showOrder'])->name('orders.show');
+    Route::get('/order-history', [AccountController::class, 'orderHistory']);
     Route::post('/logout', [AccountController::class, 'logout']);
 });
 

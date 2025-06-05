@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\CreditCard;
-use Illuminate\Http\Request;
+use App\Models\Orderline;
+use App\Models\Product;
+use App\Models\User;
 use App\Models\CustomerDetails;
+use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
+use Carbon\Carbon;
 
 class AccountController
 {
@@ -167,89 +170,50 @@ class AccountController
         }
     }
 
-    public function logout() {
+    public function orderHistory()
+    {
+        $user = Auth::user();
+
+        $orders = Order::where('customer_id', $user['id'])->latest()->get();
+
+        $data = [];
+
+        foreach ($orders as $order)
+        {
+            $total = 0;
+            $items = [];
+
+            $orderItems = Orderline::where('order_id', $order['order_id'])->get();
+
+            foreach ($orderItems as $orderItem)
+            {
+                $product = Product::find($orderItem->product_id);
+                $subtotal = $product['price'] * $orderItem['quantity'];
+                $total += $subtotal;
+
+                $items[] = [
+                    'product' => $product,
+                    'subtotal' => $subtotal,
+                    'quantity' => $orderItem['quantity']
+                ];
+            }
+
+            $data[] = [
+                'order_id' => $order['order_id'],
+                'date' => Carbon::parse($order['order_date'])->format('d-m-Y'),
+                'total' => $total,
+                'items' => $items
+            ];
+        }
+
+        return view('account.order_history', ['orders' => $data]);
+    }
+
+    public function logout()
+    {
         Auth::logout();
         request()->session()->invalidate();
         request()->session()->regenerateToken();
         return redirect('/login');
-    }
-
-    public function historyPage()
-    {
-        return view('account.history');
-    }
-
-    public function orderHistory()
-    {
-        try {
-            $user = Auth::user();
-
-            // Check if user has customer details
-            if (!$user->details) {
-                \Illuminate\Support\Facades\Log::error('No customer details found for user: ' . $user->id);
-                return view('account.history', [
-                    'orders' => collect(),
-                    'error' => 'Customer profile not found'
-                ]);
-            }
-
-            // Debug: Log customer details ID
-            \Illuminate\Support\Facades\Log::info('Fetching orders for customer_details_id: ' . $user->details->customer_details_id);
-
-            // Get orders using customer_details_id directly
-            $orders = Order::with(['orderlines.product', 'customerDetails', 'creditCard'])
-                ->where('customer_details_id', $user->details->customer_details_id)
-                ->latest()
-                ->get();
-
-            // Debug: Log number of orders found
-            \Illuminate\Support\Facades\Log::info('Found ' . $orders->count() . ' orders');
-
-            return view('account.history', [
-                'orders' => $orders,
-                'selectedOrder' => $orders->first() ?? null
-            ]);
-
-        } catch (\Exception $e) {
-            \Illuminate\Support\Facades\Log::error('Order history error: ' . $e->getMessage());
-            return view('account.history', [
-                'orders' => collect(),
-                'error' => 'Could not load order history. Please try again later.'
-            ]);
-        }
-    }
-
-    public function showOrder($orderId)
-    {
-        $user = Auth::user();
-
-        // Check if user has customer details
-        if (!$user->details) {
-            abort(404, 'Customer profile not found');
-        }
-
-        // Get all orders for the customer (for sidebar)
-        $orders = Order::with(['orderlines.product', 'customerDetails', 'creditCard'])
-            ->where('customer_details_id', $user->details->customer_details_id) // Changed from customer_id
-            ->latest()
-            ->get();
-
-        // Get the specific order being requested
-        $selectedOrder = $orders->firstWhere('order_id', $orderId);
-
-        if (!$selectedOrder) {
-            abort(404);
-        }
-
-        if (request()->wantsJson()) {
-            return response()->json([
-                'html' => view('partials.order_details', [
-                    'order' => $selectedOrder,
-                    'orders' => $orders // Pass orders for active state
-                ])->render()
-            ]);
-        }
-
-        return view('account.history', compact('orders', 'selectedOrder'));
     }
 }

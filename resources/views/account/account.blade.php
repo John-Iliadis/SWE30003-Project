@@ -22,7 +22,7 @@
         <div class="account-container">
             <div style="display: flex; justify-content: space-between; align-items: center;">
                 <h1 id="title">My Account</h1>
-                <a href="/history" class="edit-btn">View Order History</a>
+                <a href="/order-history" class="edit-btn">View Order History</a>
             </div>
 
             <div class="account-section">
