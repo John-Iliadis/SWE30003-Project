@@ -51,3 +51,7 @@
 .continue-shopping:hover {
     background-color: #45a049;
 }
+
+main {
+    border: 0;
+}

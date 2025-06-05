@@ -9,7 +9,10 @@ use App\Models\Order;
 use App\Models\Orderline;
 use App\Models\Product;
 use App\Models\User;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Routing\Controller;
 use Illuminate\View\View;
@@ -48,11 +51,19 @@ class TransactionController extends Controller
     /**
      * Process the payment and create the order.
      *
-     * @param  Request  $request
-     * @return View
+     * @param Request $request
+     * @return Application|RedirectResponse|Redirector|View|object
      */
     public function processPayment(Request $request)
     {
+        $cart = new Cart();
+        $cartItems = $cart->getAllItems();
+
+        if (count($cartItems) == 0)
+        {
+            return redirect('/home');
+        }
+
         // Validate the form
         $request->validate([
             // Delivery information validation
@@ -113,9 +124,6 @@ class TransactionController extends Controller
         ]);
 
         // Get cart items from session and populate Orderline table
-        $cart = new Cart();
-        $cartItems = $cart->getAllItems();
-
         foreach ($cartItems as $cartItem)
         {
             $productId = $cartItem['product']['product_id'];
