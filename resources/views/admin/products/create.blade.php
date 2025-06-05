@@ -86,6 +86,16 @@
                     @enderror
                 </div>
 
+                <div class="mb-3">
+                    <label for="image" class="form-label">Product Image</label>
+                    <input type="file" class="form-control @error('image') is-invalid @enderror" id="image"
+                           name="image">
+                    <small class="form-text text-muted">Upload a product image (JPG, PNG, or GIF)</small>
+                    @error('image')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
                 <div class="d-flex justify-content-between">
                     <a href="{{ route('admin.products.index') }}" class="btn btn-secondary">Cancel</a>
                     <button type="submit" class="btn btn-primary">Create Product</button>
