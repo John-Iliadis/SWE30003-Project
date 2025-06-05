@@ -29,6 +29,16 @@ class AccountController
         {
             $customer_details = $user->customerDetails();
             $card_details = $user->creditCard();
+            
+            // Check if customer details or card details are null
+            if (!$customer_details || !$card_details) {
+                // Redirect to a page where the user can complete their profile
+                return redirect('/complete-profile')->with('message', 'Please complete your profile information');
+            }
+            
+            // Convert to arrays for the view
+            $customer_details = $customer_details->toArray();
+            $card_details = $card_details->toArray();
 
             return view('account.account', [
                 'user_details' => $customer_details,
