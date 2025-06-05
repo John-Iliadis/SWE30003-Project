@@ -14,12 +14,11 @@ use App\Models\User; // Ensure this line is present
 
 class AccountController
 {
-
     public function orderHistory()
     {
         try {
             $user = Auth::user();
-            
+
             // Check if user has customer details
             if (!$user->details) {
                 \Illuminate\Support\Facades\Log::error('No customer details found for user: ' . $user->id);
@@ -54,29 +53,29 @@ class AccountController
             ]);
         }
     }
-    
+
     public function showOrder($orderId)
     {
         $user = Auth::user();
-        
+
         // Check if user has customer details
         if (!$user->details) {
             abort(404, 'Customer profile not found');
         }
-        
+
         // Get all orders for the customer (for sidebar)
         $orders = Order::with(['orderlines.product', 'customerDetails', 'creditCard'])
             ->where('customer_details_id', $user->details->customer_details_id) // Changed from customer_id
             ->latest()
             ->get();
-    
+
         // Get the specific order being requested
         $selectedOrder = $orders->firstWhere('order_id', $orderId);
-    
+
         if (!$selectedOrder) {
             abort(404);
         }
-    
+
         if (request()->wantsJson()) {
             return response()->json([
                 'html' => view('partials.order_details', [
@@ -85,7 +84,7 @@ class AccountController
                 ])->render()
             ]);
         }
-    
+
         return view('account.history', compact('orders', 'selectedOrder'));
     }
 
@@ -111,8 +110,8 @@ class AccountController
     public function update(Request $request)
     {
         /** @var \App\Models\User|null $user */
-        $user = Auth::user(); 
-    
+        $user = Auth::user();
+
         if (!$user) {
             return response()->json(['success' => false, 'message' => 'Unauthenticated.'], 401);
         }
@@ -124,28 +123,28 @@ class AccountController
             unset($request['password']);
         }
         $data = $request->except('password_confirmation');
-    
+
         try {
             $user->update($data);
-    
+
             if ($user->details) {
                 $user->details->update($data);
             }
-    
+
             if ($user->creditCard) {
                 $user->creditCard->update($data);
             }
-            
+
             // Remove this block that's causing the error
             // if ($user->customer) {
             //     $user->customer->update($data);
             // }
-    
+
             return response()->json([
                 'success' => true,
                 'customer' => $user->load('details', 'creditCard')
             ]);
-    
+
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -162,7 +161,7 @@ class AccountController
 
         if (Auth::attempt(['email' => $incomingFields['email'], 'password' => $incomingFields['password']])){ // Changed from auth()->attempt()
             $request->session()->regenerate();
-            
+
             /** @var \App\Models\User $user */
             $user = Auth::user();
             if ($user && $user->is_admin) {
@@ -184,23 +183,23 @@ class AccountController
             'email' => ['required', 'string', 'email', 'max:50', Rule::unique('users', 'email')],
             'password' => ['required', 'string', 'min:8', 'max:20'],
             'phone_number' => ['required', 'string', 'regex:/^[0-9\s]{8,12}$/'],
-            
+
             // Address Information
             'address' => ['required', 'string', 'max:50'],
             'city' => ['required', 'string', 'max:20'],
             'post_code' => ['required', 'string', 'max:8'],
             'state' => ['required', 'string', 'max:50'],
             'country' => ['required', 'string', 'max:50'],
-            
+
             // Payment Information
             'card_holder' => ['required', 'string', 'max:50'],
             'card_number' => ['required', 'string', 'regex:/^[0-9\s]{13,19}$/'],
             'card_expire' => ['required', 'date_format:Y-m', 'after_or_equal:' . now()->format('Y-m')],
             'card_cvv' => ['required', 'regex:/^[0-9\s]{3,4}$/']
         ]);
-        
+
         $expire = explode("-", $incomingFields['card_expire']);
-    
+
         DB::beginTransaction();
         try {
             // Create the User first
@@ -209,7 +208,7 @@ class AccountController
                 'email' => $incomingFields['email'],
                 'password' => $incomingFields['password'], // User model should handle hashing
             ]);
-    
+
             // Create CustomerDetails and associate with the User
             $details = new CustomerDetails([
                 'name' => $incomingFields['name'],
@@ -222,7 +221,7 @@ class AccountController
                 'country' => $incomingFields['country'],
             ]);
             $user->details()->save($details);
-    
+
             // Create CreditCard and associate with the User
             $card = new CreditCard([
                 'cardholder_name' => $incomingFields['card_holder'],
@@ -231,10 +230,10 @@ class AccountController
                 'expiration_year' => $expire[0],
             ]);
             $user->creditCard()->save($card);
-            
+
             // Remove the Customer creation code
             // $user = Customer::create([...]);
-            
+
             DB::commit();
             Auth::login($user); // Log in with the User model
             return redirect('/account')->with('success', 'Registration successful!');

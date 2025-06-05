@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('order_id');
             $table->dateTime('order_date');
-            $table->foreignId('customer_id')->nullable()->references('customer_id')->on('customers');
+            $table->foreignId('customer_id')->nullable()->references('id')->on('users');
             $table->foreignId('customer_details_id')->nullable()->references('customer_details_id')->on('customer_details');
             $table->foreignId('card_id')->nullable()->references('card_id')->on('credit_cards');
             $table->timestamps();

@@ -1,131 +1,15 @@
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
+
     <link rel="stylesheet" href="{{asset('css/global.css')}}">
+    <link rel="stylesheet" href="{{asset('css/register.css')}}">
     <link rel="stylesheet" href="{{asset('css/header.css')}}">
     <link rel="stylesheet" href="{{asset('css/footer.css')}}">
-    <style>
-        .auth-container {
-            max-width: 600px;
-            margin: 2rem auto;
-            padding: 2rem;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
 
-        .auth-container h2 {
-            text-align: center;
-            margin-bottom: 1.5rem;
-            color: black;
-        }
-
-        .form-section {
-            margin-bottom: 1.5rem;
-        }
-
-        .section-heading {
-            margin: 1.5rem 0 0.5rem 0;
-            color: #444;
-            font-size: 1.2rem;
-            position: relative;
-            padding-bottom: 0.5rem;
-        }
-
-        .heading-line {
-            height: 2px;
-            background: linear-gradient(to right, #4CAF50, #ddd);
-            margin-bottom: 1rem;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-
-        .form-row {
-            display: flex;
-            gap: 15px;
-        }
-
-        .form-row .form-group {
-            flex: 1;
-        }
-
-        .password-hint {
-            margin: 0.2rem 0 0.8rem 0;
-            color: gray;
-            font-size: 0.7rem;
-        }
-
-        .submit-button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            width: 100%;
-            margin-top: 1rem;
-        }
-
-        .submit-button:hover {
-            background-color: #45a049;
-        }
-
-        .error {
-            color: red;
-            font-size: 14px;
-            margin-top: 5px;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .auth-container {
-                padding: 1.5rem;
-                margin: 1rem;
-            }
-
-            .form-row {
-                flex-direction: column;
-                gap: 0;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .auth-container {
-                padding: 1rem;
-            }
-
-            .form-group input {
-                padding: 0.65rem;
-            }
-
-            .section-heading {
-                font-size: 1.1rem;
-            }
-
-            .heading-line {
-                margin-bottom: 0.8rem;
-            }
-        }
-    </style>
 </head>
 
 <body>

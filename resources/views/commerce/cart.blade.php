@@ -68,7 +68,7 @@
         </div>
     @else
 
-        {{-- Empty shopping cart UI       --}}
+        {{-- Empty shopping cart UI --}}
         <div id="empty_cart_container">
             <h1>Your shopping cart is empty</h1>
             <p>Check out some of our most popular products below, or feel free to browse!</p>
