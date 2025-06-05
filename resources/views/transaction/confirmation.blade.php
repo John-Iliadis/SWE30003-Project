@@ -1,68 +1,16 @@
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Order Confirmation</title>
 
     <link rel="stylesheet" href="{{asset('css/global.css')}}">
     <link rel="stylesheet" href="{{asset('css/cart.css')}}">
+    <link rel="stylesheet" href="{{asset('css/confirmation.css')}}">
     <link rel="stylesheet" href="{{asset('css/header.css')}}">
     <link rel="stylesheet" href="{{asset('css/footer.css')}}">
-    <style>
-        .confirmation-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
 
-        .confirmation-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .confirmation-header h1 {
-            color: #4CAF50;
-        }
-
-        .order-details {
-            margin-bottom: 30px;
-        }
-
-        .order-details h2 {
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-
-        .order-info {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-
-        .order-info strong {
-            font-weight: bold;
-        }
-
-        .continue-shopping {
-            display: block;
-            text-align: center;
-            margin-top: 30px;
-            padding: 12px 20px;
-            background-color: #4CAF50;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            font-weight: bold;
-        }
-
-        .continue-shopping:hover {
-            background-color: #45a049;
-        }
-    </style>
 </head>
 <body>
 

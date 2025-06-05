@@ -22,9 +22,11 @@ function checkIfCartIsEmpty()
 document.addEventListener("DOMContentLoaded", function() {
     // Add event listener for checkout button
     const checkoutButton = document.getElementById('checkout_button');
-    if (checkoutButton) {
+
+    if (checkoutButton)
+    {
         checkoutButton.addEventListener('click', function() {
-            window.location.href = '/payment';
+            window.location.href = '/checkout';
         });
     }
 

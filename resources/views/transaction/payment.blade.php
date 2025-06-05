@@ -5,158 +5,10 @@
     <title>Payment</title>
 
     <link rel="stylesheet" href="{{asset('css/global.css')}}">
+    <link rel="stylesheet" href="{{asset('css/checkout.css')}}">
     <link rel="stylesheet" href="{{asset('css/header.css')}}">
     <link rel="stylesheet" href="{{asset('css/footer.css')}}">
-    <style>
-        .auth-container {
-            max-width: 600px;
-            margin: 2rem auto;
-            padding: 2rem;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
 
-        .auth-container h2 {
-            text-align: center;
-            margin-bottom: 1.5rem;
-            color: black;
-        }
-
-        .form-section {
-            margin-bottom: 1.5rem;
-        }
-
-        .section-heading {
-            margin: 1.5rem 0 0.5rem 0;
-            color: #444;
-            font-size: 1.2rem;
-            position: relative;
-            padding-bottom: 0.5rem;
-        }
-
-        .heading-line {
-            height: 2px;
-            background: linear-gradient(to right, #4CAF50, #ddd);
-            margin-bottom: 1rem;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-
-        .form-row {
-            display: flex;
-            gap: 15px;
-        }
-
-        .form-row .form-group {
-            flex: 1;
-        }
-
-        .password-hint {
-            margin: 0.2rem 0 0.8rem 0;
-            color: gray;
-            font-size: 0.7rem;
-        }
-
-        .submit-button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            width: 100%;
-            margin-top: 1rem;
-        }
-
-        .submit-button:hover {
-            background-color: #45a049;
-        }
-
-        .error {
-            color: red;
-            font-size: 14px;
-            margin-top: 5px;
-        }
-
-        .order-summary {
-            background-color: #f5f5f5;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-
-        .order-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-
-        .order-total {
-            border-top: 1px solid #ddd;
-            padding-top: 10px;
-        }
-
-        .price-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
-        }
-
-        .total-price {
-            font-weight: bold;
-            margin-top: 10px;
-            font-size: 18px;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .auth-container {
-                padding: 1.5rem;
-                margin: 1rem;
-            }
-
-            .form-row {
-                flex-direction: column;
-                gap: 0;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .auth-container {
-                padding: 1rem;
-            }
-
-            .form-group input {
-                padding: 0.65rem;
-            }
-
-            .section-heading {
-                font-size: 1.1rem;
-            }
-
-            .heading-line {
-                margin-bottom: 0.8rem;
-            }
-        }
-    </style>
 </head>
 <body>
 
@@ -167,6 +19,8 @@
     <main>
         <div class="auth-container">
             <h2>Checkout</h2>
+
+            {{-- Print errors, if there are any --}}
             @if ($errors->any())
             <div class="form-errors">
                 <ul>
@@ -177,37 +31,36 @@
             </div>
             @endif
 
+            {{-- Prompt message if the user is not signed in --}}
             @if(!Auth::check())
                 <div style="text-align: center; margin-bottom: 20px;">
-                    <p>Already have an account? <a href="{{ route('login') }}" style="color: #4CAF50; text-decoration: underline;">Sign in</a> to use your saved information.</p>
+                    <p>Already have an account? <a href="/login" style="color: #4CAF50; text-decoration: underline;">Sign in</a> to use your saved information.</p>
                 </div>
             @endif
 
-            <form action="{{ route('transaction.process') }}" method="POST">
+            {{-- Checkout form --}}
+            <form action="/process-payment" method="POST">
                 @csrf
 
-                @if(isset($products) && count($products) > 0)
+                {{-- Render all products in the cart --}}
+                @if(isset($cartItems) && count($cartItems) > 0)
                     <div class="form-section">
                         <h3 class="section-heading">Order Summary</h3>
                         <div class="heading-line"></div>
                         <div class="order-summary">
                             <div style="margin-bottom: 15px;">
-                                @foreach($products as $item)
+                                @foreach($cartItems as $item)
                                     <div class="order-item">
                                         <div>
-                                            <span style="font-weight: bold;">{{ $item['product']->name }}</span>
+                                            <span style="font-weight: bold;">{{ $item['product']['name'] }}</span>
                                             <span style="color: #666; margin-left: 10px;">x {{ $item['quantity'] }}</span>
                                         </div>
-                                        <div>${{ number_format($item['total'], 2) }}</div>
+                                        <div>${{ number_format($item['subtotal'], 2) }}</div>
                                     </div>
                                 @endforeach
                             </div>
 
                             <div class="order-total">
-                                <div class="price-row">
-                                    <span>Subtotal:</span>
-                                    <span>${{ number_format($subtotal, 2) }}</span>
-                                </div>
                                 <div class="price-row total-price">
                                     <span>Total:</span>
                                     <span>${{ number_format($total, 2) }}</span>
@@ -217,6 +70,7 @@
                     </div>
                 @endif
 
+                {{-- Personal information form section --}}
                 <div class="form-section">
                     <h3 class="section-heading">Personal Information</h3>
                     <div class="heading-line"></div>
@@ -245,6 +99,7 @@
                     </div>
                 </div>
 
+                {{-- Address information form section --}}
                 <div class="form-section">
                     <h3 class="section-heading">Address Information</h3>
                     <div class="heading-line"></div>
@@ -289,6 +144,7 @@
                     </div>
                 </div>
 
+                {{-- Payment information form section --}}
                 <div class="form-section">
                     <h3 class="section-heading">Payment Information</h3>
                     <div class="heading-line"></div>

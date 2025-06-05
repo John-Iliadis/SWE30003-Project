@@ -36,133 +36,6 @@ class AccountController
         return view('account.login');
     }
 
-    public function historyPage()
-    {
-        return view('account.history');
-    }
-
-    public function orderHistory()
-    {
-        try {
-            $user = Auth::user();
-
-            // Check if user has customer details
-            if (!$user->details) {
-                \Illuminate\Support\Facades\Log::error('No customer details found for user: ' . $user->id);
-                return view('account.history', [
-                    'orders' => collect(),
-                    'error' => 'Customer profile not found'
-                ]);
-            }
-
-            // Debug: Log customer details ID
-            \Illuminate\Support\Facades\Log::info('Fetching orders for customer_details_id: ' . $user->details->customer_details_id);
-
-            // Get orders using customer_details_id directly
-            $orders = Order::with(['orderlines.product', 'customerDetails', 'creditCard'])
-                ->where('customer_details_id', $user->details->customer_details_id)
-                ->latest()
-                ->get();
-
-            // Debug: Log number of orders found
-            \Illuminate\Support\Facades\Log::info('Found ' . $orders->count() . ' orders');
-
-            return view('account.history', [
-                'orders' => $orders,
-                'selectedOrder' => $orders->first() ?? null
-            ]);
-
-        } catch (\Exception $e) {
-            \Illuminate\Support\Facades\Log::error('Order history error: ' . $e->getMessage());
-            return view('account.history', [
-                'orders' => collect(),
-                'error' => 'Could not load order history. Please try again later.'
-            ]);
-        }
-    }
-
-    public function showOrder($orderId)
-    {
-        $user = Auth::user();
-
-        // Check if user has customer details
-        if (!$user->details) {
-            abort(404, 'Customer profile not found');
-        }
-
-        // Get all orders for the customer (for sidebar)
-        $orders = Order::with(['orderlines.product', 'customerDetails', 'creditCard'])
-            ->where('customer_details_id', $user->details->customer_details_id) // Changed from customer_id
-            ->latest()
-            ->get();
-
-        // Get the specific order being requested
-        $selectedOrder = $orders->firstWhere('order_id', $orderId);
-
-        if (!$selectedOrder) {
-            abort(404);
-        }
-
-        if (request()->wantsJson()) {
-            return response()->json([
-                'html' => view('partials.order_details', [
-                    'order' => $selectedOrder,
-                    'orders' => $orders // Pass orders for active state
-                ])->render()
-            ]);
-        }
-
-        return view('account.history', compact('orders', 'selectedOrder'));
-    }
-
-    public function logout() {
-        Auth::logout();
-        request()->session()->invalidate();
-        request()->session()->regenerateToken();
-        return redirect('/login');
-    }
-
-    public function update(Request $request)
-    {
-        $user = Auth::user();
-
-        if (!$user)
-        {
-            return response()->json(['success' => false, 'message' => 'Unauthenticated.'], 401);
-        }
-
-        // Ensure password is only updated if provided and not empty
-        if ($request->filled('password'))
-        {
-            $request['password'] = bcrypt($request['password']);
-        }
-        else
-        {
-            // Remove password from data if not being updated
-            unset($request['password']);
-        }
-
-        $data = $request->except('password_confirmation');
-
-        try
-        {
-            $user->update($data);
-            $user->customerDetails()->update($data);
-            $user->creditCard()->update($data);
-
-            return response()->json([
-                'success' => true
-            ]);
-        }
-        catch (\Exception $e)
-        {
-            return response()->json([
-                'success' => false,
-                'message' => 'Failed to update: ' . $e->getMessage()
-            ], 500);
-        }
-    }
-
     public function attemptLogin(Request $request)
     {
         $incomingFields = $request->validate([
@@ -251,5 +124,132 @@ class AccountController
             DB::rollBack();
             return back()->with('error', 'Registration failed. Please try again. Error: '.$e->getMessage());
         }
+    }
+
+    public function update(Request $request)
+    {
+        $user = Auth::user();
+
+        if (!$user)
+        {
+            return response()->json(['success' => false, 'message' => 'Unauthenticated.'], 401);
+        }
+
+        // Ensure password is only updated if provided and not empty
+        if ($request->filled('password'))
+        {
+            $request['password'] = bcrypt($request['password']);
+        }
+        else
+        {
+            // Remove password from data if not being updated
+            unset($request['password']);
+        }
+
+        $data = $request->except('password_confirmation');
+
+        try
+        {
+            $user->update($data);
+            $user->customerDetails()->update($data);
+            $user->creditCard()->update($data);
+
+            return response()->json([
+                'success' => true
+            ]);
+        }
+        catch (\Exception $e)
+        {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to update: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function logout() {
+        Auth::logout();
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
+        return redirect('/login');
+    }
+
+    public function historyPage()
+    {
+        return view('account.history');
+    }
+
+    public function orderHistory()
+    {
+        try {
+            $user = Auth::user();
+
+            // Check if user has customer details
+            if (!$user->details) {
+                \Illuminate\Support\Facades\Log::error('No customer details found for user: ' . $user->id);
+                return view('account.history', [
+                    'orders' => collect(),
+                    'error' => 'Customer profile not found'
+                ]);
+            }
+
+            // Debug: Log customer details ID
+            \Illuminate\Support\Facades\Log::info('Fetching orders for customer_details_id: ' . $user->details->customer_details_id);
+
+            // Get orders using customer_details_id directly
+            $orders = Order::with(['orderlines.product', 'customerDetails', 'creditCard'])
+                ->where('customer_details_id', $user->details->customer_details_id)
+                ->latest()
+                ->get();
+
+            // Debug: Log number of orders found
+            \Illuminate\Support\Facades\Log::info('Found ' . $orders->count() . ' orders');
+
+            return view('account.history', [
+                'orders' => $orders,
+                'selectedOrder' => $orders->first() ?? null
+            ]);
+
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Order history error: ' . $e->getMessage());
+            return view('account.history', [
+                'orders' => collect(),
+                'error' => 'Could not load order history. Please try again later.'
+            ]);
+        }
+    }
+
+    public function showOrder($orderId)
+    {
+        $user = Auth::user();
+
+        // Check if user has customer details
+        if (!$user->details) {
+            abort(404, 'Customer profile not found');
+        }
+
+        // Get all orders for the customer (for sidebar)
+        $orders = Order::with(['orderlines.product', 'customerDetails', 'creditCard'])
+            ->where('customer_details_id', $user->details->customer_details_id) // Changed from customer_id
+            ->latest()
+            ->get();
+
+        // Get the specific order being requested
+        $selectedOrder = $orders->firstWhere('order_id', $orderId);
+
+        if (!$selectedOrder) {
+            abort(404);
+        }
+
+        if (request()->wantsJson()) {
+            return response()->json([
+                'html' => view('partials.order_details', [
+                    'order' => $selectedOrder,
+                    'orders' => $orders // Pass orders for active state
+                ])->render()
+            ]);
+        }
+
+        return view('account.history', compact('orders', 'selectedOrder'));
     }
 }
