@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -11,6 +12,7 @@
     <link rel="stylesheet" href="{{ asset('css/header.css') }}">
     <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
 </head>
 <body data-account-update-url="{{ route('account.update') }}">
     @include('partials.header')
@@ -153,7 +155,7 @@
                     <button class="cancel-btn" style="display:none;">Cancel</button>
                 </div>
             </div>
-            <form method="POST" action="{{ route('logout') }}" style="text-align: center;">
+            <form method="POST" action="/logout" style="text-align: center;">
                 @csrf
                 <button type="submit" class="logout-button">Log Out</button>
             </form>

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
-use App\Models\Customer;
 use App\Models\CreditCard;
 use Illuminate\Http\Request;
 use App\Models\CustomerDetails;
@@ -14,14 +13,27 @@ use App\Models\User; // Ensure this line is present
 
 class AccountController
 {
-    public function loginPage()
-    {
-        return view('account.login');
-    }
-
     public function registerPage()
     {
         return view('account.register');
+    }
+
+    public function account()
+    {
+        $user = Auth::user();
+
+        if ($user)
+        {
+            $customer_details = $user->customerDetails();
+            $card_details = $user->creditCard();
+
+            return view('account.account', [
+                'user_details' => $customer_details,
+                'card_details' => $card_details
+            ]);
+        }
+
+        return view('account.login');
     }
 
     public function historyPage()
@@ -110,27 +122,8 @@ class AccountController
         return redirect('/login');
     }
 
-    public function show()
-    {
-        $user = Auth::user();
-
-        if ($user)
-        {
-            $user_details = CustomerDetails::find($user['customer_details_id']);
-            $card_details = CreditCard::find($user['card_id']);
-
-            return view('account.account', [
-                'user_details' => $user_details,
-                'card_details' => $card_details
-            ]);
-        }
-
-        return view('account.login');
-    }
-
     public function update(Request $request)
     {
-        /** @var \App\Models\User|null $user */
         $user = Auth::user();
 
         if (!$user) {
@@ -174,22 +167,17 @@ class AccountController
         }
     }
 
-    public function login(Request $request)
+    public function attemptLogin(Request $request)
     {
         $incomingFields = $request->validate([
-            'email' => 'required',
+            'email' => 'required|email',
             'password' => 'required'
         ]);
 
-        if (Auth::attempt(['email' => $incomingFields['email'], 'password' => $incomingFields['password']])){ // Changed from auth()->attempt()
+        if (Auth::attempt(['email' => $incomingFields['email'], 'password' => $incomingFields['password']]))
+        {
             $request->session()->regenerate();
-
-            /** @var \App\Models\User $user */
-            $user = Auth::user();
-            if ($user && $user->is_admin) {
-                return redirect()->route('admin.products.index'); // Or 'admin.dashboard' if you prefer
-            }
-            return redirect('/account');
+            return $this->account();
         }
 
         return back()->withErrors([
@@ -252,7 +240,7 @@ class AccountController
             $user = User::create([
                 'name' => $incomingFields['name'],
                 'email' => $incomingFields['email'],
-                'password' => $incomingFields['password'],
+                'password' => bcrypt($incomingFields['password']),
                 'customer_details_id' => $customer_details['customer_details_id'],
                 'card_id' => $credit_card['card_id'],
             ]);
@@ -260,10 +248,7 @@ class AccountController
             DB::commit();
             Auth::login($user);
 
-            return view('account.account', [
-                'user_details' => $customer_details,
-                'card_details' => $credit_card
-            ]);
+            return $this->account();
         }
         catch (\Throwable $e)
         {
