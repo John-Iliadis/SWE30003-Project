@@ -13,13 +13,15 @@ A full-stack online retail system built with Laravel featuring:
 
 ## Project Setup Guide
 
-1. Install and setup XAMPP
-2. Install and setup composer
-3. Clone this project inside the htdocs folder within XAMPP
-4. Run `composer install` to install the project dependencies
-5. Run laravel migrations
-6. Run the setup/db_init.php script to populate the DB with data
-7. Run `php artisan serve` to run the app
+1. Install and setup XAMPP. Make sure all environment variables are set. Make sure all permissions have been accepted.
+2. Install and setup composer. Make sure all environment variables are set and the composer command work on the command line.
+3. Clone the project inside the htdocs folder within the XAMPP folder.
+4. Run `composer install` to download all Laravel dependencies.
+5. Start the Apache server and SQL service using XAMPP.
+6. Using phpMyAdmin, create the swe30003 database.
+7. Run laravel migrations to create the database tables.
+8. Run the setup/db_init.php script to populate the DB with data.
+9. Run `php artisan serve` to run the app.
 
 
 ## Project Structure
