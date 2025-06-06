@@ -23,6 +23,25 @@ class CatalogueManagerController extends Controller
 
     public function store(Request $request)
     {
+        // Check if we're creating a new category
+        if ($request->category_name === 'new_category') {
+            // Validate the new category data
+            $request->validate([
+                'new_category_name' => 'required|max:255|unique:categories,category_name',
+                'new_category_description' => 'nullable|string',
+            ]);
+            
+            // Create the new category
+            $category = Category::create([
+                'category_name' => $request->new_category_name,
+                'description' => $request->new_category_description,
+            ]);
+            
+            // Set the category_name to the newly created category
+            $request->merge(['category_name' => $category->category_name]);
+        }
+        
+        // Validate the product data
         $validated = $request->validate([
             'name' => 'required|max:255',
             'brand' => 'required|max:255',
@@ -32,7 +51,7 @@ class CatalogueManagerController extends Controller
             'category_name' => 'required|exists:categories,category_name',
             'image_url' => 'nullable|url'
         ]);
-
+    
         Product::create($validated);
         return redirect()->route('admin.products.index')->with('success', 'Product created');
     }

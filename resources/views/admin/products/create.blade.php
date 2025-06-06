@@ -61,17 +61,35 @@
 
                 <div class="mb-3">
                     <label for="category_name" class="form-label">Category</label>
-                    <select class="form-select @error('category_name') is-invalid @enderror" id="category_name"
-                            name="category_name" required>
-                        <option value="">Select a category</option>
-                        @foreach(\App\Models\Category::all() as $category)
-                            <option
-                                value="{{ $category->category_name }}" {{ old('category_name') == $category->category_name ? 'selected' : '' }}>
-                                {{ $category->category_name }}
-                            </option>
-                        @endforeach
-                    </select>
-                    @error('category_name')
+                    <div class="input-group">
+                        <select class="form-select @error('category_name') is-invalid @enderror" id="category_name"
+                                name="category_name" required>
+                            <option value="">Select a category</option>
+                            @foreach(\App\Models\Category::all() as $category)
+                                <option
+                                    value="{{ $category->category_name }}" {{ old('category_name') == $category->category_name ? 'selected' : '' }}>
+                                    {{ $category->category_name }}
+                                </option>
+                            @endforeach
+                            <option value="new_category">+ Add New Category</option>
+                        </select>
+                        @error('category_name')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+
+                <!-- New Category Fields (initially hidden) -->
+                <div class="mb-3" id="new_category_fields" style="display: none;">
+                    <label for="new_category_name" class="form-label">New Category Name</label>
+                    <input type="text" class="form-control @error('new_category_name') is-invalid @enderror" id="new_category_name"
+                           name="new_category_name" value="{{ old('new_category_name') }}">
+                    <div class="mt-2">
+                        <label for="new_category_description" class="form-label">Category Description</label>
+                        <textarea class="form-control @error('new_category_description') is-invalid @enderror" id="new_category_description"
+                                  name="new_category_description" rows="2">{{ old('new_category_description') }}</textarea>
+                    </div>
+                    @error('new_category_name')
                     <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
@@ -103,4 +121,24 @@
             </form>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const categorySelect = document.getElementById('category_name');
+            const newCategoryFields = document.getElementById('new_category_fields');
+            
+            // Check initial value (in case of form validation error and page reload)
+            if (categorySelect.value === 'new_category') {
+                newCategoryFields.style.display = 'block';
+            }
+            
+            // Add change event listener
+            categorySelect.addEventListener('change', function() {
+                if (this.value === 'new_category') {
+                    newCategoryFields.style.display = 'block';
+                } else {
+                    newCategoryFields.style.display = 'none';
+                }
+            });
+        });
+    </script>
 @endsection
