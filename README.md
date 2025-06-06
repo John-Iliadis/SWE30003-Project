@@ -47,35 +47,6 @@ SWE30003-Project/
     └── web.php           # Application routes
 ```
 
-
-## Features
-
-### Product Catalogue
-- Structured display of all products 
-- Product sorting
-- Filter by brand, category, or price
-- Add to cart functionality
-- Product detail pages
-
-### Cart Management
-- Cart dashboard
-- Modify item quantity
-- Remove item
-- Clear all
-- Check item subtotal and total price
-
-### Admin Panel
-- Path: `/admin`
-- Manage products/categories
-- View order statistics
-- Manage user roles
-
-### Authentication Flow
-- Login/Registration: `/login` & `/register`
-- Password reset functionality
-- Role-based access control
-
-
 ## Technologies Used
 - HTML, CSS, JS, PHP
 - Laravel 
