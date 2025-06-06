@@ -52,7 +52,7 @@ class CatalogueManagerController extends Controller
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
             'category_name' => 'required|exists:categories,category_name',
-            'image_url' => 'nullable|url'
+            'image_url' => 'required|string|max:255' // Changed from 'nullable|url' to 'required|string|max:255'
         ]);
     
         $product->update($validated);
